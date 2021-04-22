@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:testpro/config/upload_url.dart';
+import 'package:testpro/first_page.dart';
 import 'package:testpro/user.dart';
-import 'package:testpro/home_page.dart';
+
 import 'package:http/http.dart' as http;
 
 
 void main() {
   runApp(new MaterialApp(
     debugShowCheckedModeBanner: false,
-     home: HomePage(),
+     home: FirstPage(),
   ));
  }
 
@@ -33,7 +34,7 @@ class _SigninState extends State<Signin> {
         );
     print(res.body);
     Navigator.push(
-        context, new MaterialPageRoute(builder: (context) => HomePage()));
+        context, new MaterialPageRoute(builder: (context) => FirstPage()));
   }
 
   User user = User('', '');

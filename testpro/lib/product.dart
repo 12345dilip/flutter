@@ -88,9 +88,10 @@ class _ProductState extends State<Product> {
   final lastName = TextEditingController();
   final companyName = TextEditingController();
   final contactEmail = TextEditingController();
-  final contactNo = TextEditingController();
+  final primaryContact = TextEditingController();
+  final secondarycontact = TextEditingController();
   final website = TextEditingController();
-  final openingBalance = TextEditingController();
+  // final openingBalance = TextEditingController();
   final facebook = TextEditingController();
   final twitter = TextEditingController();
   final attention = TextEditingController();
@@ -121,9 +122,11 @@ class _ProductState extends State<Product> {
     this.lastName.text = this.widget.prod['userName']['lastName'];
     this.companyName.text = this.widget.prod['companyName'];
     this.contactEmail.text = this.widget.prod['contactEmail'];
+    this.primaryContact.text = this.widget.prod['phone']['primaryContact'];
+     this.secondarycontact.text = this.widget.prod['phone']['secondarycontact'];
     this.website.text = this.widget.prod['website'];
-    this.openingBalance.text =
-        this.widget.prod['otherDetails']['openingBalance'];
+    // this.openingBalance.text =
+    //     this.widget.prod['otherDetails']['openingBalance'];
     this.facebook.text = this.widget.prod['otherDetails']['facebook'];
     this.twitter.text = this.widget.prod['otherDetails']['twitter'];
     this.attention.text = this.widget.prod['billingAddress']['attention'];
@@ -144,9 +147,11 @@ class _ProductState extends State<Product> {
       firstName,
       lastName,
       companyName,
-      contactEmail,
+      //contactEmail,
+     // primaryContact,
+      secondarycontact,
       website,
-      openingBalance,
+      // openingBalance,
       facebook,
       twitter,
       attention,
@@ -163,9 +168,12 @@ class _ProductState extends State<Product> {
       this.widget.prod['userName']['firstName'] = firstName;
       this.widget.prod['userName']['lastName'] = lastName;
       this.widget.prod['companyName'] = companyName;
-      this.widget.prod['contactEmail'] = contactEmail;
+     // this.widget.prod['contactEmail'] = contactEmail;
+      //this.widget.prod['phone']['primaryContact']= primaryContact;
+       this.widget.prod['phone']['secondarycontact']= secondarycontact;
+     
       this.widget.prod['website'] = website;
-      this.widget.prod['otherDetails']['openingBalance'] = openingBalance;
+      // this.widget.prod['otherDetails']['openingBalance'] = openingBalance;
       this.widget.prod['otherDetails']['facebook'] = facebook;
       this.widget.prod['otherDetails']['twitter'] = twitter;
       this.widget.prod['billingAddress']['attention'] = attention;
@@ -233,6 +241,20 @@ class _ProductState extends State<Product> {
               ),
               controller: contactEmail,
             ),
+            TextField(
+              decoration: InputDecoration(
+                hintText: 'Primary Contact',
+                labelText: 'Primary Contact',
+              ),
+              controller: primaryContact,
+            ),
+            TextField(
+              decoration: InputDecoration(
+                hintText: 'Secondary Contact',
+                labelText: 'Secondary Contact',
+              ),
+              controller: secondarycontact,
+            ),
             TextFormField(
               decoration: InputDecoration(
                 hintText: 'website',
@@ -241,7 +263,7 @@ class _ProductState extends State<Product> {
               controller: website,
             ),
             DefaultTabController(
-                length: 5,
+                length: 4,
                 initialIndex: 0,
                 child: Column(children: [
                   TabBar(
@@ -254,7 +276,7 @@ class _ProductState extends State<Product> {
                       ),
                       Tab(text: 'Address'),
                       Tab(text: 'Contact Persons'),
-                      Tab(text: 'Remarks'),
+                      // Tab(text: 'Remarks'),
                       Tab(text: 'Uploads'),
                     ],
                   ),
@@ -263,13 +285,13 @@ class _ProductState extends State<Product> {
                     child: TabBarView(children: [
                       Column(
                         children: [
-                          TextField(
-                            decoration: InputDecoration(
-                              hintText: 'Opening Balance',
-                              labelText: 'Opening Balance ',
-                            ),
-                            controller: openingBalance,
-                          ),
+                          // TextField(
+                          //   decoration: InputDecoration(
+                          //     hintText: 'Opening Balance',
+                          //     labelText: 'Opening Balance ',
+                          //   ),
+                          //   controller: openingBalance,
+                          // ),
                           TextField(
                             decoration: InputDecoration(
                               hintText: 'Facebook',
@@ -469,15 +491,15 @@ class _ProductState extends State<Product> {
                           ],
                         ),
                       ])),
-                      Container(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: 'remarkstext',
-                            labelText: 'remarkstext',
-                          ),
-                          controller: remarkstext,
-                        ),
-                      ),
+                      // Container(
+                      //   child: TextField(
+                      //     decoration: InputDecoration(
+                      //       hintText: 'remarkstext',
+                      //       labelText: 'remarkstext',
+                      //     ),
+                      //     controller: remarkstext,
+                      //   ),
+                      // ),
                       ListView(
                         children: [
                           Container(
@@ -600,9 +622,11 @@ class _ProductState extends State<Product> {
                         firstName.text,
                         lastName.text,
                         companyName.text,
-                        contactEmail.text,
+                       // contactEmail.text,
+                        //primaryContact.text,
+                        secondarycontact.text,
                         website.text,
-                        openingBalance.text,
+                        // openingBalance.text,
                         facebook.text,
                         twitter.text,
                         attention.text,
