@@ -87,7 +87,7 @@ class _ProductState extends State<Product> {
   final firstName = TextEditingController();
   final lastName = TextEditingController();
   final companyName = TextEditingController();
-  final contactEmail = TextEditingController();
+  //final contactEmail = TextEditingController();
   final primaryContact = TextEditingController();
   final secondarycontact = TextEditingController();
   final website = TextEditingController();
@@ -121,7 +121,7 @@ class _ProductState extends State<Product> {
     this.firstName.text = this.widget.prod['userName']['firstName'];
     this.lastName.text = this.widget.prod['userName']['lastName'];
     this.companyName.text = this.widget.prod['companyName'];
-    this.contactEmail.text = this.widget.prod['contactEmail'];
+    //this.contactEmail.text = this.widget.prod['contactEmail'];
     this.primaryContact.text = this.widget.prod['phone']['primaryContact'];
      this.secondarycontact.text = this.widget.prod['phone']['secondarycontact'];
     this.website.text = this.widget.prod['website'];
@@ -235,20 +235,22 @@ class _ProductState extends State<Product> {
               ),
               controller: companyName,
             ),
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Contact Email',
-                labelText: 'Contact Email',
+           
+            Container( 
+             
+                padding: const EdgeInsets.only(right: 208.0,top: 15.0),
+                
+                child: Text(
+                  this.widget.prod['contactEmail']),
               ),
-              controller: contactEmail,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Primary Contact',
-                labelText: 'Primary Contact',
+               Container( 
+             
+                padding: const EdgeInsets.only(right: 240.0,top: 15.0),
+                
+                child: Text(
+                  this.widget.prod['phone']['primaryContact']),
               ),
-              controller: primaryContact,
-            ),
+           
             TextField(
               decoration: InputDecoration(
                 hintText: 'Secondary Contact',
@@ -264,7 +266,7 @@ class _ProductState extends State<Product> {
               controller: website,
             ),
             DefaultTabController(
-                length: 4,
+                length: 3,
                 initialIndex: 0,
                 child: Column(children: [
                   TabBar(
@@ -278,7 +280,6 @@ class _ProductState extends State<Product> {
                       Tab(text: 'Address'),
                       Tab(text: 'Contact Persons'),
                      
-                      Tab(text: 'Uploads'),
                     ],
                   ),
                   Container(
@@ -486,123 +487,7 @@ class _ProductState extends State<Product> {
                           ],
                         ),
                       ])),
-                      // Container(
-                      //   child: TextField(
-                      //     decoration: InputDecoration(
-                      //       hintText: 'remarkstext',
-                      //       labelText: 'remarkstext',
-                      //     ),
-                      //     controller: remarkstext,
-                      //   ),
-                      // ),
-                      ListView(
-                        children: [
-                          Container(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Table(
-                                  columnWidths: {
-                                    0: FixedColumnWidth(90),
-                                    1: FlexColumnWidth(20),
-                                    2: FlexColumnWidth(7),
-                                  },
-                                  children: [
-                                    TableRow(children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(12.0),
-                                        child: Text('Name'),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(12.0),
-                                        child: Text('Uploads'),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: IconButton(
-                                            icon: Icon(Icons.remove_circle),
-                                            onPressed: () {}),
-                                      ),
-                                    ]),
-                                    for (var k = 0;
-                                        k <
-                                            this
-                                                .widget
-                                                .prod['uploadDocument']
-                                                .length;
-                                        k++)
-                                      TableRow(children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(this.widget.prod['uploadDocument']
-                                                  [k]['clientDocument']),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child:  showImage(this
-                                                  .widget
-                                                  .prod['uploadDocument'][k]
-                                              ['clientUpload']['file']),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child:  IconButton(
-                                            icon: Icon(Icons.remove_circle),
-                                            onPressed: () {
-                                              removeContacts(k);
-                                            }),
-                                        ),
-
-                                        
-                                      ]),
-                                  ],
-                                  border: TableBorder.all(
-                                      width: 1, color: Colors.purple),
-                                ),
-                                IconButton(
-                                    icon: Icon(Icons.add),
-                                    onPressed: () {
-                                      setState(() {
-                                        displayForm = true;
-                                      });
-                                    }),
-                                Text('Add Upload Field'),
-                                if (displayForm)
-                                  Container(
-                                      child: Column(children: [
-                                    TextFormField(
-                                      decoration:
-                                          InputDecoration(labelText: 'Name '),
-                                      controller: name,
-                                    ),
-                                    imageResized == null
-                                        ? Container()
-                                        : Image.file(imageResized),
-                                      
-                                    Row(
-                                      children: [
-                                        RaisedButton(
-                                          child: Text('Uploads'),
-                                          onPressed: selectImage,
-                                        ),
-                                        RaisedButton(
-                                            child: Text('Submit'),
-                                            onPressed: () {
-                                              addImage(name.text);
-                                               name.clear();
-                                                photoBase64.isEmpty;
-                                                displayForm = false;
-                                           
-                                             
-                                            }),
-                                      ],
-                                    ),
-                                  ])),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                     
                     ]),
                   ),
                 ])),

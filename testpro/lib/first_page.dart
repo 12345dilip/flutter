@@ -83,7 +83,9 @@ int selectedIndex = 0;
               print(data["data"][0]);
                Navigator.push(context, new MaterialPageRoute(builder: (context) => Upload(
                            prod: data["data"][0],
-                       )));
+                       )
+                       )
+                       );
             }),
             label: 'upload',
             backgroundColor: Colors.purple,
