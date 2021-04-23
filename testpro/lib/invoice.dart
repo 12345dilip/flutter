@@ -24,18 +24,12 @@ class _InvoiceState extends State<Invoice> {
       print(invoiceList);
     });
   }
-
-
-
 @override
   void initState() {
     super.initState();
     this.getData();
   }
-
-   String chosenValue;
-    
-
+ String chosenValue;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,7 +99,7 @@ class _InvoiceState extends State<Invoice> {
                       if (this.invoiceList[index]['expiryDate'] == null)
                         Text((dateFormat(this.invoiceList[index]['recurringstartDate'])+' - '+ dateFormat(this.invoiceList[index]['recurringendDate'])))
                       else
-                        // Text(dateFormat(this.invoiceList[index]['expiryDate']))
+                        
                        Text((dateFormat(this.invoiceList[index]['invoiceDate']) +' - '+ dateFormat(this.invoiceList[index]['expiryDate']))),
                         
                    

@@ -11,45 +11,45 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
- Map data;
+//  Map data;
 
- Future getData() async {
-    var response = await http.get(
-        BaseUrl.homePage,
-        headers: {"Accept": "application/json"});
+//  Future getData() async {
+//     var response = await http.get(
+//         BaseUrl.homePage,
+//         headers: {"Accept": "application/json"});
 
-    this.setState(() {
-      print(response.body);
-      data = json.decode(response.body);
-    });
-    }
-@override
-  void initState() {
-    super.initState();
-    this.getData();
-  }
+//     this.setState(() {
+//       print(response.body);
+//       data = json.decode(response.body);
+//     });
+//     }
+// @override
+//   void initState() {
+//     super.initState();
+//     this.getData();
+//   }
 @override
   Widget build(BuildContext context) {
     return new Scaffold(
-       body: Padding(
-         padding: const EdgeInsets.all(50.0),
-         child: Column(
-               children:[
-                   Container(
-                     child: GestureDetector(
-                       onTap: (){
-                        //  if(data["data"][0])
-                          Navigator.push(context, new MaterialPageRoute(builder: (context) => Product(
-                           prod: data["data"][0],
-                       )));
+      //  body: Padding(
+      //    padding: const EdgeInsets.all(50.0),
+      //    child: Column(
+      //          children:[
+      //              Container(
+      //                child: GestureDetector(
+      //                  onTap: (){
+      //                   //  if(data["data"][0])
+      //                     Navigator.push(context, new MaterialPageRoute(builder: (context) => Product(
+      //                      prod: data["data"][0],
+      //                  )));
                          
-                       },
-                      child:Text("click")
-                       ),
-                   ),
-                 ]
-                ),
-       ),
+      //                  },
+      //                 child:Text("click")
+      //                  ),
+      //              ),
+      //            ]
+      //           ),
+      //  ),
               
             
 //                  Row(

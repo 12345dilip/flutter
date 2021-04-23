@@ -187,6 +187,7 @@ class _ProductState extends State<Product> {
       this.widget.prod['billingAddress']['fax'] = fax;
       this.widget.prod['remarks']['remarkstext'] = remarkstext;
     });
+   
     final response = await http.put(BaseUrl.updateUsers,
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode(this.widget.prod));
@@ -276,7 +277,7 @@ class _ProductState extends State<Product> {
                       ),
                       Tab(text: 'Address'),
                       Tab(text: 'Contact Persons'),
-                      // Tab(text: 'Remarks'),
+                     
                       Tab(text: 'Uploads'),
                     ],
                   ),
@@ -285,13 +286,7 @@ class _ProductState extends State<Product> {
                     child: TabBarView(children: [
                       Column(
                         children: [
-                          // TextField(
-                          //   decoration: InputDecoration(
-                          //     hintText: 'Opening Balance',
-                          //     labelText: 'Opening Balance ',
-                          //   ),
-                          //   controller: openingBalance,
-                          // ),
+                        
                           TextField(
                             decoration: InputDecoration(
                               hintText: 'Facebook',
