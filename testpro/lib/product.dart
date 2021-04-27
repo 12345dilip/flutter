@@ -32,7 +32,9 @@ removeContact(i) {
      
     });
   }
- addContact(emailAddress, mobile, cfirstName, clastName) {
+ 
+
+  addContact(emailAddress, mobile, cfirstName, clastName) {
     setState(() {
       final value = {
         'emailAddress': emailAddress,
@@ -160,6 +162,7 @@ removeContact(i) {
       print("Error :" + res);
     }
   }
+final formKey =GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -177,292 +180,352 @@ removeContact(i) {
                 children: [SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Column(children: [
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Salutation',
-                  labelText: 'Salutation',
+            child: Form(
+              key: formKey,
+                          child: Column(children: [
+                TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Salutation',
+                    labelText: 'Salutation',
+                  ),
+                  controller: salutation,
                 ),
-                controller: salutation,
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'firstName',
-                  labelText: 'firstName',
+                TextField(
+                  decoration: InputDecoration(
+                    hintText: 'firstName',
+                    labelText: 'firstName',
+                  ),
+                  controller: firstName,
                 ),
-                controller: firstName,
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'lastName',
-                  labelText: 'lastName',
+                TextField(
+                  decoration: InputDecoration(
+                    hintText: 'lastName',
+                    labelText: 'lastName',
+                  ),
+                  controller: lastName,
                 ),
-                controller: lastName,
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Company Name',
-                  labelText: 'Company Name',
+                TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Company Name',
+                    labelText: 'Company Name',
+                  ),
+                  controller: companyName,
                 ),
-                controller: companyName,
-              ),
-             
-              Container( 
                
-                  padding: const EdgeInsets.only(right: 208.0,top: 15.0),
-                
-                  child: Text(this.widget.prod['contactEmail']),
-                ),
-                 Container( 
-               
-                  padding: const EdgeInsets.only(right: 240.0,top: 15.0),
+                Container( 
+                 
+                    padding: const EdgeInsets.only(right: 208.0,top: 15.0),
                   
-                  child: Text(
-                    this.widget.prod['phone']['primaryContact']),
+                    child: Text(this.widget.prod['contactEmail']),
+                  ),
+                   Container( 
+                 
+                    padding: const EdgeInsets.only(right: 240.0,top: 15.0),
+                    
+                    child: Text(
+                      this.widget.prod['phone']['primaryContact']),
+                  ),
+               
+                TextFormField(
+                   validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Enter something';
+                          } else if (RegExp(
+                                 r'(^(?:[+0]9)?[0-9]{10,12}$)')
+                              .hasMatch(value)) {
+                            return null;
+                          } else {
+                            return 'Enter valid Number';
+                          }
+                        },
+                  
+                  decoration: InputDecoration(
+                    hintText: 'Secondary Contact',
+                    labelText: 'Secondary Contact',
+                  ),
+                  controller: secondarycontact,
                 ),
-             
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Secondary Contact',
-                  labelText: 'Secondary Contact',
+                TextFormField(
+
+                  validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Enter something';
+                          } else if (RegExp(
+                                  r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)')
+                              .hasMatch(value)) {
+                            return null;
+                          } else {
+                            return 'Enter valid Url';
+                          }
+                        },
+                  decoration: InputDecoration(
+                    hintText: 'website',
+                    labelText: 'website',
+                  ),
+                  controller: website,
                 ),
-                controller: secondarycontact,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  hintText: 'website',
-                  labelText: 'website',
-                ),
-                controller: website,
-              ),
-             DefaultTabController(
-                  length: 3,
-                  initialIndex: 0,
-                  child: Column(children: [
-                    TabBar(
-                      isScrollable: true,
-                      unselectedLabelColor: Colors.black,
-                      labelColor: Colors.blue,
-                      tabs: [
-                        Tab(text: 'Other Details'),
-                        Tab(text: 'Address'),
-                        Tab(text: 'Contact Persons'),
-                       
-                      ],
-                    ),
-                   Container(
-                     height: 550,
-                      child: TabBarView(children: [
-                        Container(
-                          child: Column(
-                            children: [
-                              TextField(
-                                decoration: InputDecoration(
-                                  hintText: 'Facebook',
-                                  labelText: 'Facebook ',
+               DefaultTabController(
+                    length: 3,
+                    initialIndex: 0,
+                    child: Column(children: [
+                      TabBar(
+                        isScrollable: true,
+                        unselectedLabelColor: Colors.black,
+                        labelColor: Colors.blue,
+                        tabs: [
+                          Tab(text: 'Other Details'),
+                          Tab(text: 'Address'),
+                          Tab(text: 'Contact Persons'),
+                         
+                        ],
+                      ),
+                     Container(
+                       height: 550,
+                        child: TabBarView(children: [
+                          Container(
+                            child: Column(
+                              children: [
+                                TextFormField(
+                                   validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Enter something';
+                          } else if (RegExp(
+                                  r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)')
+                              .hasMatch(value)) {
+                            return null;
+                          } else {
+                            return 'Enter valid Url';
+                          }
+                        },
+                                  decoration: InputDecoration(
+                                    hintText: 'Facebook',
+                                    labelText: 'Facebook ',
+                                  ),
+                                  controller: facebook,
                                 ),
-                                controller: facebook,
-                              ),
-                              TextField(
-                                decoration: InputDecoration(
-                                  hintText: 'Twitter',
-                                  labelText: 'Twitter ',
+                                TextFormField(
+                                   validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Enter something';
+                          } else if (RegExp(
+                                  r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)')
+                              .hasMatch(value)) {
+                            return null;
+                          } else {
+                            return 'Enter valid Url';
+                          }
+                        },
+                                  decoration: InputDecoration(
+                                    hintText: 'Twitter',
+                                    labelText: 'Twitter ',
+                                  ),
+                                  controller: twitter,
                                 ),
-                                controller: twitter,
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        Container(
-                          child: Column(
-                            children: [
-                              TextField(
-                                decoration: InputDecoration(
-                                  hintText: 'Attention',
-                                  labelText: 'Attention ',
+                          Container(
+                            child: Column(
+                              children: [
+                                TextFormField(
+                                  validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Enter something';
+                          } else if (RegExp(
+                                   r"^[a-zA-Z0-9.a-zA-Z0-9.[a-zA-Z0-9]+[a-zA-Z]+")
+                              .hasMatch(value)) {
+                            return null;
+                          } else {
+                            return 'Enter valid Key';
+                          }
+                        },
+                                  decoration: InputDecoration(
+                                    hintText: 'Attention',
+                                    labelText: 'Attention ',
+                                  ),
+                                  controller: attention,
                                 ),
-                                controller: attention,
-                              ),
-                              TextField(
-                                decoration: InputDecoration(
-                                  hintText: 'Country/Region',
-                                  labelText: 'Country Region ',
+                                TextField(
+                                  decoration: InputDecoration(
+                                    hintText: 'Country/Region',
+                                    labelText: 'Country Region ',
+                                  ),
+                                  controller: countryRegion,
                                 ),
-                                controller: countryRegion,
-                              ),
-                              TextField(
-                                decoration: InputDecoration(
-                                  hintText: 'Street1',
-                                  labelText: 'Street1 ',
+                                TextField(
+                                  decoration: InputDecoration(
+                                    hintText: 'Street1',
+                                    labelText: 'Street1 ',
+                                  ),
+                                  controller: street1,
                                 ),
-                                controller: street1,
-                              ),
-                              TextField(
-                                decoration: InputDecoration(
-                                  hintText: 'City',
-                                  labelText: 'City ',
+                                TextField(
+                                  decoration: InputDecoration(
+                                    hintText: 'City',
+                                    labelText: 'City ',
+                                  ),
+                                  controller: city,
                                 ),
-                                controller: city,
-                              ),
-                              TextField(
-                                decoration: InputDecoration(
-                                  hintText: 'State',
-                                  labelText: 'State ',
+                                TextField(
+                                  decoration: InputDecoration(
+                                    hintText: 'State',
+                                    labelText: 'State ',
+                                  ),
+                                  controller: state,
                                 ),
-                                controller: state,
-                              ),
-                              TextField(
-                                decoration: InputDecoration(
-                                  hintText: 'Zip Code',
-                                  labelText: 'Zip Code ',
+                                TextField(
+                                  decoration: InputDecoration(
+                                    hintText: 'Zip Code',
+                                    labelText: 'Zip Code ',
+                                  ),
+                                  controller: zipCode,
                                 ),
-                                controller: zipCode,
-                              ),
-                              TextField(
-                                decoration: InputDecoration(
-                                  hintText: 'Phone',
-                                  labelText: 'Phone ',
+                                TextField(
+                                  decoration: InputDecoration(
+                                    hintText: 'Phone',
+                                    labelText: 'Phone ',
+                                  ),
+                                  controller: phone1,
                                 ),
-                                controller: phone1,
-                              ),
-                              TextField(
-                                decoration: InputDecoration(
-                                  hintText: 'Fax',
-                                  labelText: 'Fax',
+                                TextField(
+                                  decoration: InputDecoration(
+                                    hintText: 'Fax',
+                                    labelText: 'Fax',
+                                  ),
+                                  controller: fax,
                                 ),
-                                controller: fax,
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        Container(
-                            child: SingleChildScrollView(child:
-                          Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(top: 20.0),
-                                child: Table(
-                                  columnWidths: {
-                                    0: FixedColumnWidth(40),
-                                    1: FlexColumnWidth(2),
-                                    2: FlexColumnWidth(2),
-                                    3: FlexColumnWidth()
-                                  },
-                                  children: [
-                                    TableRow(children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text('No'),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text('email'),
-                                      ),
-                                      Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text('Phone')),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: IconButton(
-                                            icon: Icon(Icons.remove_circle),
-                                            onPressed: () {}),
-                                      ),
-                                    ]),
-                                    for (var i = 0;
-                                        i <
-                                            this
-                                                .widget
-                                                .prod['contactPerson']
-                                                .length;
-                                        i++)
+                          Container(
+                              child: SingleChildScrollView(child:
+                            Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 20.0),
+                                  child: Table(
+                                    columnWidths: {
+                                      0: FixedColumnWidth(40),
+                                      1: FlexColumnWidth(2),
+                                      2: FlexColumnWidth(2),
+                                      3: FlexColumnWidth()
+                                    },
+                                    children: [
                                       TableRow(children: [
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: Text((i + 1).toString()),
+                                          child: Text('No'),
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                              this.widget.prod['contactPerson'][i]
-                                                      ['mobile'] ??
-                                                  '-'),
+                                          child: Text('email'),
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                              this.widget.prod['contactPerson'][i]
-                                                  ['emailAddress']),
-                                        ),
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text('Phone')),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: IconButton(
                                               icon: Icon(Icons.remove_circle),
-                                              onPressed: () {
-                                                removeContact(i);
-                                              }),
+                                              onPressed: () {}),
                                         ),
                                       ]),
-                                  ],
-                                  border: TableBorder.all(
-                                      width: 1, color: Colors.purple),
+                                      for (var i = 0;
+                                          i <
+                                              this
+                                                  .widget
+                                                  .prod['contactPerson']
+                                                  .length;
+                                          i++)
+                                        TableRow(children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text((i + 1).toString()),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                                this.widget.prod['contactPerson'][i]
+                                                        ['mobile'] ??
+                                                    '-'),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                                this.widget.prod['contactPerson'][i]
+                                                    ['emailAddress']),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: IconButton(
+                                                icon: Icon(Icons.remove_circle),
+                                                onPressed: () {
+                                                  removeContact(i);
+                                                }),
+                                          ),
+                                        ]),
+                                    ],
+                                    border: TableBorder.all(
+                                        width: 1, color: Colors.purple),
+                                  ),
                                 ),
-                              ),
-                              IconButton(
-                                  icon: Icon(Icons.add),
-                                  onPressed: () {
-                                    setState(() {
-                                      displayForm = true;
-                                    });
-                                  }),
-                              Text('Add Contact Person'),
-                              if (displayForm)
-                                Container(
-                                  child: Column(children: [
-                                    TextFormField(
-                                      decoration:
-                                          InputDecoration(labelText: 'Email'),
-                                      controller: emailAddress,
-                                    ),
-                                    TextFormField(
-                                      decoration:
-                                          InputDecoration(labelText: 'Phone'),
-                                      controller: mobile,
-                                    ),
-                                    TextFormField(
-                                      decoration:
-                                          InputDecoration(labelText: 'firstName'),
-                                      controller: cfirstName,
-                                    ),
-                                    TextFormField(
-                                      decoration:
-                                          InputDecoration(labelText: 'lastName'),
-                                      controller: clastName,
-                                    ),
-                                    RaisedButton(
-                                        child: Text('Submit'),
-                                        onPressed: () {
-                                          addContact(
-                                            emailAddress.text,
-                                            mobile.text,
-                                            cfirstName.text,
-                                            clastName.text,
-                                            );
-                                          emailAddress.clear();
-                                          mobile.clear();
-                                          cfirstName.clear();
-                                          clastName.clear();
-                                          displayForm = false;
-                                        }),
-                                  ]),
-                                ),
-                            ],
-                          ),
-                        )),
-                       
-                      ]),
-                    ),
-                  ])),
-                  ]),
+                                IconButton(
+                                    icon: Icon(Icons.add),
+                                    onPressed: () {
+                                      setState(() {
+                                        displayForm = true;
+                                      });
+                                    }),
+                                Text('Add Contact Person'),
+                                if (displayForm)
+                                  Container(
+                                    child: Column(children: [
+                                      TextFormField(
+                                        decoration:
+                                            InputDecoration(labelText: 'Email'),
+                                        controller: emailAddress,
+                                      ),
+                                      TextFormField(
+                                        decoration:
+                                            InputDecoration(labelText: 'Phone'),
+                                        controller: mobile,
+                                      ),
+                                      TextFormField(
+                                        decoration:
+                                            InputDecoration(labelText: 'firstName'),
+                                        controller: cfirstName,
+                                      ),
+                                      TextFormField(
+                                        decoration:
+                                            InputDecoration(labelText: 'lastName'),
+                                        controller: clastName,
+                                      ),
+                                      RaisedButton(
+                                          child: Text('Submit'),
+                                          onPressed: () {
+                                            addContact(
+                                              emailAddress.text,
+                                              mobile.text,
+                                              cfirstName.text,
+                                              clastName.text,
+                                              );
+                                            emailAddress.clear();
+                                            mobile.clear();
+                                            cfirstName.clear();
+                                            clastName.clear();
+                                            displayForm = false;
+                                          }),
+                                    ]),
+                                  ),
+                              ],
+                            ),
+                          )),
+                         
+                        ]),
+                      ),
+                    ])),
+                    ]),
+            ),
                ),
            ),
            Align(
@@ -485,7 +548,8 @@ removeContact(i) {
                       color: Colors.blue,
                       child: Text('Update',style: TextStyle(color: Colors.white),),
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        if (formKey.currentState.validate()) {
+                           Navigator.of(context).pop();
                         updateDetails(
                             salutation.text,
                             firstName.text,
@@ -507,7 +571,7 @@ removeContact(i) {
                             phone1.text,
                             fax.text,
                             remarkstext.text);
-                      
+                        }
                       })
                            
                         ],
