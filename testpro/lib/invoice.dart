@@ -1,9 +1,9 @@
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:testpro/config/upload_url.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:testpro/invoice_details.dart';
 
 class Invoice extends StatefulWidget {
@@ -12,7 +12,9 @@ class Invoice extends StatefulWidget {
 }
 
 class _InvoiceState extends State<Invoice> {
-  List invoiceList;
+ List invoiceList;
+
+
 
   getData() async {
     var response = await http
@@ -24,18 +26,30 @@ class _InvoiceState extends State<Invoice> {
       print(invoiceList);
     });
   }
+
+
+  
+
+    
 @override
   void initState() {
     super.initState();
     this.getData();
   }
- String chosenValue;
-  @override
+String chosenValue;
+
+@override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
-          actions: [IconButton(icon: Icon(Icons.search), onPressed: () {})],
+          actions: [IconButton(icon: Icon(Icons.search), onPressed: () {
+        //     showSearch(context: context, delegate: 
+        //      DataSearch(
+        //           sub: this.invoiceList[0]
+        //  ));
+           
+         }),],
           title: DropdownButton( 
             value: chosenValue,
             style:
@@ -67,7 +81,7 @@ class _InvoiceState extends State<Invoice> {
             ),
           ),
           backgroundColor: Colors.amber,
-        ),
+        ),drawer: Drawer(),
         body: ListView.separated(
           itemCount: this.invoiceList.length,
           itemBuilder: (BuildContext context, int index) {
@@ -75,8 +89,8 @@ class _InvoiceState extends State<Invoice> {
               onTap: (){
                  Navigator.push(context, new MaterialPageRoute(builder: (context) => InvoiceDetails(
                    name: this.invoiceList[index],
-                  
-                 )));
+                  )));
+
               },
                           
               child: Container(
@@ -101,9 +115,7 @@ class _InvoiceState extends State<Invoice> {
                       else
                         
                        Text((dateFormat(this.invoiceList[index]['invoiceDate']) +' - '+ dateFormat(this.invoiceList[index]['expiryDate']))),
-                        
-                   
-                    ],
+                      ],
                     crossAxisAlignment: CrossAxisAlignment.start,
                   ),
                 ),
@@ -127,3 +139,53 @@ class DateUtil {
     return DateFormat(DATE_FORMAT).format(dateTime);
   }
 }
+
+
+
+
+
+// class DataSearch extends SearchDelegate<String>{
+//    DataSearch({
+//     this.sub,
+//   });
+//   final Map sub;
+
+//   @override
+//   void initState() {
+//     // super.initState();
+//     print(this.sub);
+//    }
+//   @override
+//   List<Widget> buildActions(BuildContext context) {
+//    return [IconButton(icon: Icon(Icons.clear), onPressed: (){
+//      query=" ";
+//    })];
+//   }
+//   @override
+//  Widget buildLeading(BuildContext context) {
+//    return IconButton(icon: AnimatedIcon(icon:AnimatedIcons.menu_arrow,
+//    progress: transitionAnimation,), onPressed: (){
+//      close(context, null);
+//    });
+   
+//   }
+//    @override
+//   Widget buildResults(BuildContext context) {
+//     return Container(
+//       child:  Text('query'),
+//     );
+//   }
+//    @override
+//     Widget buildSuggestions(BuildContext context) {
+//    final suggestionList = query;
+//    return ListView.builder(itemBuilder: (context,index)=>ListTile(
+//      onTap: (){
+//        showResults(context);
+//      },
+//      title: Text('suggestionList[index]'),
+//    ),
+//    itemCount: suggestionList.length,
+//    );
+   
+//   }
+// }

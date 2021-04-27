@@ -5,6 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:testpro/config/upload_url.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
+import 'package:photo_view/photo_view.dart';
+
 
 class Upload extends StatefulWidget {
    Upload({
@@ -55,6 +57,8 @@ class _UploadState extends State<Upload> {
         body: jsonEncode(this.widget.prod));
 
     var res = response.body;
+    imageResized=null;
+
     if (response.statusCode == 200) {
       print('sucess');
     } else {
@@ -130,13 +134,36 @@ removeContacts(k) {
                                           child: Text(this.widget.prod['uploadDocument']
                                                   [k]['clientDocument']),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child:  showImage(this
-                                                  .widget
-                                                  .prod['uploadDocument'][k]
-                                              ['clientUpload']['file']),
-                                        ),
+                                        Container(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: GestureDetector(
+                                              child: Column(
+                                                children: [
+                                                  Icon(Icons.visibility),
+                                                  Text('Show Image'),
+                                                ],
+                                              ),
+                                                  
+                                       
+                                       
+                                          onTap: () async {
+                                               await showDialog(
+                                            context: context,
+                                                builder: (_) => ImageDialog(
+                                                 img: this
+                                                    .widget
+                                                    .prod['uploadDocument'][k]
+                                                ['clientUpload']['file'],
+                                                  
+                                                )
+                                                    );
+                                               
+                                              },
+                                              ),
+                                              )
+                                             ),
+                                     
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child:  IconButton(
@@ -145,9 +172,7 @@ removeContacts(k) {
                                               removeContacts(k);
                                             }),
                                         ),
-
-                                        
-                                      ]),
+                                        ]),
                                   ],
                                   border: TableBorder.all(
                                       width: 1, color: Colors.purple),
@@ -189,14 +214,42 @@ removeContacts(k) {
                                                name.clear();
                                                 photoBase64.isEmpty;
                                                 displayForm = false;
-                                           
-                                             
-                                            }),
-                              ],
+                                           }),
+                                           ],
                             ),
                           ),
                         ],
                       ),
+    );
+  }
+}
+
+class ImageDialog extends StatefulWidget {
+
+   ImageDialog({
+    this.img,
+  });
+  final String img;
+
+  @override
+  _ImageDialogState createState() => _ImageDialogState();
+}
+
+class _ImageDialogState extends State<ImageDialog> {
+  showImage(img64) {
+    final convertedImg = base64.decode(img64);
+    return new Image.memory(convertedImg);
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: Container(
+        // width: 200,
+        // height: 200,
+         child: showImage(this.widget.img),
+       
+        ),
+     
     );
   }
 }

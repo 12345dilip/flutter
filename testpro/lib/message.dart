@@ -17,6 +17,8 @@ class Message extends StatefulWidget {
 class _MessageState extends State<Message> {
   List msg;
 
+  bool textChat = false;
+
   getData() async {
     var response = await http
         .get(BaseUrl.message, headers: {"Accept": "application/json"});
@@ -28,20 +30,25 @@ class _MessageState extends State<Message> {
     });
   }
 
-deleteData(id)async{
-   final response = await http.delete(BaseUrl.comment +id ,
-         headers: {'Content-Type': 'application/json; charset=UTF-8'});
+  deleteData(id, index) async {
+     setState(() {
+      this.msg.removeAt(index);
        
+    });
+    final response = await http.delete(BaseUrl.comment + id,
+        headers: {'Content-Type': 'application/json; charset=UTF-8'});
 
     var res = response.body;
+
+    
     if (response.statusCode == 200) {
       print('sucess');
     } else {
       print("Error :" + res);
     }
-    }
+  }
 
-sendmessage(mes) async {
+  sendmessage(mes) async {
     final reqObj = {
       'comment': mes,
       'commentedBy': "607fef745fb0e93048e8bb9b",
@@ -50,7 +57,7 @@ sendmessage(mes) async {
     setState(() {
       this.msg.add(reqObj);
     });
-final response = await http.post(BaseUrl.comment,
+    final response = await http.post(BaseUrl.comment,
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode(reqObj));
 
@@ -68,110 +75,118 @@ final response = await http.post(BaseUrl.comment,
     this.getData();
   }
 
-final value = TextEditingController();
+  final value = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading:
-            IconButton(icon: Icon(Icons.arrow_back_sharp), onPressed: () {
- Navigator.push(context, new MaterialPageRoute(builder: (context) => FirstPage(
-                           
-                       )
-                       ));
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back_sharp),
+            onPressed: () {
+              Navigator.push(context,
+                  new MaterialPageRoute(builder: (context) => FirstPage()));
             }),
         actions: [IconButton(icon: Icon(Icons.menu), onPressed: () {})],
         title: Text('Message'),
       ),
-      body: SingleChildScrollView(
-              child: Column(
+      body: Stack(
+     
           children: [
-            ListView.builder(
-                itemCount: this.msg.length,
-                shrinkWrap: true,
-                padding: EdgeInsets.only(top: 10, bottom: 10),
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Column(children: [
-                    Container(
-                        padding: EdgeInsets.only(
-                            left: 14, right: 14, top: 10, bottom: 10),
-                        child: Align(
-                          alignment: (Alignment.topRight),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: (Colors.blue),
-                            ),
-                            padding: EdgeInsets.all(16),
-                            child: GestureDetector(
-                             onTap:(){
-                             
-                              deleteData( this.msg[index]['_id']);
-
-                             },
-                               child: Text(
-                                this.msg[index]['comment'],
-                                style: TextStyle(fontSize: 15, color: Colors.white),
+           
+             SingleChildScrollView(reverse: true,
+                            child: Container(
+                  child: ListView.builder(
+                  
+                      itemCount: this.msg.length,
+                      shrinkWrap: true,
+                      padding: EdgeInsets.only(top: 10, bottom: 80),
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return Row(children: [
+                          Container(
+                            padding: EdgeInsets.only(
+                                left: 14, right: 14, top: 10, bottom: 10),
+                            child: Align(
+                              alignment: (Alignment.topRight),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: (Colors.blue),
+                                ),
+                                padding: EdgeInsets.all(16),
+                                child: GestureDetector(
+                                  onLongPress: () {
+                                    setState(() {
+                                      textChat = true;
+                                    });
+                                  },
+                                 
+                                  child: Text(
+                                    this.msg[index]['comment'],
+                                    style:
+                                        TextStyle(fontSize: 15, color: Colors.white),
+                                  ),
+                                ),
                               ),
-                             ),
-                          
+                            ),
                           ),
-                        )),
-                  ]);
-                }),
-            Stack(
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Container(
-                    padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
-                    height: 60,
-                    width: double.infinity,
-                    color: Colors.white,
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Expanded(
-                          child: TextField(
-                            decoration: InputDecoration(
-                                hintText: "Write message...",
-                                hintStyle: TextStyle(color: Colors.black54),
-                                border: InputBorder.none),
-                                controller: value,
+                          if (textChat)
+                            IconButton(
+                                icon: Icon(Icons.clear),
+                                onPressed: () {
+                                  deleteData(this.msg[index]['_id'], index);
+                                  textChat=false;
+                                },
+                                
+                                )
+                        ]);
+                      }),
+                ),
+             ),
+           
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Container(
+                      padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
+                      height: 60,
+                      width: double.infinity,
+                      color: Colors.white,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 15,
                           ),
-                        ),
-                        
-                        SizedBox(
-                          width: 15,
-                        ),
-                        FloatingActionButton(
-                          onPressed: () {
-                            sendmessage(
-                              value.text);
+                          Expanded(
+                            child: TextField(
+                              decoration: InputDecoration(
+                                  hintText: "Write message...",
+                                  hintStyle: TextStyle(color: Colors.black54),
+                                  border: InputBorder.none),
+                              controller: value,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          FloatingActionButton(
+                            onPressed: () {
+                              sendmessage(value.text);
                               value.clear();
                             },
-                          child: Icon(
-                            Icons.send,
-                            color: Colors.white,
-                            size: 18,
+                            child: Icon(
+                              Icons.send,
+                              color: Colors.white,
+                              size: 18,
+                            ),
+                            backgroundColor: Colors.blue,
+                            elevation: 0,
                           ),
-                          backgroundColor: Colors.blue,
-                          elevation: 0,
-                        ),
-                       ],
+                        ],
+                      ),
                     ),
-                    
                   ),
-                ),
-              ],
-            ),
-          ],
-          mainAxisAlignment: MainAxisAlignment.end,
-        ),
-      ),
-    );
+                ],
+              ),
+          );
   }
 }
