@@ -1,8 +1,10 @@
 class BaseUrl{
-  static String updateUsers = "http://192.168.1.11:3000/api/client/607fef745fb0e93048e8bb9b";
-  static String homePage = "http://192.168.1.11:3000/api/client/";
-  static String login = "http://192.168.1.11:3000/api/client/login";
-  static String invoice = "http://192.168.1.11:3000/api/invoices/";
-  static String message = "http://192.168.1.11:3000/api/clientcmt/getcmt/607fef745fb0e93048e8bb9b";
-  static String comment = "http://192.168.1.11:3000/api/clientcmt/";
+  static String baseUrl = "http://192.168.1.11:3000/";
+
+  static String updateUsers = baseUrl + "api/client/607fef745fb0e93048e8bb9b";
+  static String homePage = baseUrl + "api/client/";
+  static String login = baseUrl + "api/client/login";
+  static String invoice = baseUrl + "api/invoices/";
+  static String message = baseUrl +  "api/clientcmt/getcmt/607fef745fb0e93048e8bb9b";
+  static String comment = baseUrl + "api/clientcmt/";
 }
