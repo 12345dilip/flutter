@@ -46,6 +46,7 @@ removeContact(i) {
     });
   }
 
+
   final salutation = TextEditingController();
   final firstName = TextEditingController();
   final lastName = TextEditingController();
@@ -76,6 +77,8 @@ removeContact(i) {
   final name = TextEditingController();
 
   final picker = ImagePicker();
+
+
 
   @override
   void initState() {
@@ -518,6 +521,7 @@ final formKey =GlobalKey<FormState>();
                                                   .length;
                                           i++)
                                         TableRow(children: [
+                                          
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text((i + 1).toString()),
@@ -539,9 +543,26 @@ final formKey =GlobalKey<FormState>();
                                             padding: const EdgeInsets.all(8.0),
                                             child: IconButton(
                                                 icon: Icon(Icons.remove_circle),
-                                                onPressed: () {
-                                                  removeContact(i);
-                                                }),
+                                                onPressed: ()async {
+                                                   await showDialog(
+                                            context: context,
+                                                builder: (_) => AlertDialog(
+                                                  title: Text('Do you want Delete'),
+                                                  
+                                                  actions: [
+                                                     FlatButton(onPressed: (){
+                                                       Navigator.pop(context);
+                                                    }, child: Text('No')),
+                                                    FlatButton(onPressed: (){
+                                                      removeContact(i);
+                                                      Navigator.pop(context);
+                                                    }, child: Text('Yes')),
+                                                   
+                                                  ],
+                                                 
+                                                )
+                                                );
+                                           }),
                                           ),
                                         ]),
                                     ],
@@ -561,11 +582,33 @@ final formKey =GlobalKey<FormState>();
                                   Container(
                                     child: Column(children: [
                                       TextFormField(
+                                         validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Enter something';
+                        } else if (RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(value)) {
+                          return null;
+                        } else {
+                          return 'Enter valid email';
+                        }
+                      },
                                         decoration:
                                             InputDecoration(labelText: 'Email'),
                                         controller: emailAddress,
                                       ),
                                       TextFormField(
+                                        validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Enter something';
+                            } else if (RegExp(
+                                   r'(^(?:[+0]9)?[0-9]{10}$)')
+                                .hasMatch(value)) {
+                              return null;
+                            } else {
+                              return 'Enter valid Number';
+                            }
+                        },
                                         decoration:
                                             InputDecoration(labelText: 'Phone'),
                                         controller: mobile,
@@ -583,6 +626,8 @@ final formKey =GlobalKey<FormState>();
                                       RaisedButton(
                                           child: Text('Submit'),
                                           onPressed: () {
+                                               if (formKey.currentState.validate()) {
+                           
                                             addContact(
                                               emailAddress.text,
                                               mobile.text,
@@ -594,7 +639,7 @@ final formKey =GlobalKey<FormState>();
                                             cfirstName.clear();
                                             clastName.clear();
                                             displayForm = false;
-                                          }),
+                                          }}),
                                     ]),
                                   ),
                               ],

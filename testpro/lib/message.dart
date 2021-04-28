@@ -133,9 +133,24 @@ class _MessageState extends State<Message> {
                           if (textChat)
                             IconButton(
                                 icon: Icon(Icons.clear),
-                                onPressed: () {
-                                  deleteData(this.msg[index]['_id'], index);
-                                  textChat=false;
+                                onPressed: ()async {
+                                               await showDialog(
+                                            context: context,
+                                                builder: (_) => AlertDialog(
+                                                  title: Text('Do you want Delete'),
+                                                  actions: [
+                                                    FlatButton(onPressed: (){
+                                                       Navigator.pop(context);
+                                                    }, child: Text('No')),
+                                                    FlatButton(onPressed: (){
+                                                      deleteData(this.msg[index]['_id'], index);
+                                                     textChat=false;
+                                                      Navigator.pop(context);
+                                                    }, child: Text('Yes'))
+                                                  ],
+                                                )
+                                                );
+                                 
                                 },
                                 
                                 )

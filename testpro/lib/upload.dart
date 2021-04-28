@@ -164,8 +164,23 @@ removeContacts(k) {
                                           padding: const EdgeInsets.all(8.0),
                                           child:  IconButton(
                                             icon: Icon(Icons.remove_circle),
-                                            onPressed: () {
-                                              removeContacts(k);
+                                            onPressed: ()async {
+                                               await showDialog(
+                                            context: context,
+                                                builder: (_) => AlertDialog(
+                                                  title: Text('Do you want Delete'),
+                                                  actions: [
+                                                    FlatButton(onPressed: (){
+                                                       Navigator.pop(context);
+                                                    }, child: Text('No')),
+                                                    FlatButton(onPressed: (){
+                                                      removeContacts(k);
+                                                      Navigator.pop(context);
+                                                    }, child: Text('Yes'))
+                                                  ],
+                                                )
+                                                );
+                                             
                                             }),
                                         ),
                                         ]),
