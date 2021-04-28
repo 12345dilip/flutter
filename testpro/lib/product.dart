@@ -186,86 +186,96 @@ final formKey =GlobalKey<FormState>();
             child: Form(
               key: formKey,
                           child: Column(children: [
-                TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Salutation',
-                    labelText: 'Salutation',
+                            
+                Container(
+                  child: Column(
+                    children: [
+                      TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Salutation',
+                          labelText: 'Salutation',
+                        ),
+                        controller: salutation,
+                      ),
+                   
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: 'firstName',
+                      labelText: 'firstName',
+                    ),
+                    controller: firstName,
                   ),
-                  controller: salutation,
-                ),
-                TextField(
-                  decoration: InputDecoration(
-                    hintText: 'firstName',
-                    labelText: 'firstName',
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: 'lastName',
+                      labelText: 'lastName',
+                    ),
+                    controller: lastName,
                   ),
-                  controller: firstName,
-                ),
-                TextField(
-                  decoration: InputDecoration(
-                    hintText: 'lastName',
-                    labelText: 'lastName',
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Company Name',
+                      labelText: 'Company Name',
+                    ),
+                    controller: companyName,
                   ),
-                  controller: lastName,
-                ),
-                TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Company Name',
-                    labelText: 'Company Name',
-                  ),
-                  controller: companyName,
-                ),
                
-                Container( 
-                 
-                    padding: const EdgeInsets.only(right: 208.0,top: 15.0),
-                  
-                    child: Text(this.widget.prod['contactEmail']),
-                  ),
-                   Container( 
-                 
-                    padding: const EdgeInsets.only(right: 240.0,top: 15.0),
+                  Container( 
+                   
+                      padding: const EdgeInsets.only(right: 208.0,top: 15.0),
                     
-                    child: Text(
-                      this.widget.prod['phone']['primaryContact']),
+                      child: Text(this.widget.prod['contactEmail']),
+                    ),
+                     Container( 
+                   
+                      padding: const EdgeInsets.only(right: 240.0,top: 15.0),
+                      
+                      child: Text(
+                        this.widget.prod['phone']['primaryContact']),
+                    ),
+               
+                  TextFormField(
+                     validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Enter something';
+                            } else if (RegExp(
+                                   r'(^(?:[+0]9)?[0-9]{10}$)')
+                                .hasMatch(value)) {
+                              return null;
+                            } else {
+                              return 'Enter valid Number';
+                            }
+                          },
+                    
+                    decoration: InputDecoration(
+                      hintText: 'Secondary Contact',
+                      labelText: 'Secondary Contact',
+                    ),
+                    controller: secondarycontact,
+                  ),
+                  TextFormField(
+
+                    validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Enter something';
+                            } else if (RegExp(
+                                    r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)')
+                                .hasMatch(value)) {
+                              return null;
+                            } else {
+                              return 'Enter valid Url';
+                            }
+                          },
+                    decoration: InputDecoration(
+                      hintText: 'website',
+                      labelText: 'website',
+                    ),
+                    controller: website,
                   ),
                
-                TextFormField(
-                   validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Enter something';
-                          } else if (RegExp(
-                                 r'(^(?:[+0]9)?[0-9]{10}$)')
-                              .hasMatch(value)) {
-                            return null;
-                          } else {
-                            return 'Enter valid Number';
-                          }
-                        },
-                  
-                  decoration: InputDecoration(
-                    hintText: 'Secondary Contact',
-                    labelText: 'Secondary Contact',
+               
+                  ],
                   ),
-                  controller: secondarycontact,
-                ),
-                TextFormField(
-
-                  validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Enter something';
-                          } else if (RegExp(
-                                  r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)')
-                              .hasMatch(value)) {
-                            return null;
-                          } else {
-                            return 'Enter valid Url';
-                          }
-                        },
-                  decoration: InputDecoration(
-                    hintText: 'website',
-                    labelText: 'website',
-                  ),
-                  controller: website,
                 ),
                DefaultTabController(
                     length: 3,
@@ -284,7 +294,8 @@ final formKey =GlobalKey<FormState>();
                       ),
                      Container(
                        height: 550,
-                        child: TabBarView(children: [
+                        child: 
+                        TabBarView(children: [
                           Container(
                             child: Column(
                               children: [
@@ -570,19 +581,32 @@ final formKey =GlobalKey<FormState>();
                                         width: 1, color: Colors.purple),
                                   ),
                                 ),
-                                IconButton(
-                                    icon: Icon(Icons.add),
-                                    onPressed: () {
-                                      setState(() {
-                                        displayForm = true;
-                                      });
-                                    }),
-                                Text('Add Contact Person'),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 80.0),
+                                  child: Column(
+                                    children: [
+                                      IconButton(
+                                          icon: Icon(Icons.add),
+                                          onPressed: () {
+                                            setState(() {
+                                              displayForm = true;
+                                            });
+                                          }),
+                                      Text('Add Contact Person'), 
+                                      ],
+                                      ),
+                                ),
                                 if (displayForm)
-                                  Container(
-                                    child: Column(children: [
-                                      TextFormField(
-                                         validator: (value) {
+                                  SingleChildScrollView( 
+                                   child:
+                                   Container(
+                                      child: 
+                                      Padding(
+                                        padding: const EdgeInsets.only(bottom: 70.0),
+                                        child: Column(
+                                             children: [
+                                  TextFormField(
+                             validator: (value) {
                         if (value.isEmpty) {
                           return 'Enter something';
                         } else if (RegExp(
@@ -593,12 +617,13 @@ final formKey =GlobalKey<FormState>();
                           return 'Enter valid email';
                         }
                       },
-                                        decoration:
-                                            InputDecoration(labelText: 'Email'),
-                                        controller: emailAddress,
-                                      ),
-                                      TextFormField(
-                                        validator: (value) {
+                                              decoration:
+                                                  InputDecoration(labelText: 'Email'),
+                                              controller: emailAddress,
+                                            ),
+                                           
+                                        TextFormField(
+                                          validator: (value) {
                             if (value.isEmpty) {
                               return 'Enter something';
                             } else if (RegExp(
@@ -609,25 +634,23 @@ final formKey =GlobalKey<FormState>();
                               return 'Enter valid Number';
                             }
                         },
-                                        decoration:
-                                            InputDecoration(labelText: 'Phone'),
-                                        controller: mobile,
-                                      ),
-                                      TextFormField(
-                                        decoration:
-                                            InputDecoration(labelText: 'firstName'),
-                                        controller: cfirstName,
-                                      ),
-                                      TextFormField(
-                                        decoration:
-                                            InputDecoration(labelText: 'lastName'),
-                                        controller: clastName,
-                                      ),
-                                      RaisedButton(
+                                          decoration:
+                                              InputDecoration(labelText: 'Phone'),
+                                          controller: mobile,
+                                        ),
+                                        TextFormField(
+                                          decoration:
+                                              InputDecoration(labelText: 'firstName'),
+                                          controller: cfirstName,
+                                        ),
+                                        TextFormField(
+                                          decoration:
+                                              InputDecoration(labelText: 'lastName'),
+                                          controller: clastName,
+                                        ),
+                                       RaisedButton(
                                           child: Text('Submit'),
                                           onPressed: () {
-                                               if (formKey.currentState.validate()) {
-                           
                                             addContact(
                                               emailAddress.text,
                                               mobile.text,
@@ -639,19 +662,22 @@ final formKey =GlobalKey<FormState>();
                                             cfirstName.clear();
                                             clastName.clear();
                                             displayForm = false;
-                                          }}),
-                                    ]),
-                                  ),
-                              ],
+                                          }),
+                                        ]),
+                                      ), 
+                                   ), ),
+                                  ],
                             ),
                           )),
                          ]),
                       ),
-                    ])),
+                    ]
+                    )
+                    ),
                     ]),
             ),
                ),
-           ),
+           ), 
            Align(
                     alignment: Alignment.bottomLeft,
                     child: Container(
