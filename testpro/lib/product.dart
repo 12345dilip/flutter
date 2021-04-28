@@ -231,7 +231,7 @@ final formKey =GlobalKey<FormState>();
                           if (value.isEmpty) {
                             return 'Enter something';
                           } else if (RegExp(
-                                 r'(^(?:[+0]9)?[0-9]{10,12}$)')
+                                 r'(^(?:[+0]9)?[0-9]{10}$)')
                               .hasMatch(value)) {
                             return null;
                           } else {
@@ -324,77 +324,157 @@ final formKey =GlobalKey<FormState>();
                               ],
                             ),
                           ),
-                          Container(
-                            child: Column(
-                              children: [
-                                TextFormField(
-                                  validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Enter something';
-                          } else if (RegExp(
-                                   r"^[a-zA-Z0-9.a-zA-Z0-9.[a-zA-Z0-9]+[a-zA-Z]+")
-                              .hasMatch(value)) {
-                            return null;
-                          } else {
-                            return 'Enter valid Key';
-                          }
+                          SingleChildScrollView(
+                                                      child: Container(
+                              child: Column(
+                                children: [
+                                  TextFormField(
+                                    validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Enter something';
+                            } else if (RegExp(
+                                   r'^[a-zA-Z0-9&%=]+$')
+                                .hasMatch(value)) {
+                              return null;
+                            } else {
+                              return 'Enter valid Key';
+                            }
                         },
-                                  decoration: InputDecoration(
-                                    hintText: 'Attention',
-                                    labelText: 'Attention ',
+                             decoration: InputDecoration(
+                                      hintText: 'Attention',
+                                      labelText: 'Attention ',
+                                    ),
+                                    controller: attention,
                                   ),
-                                  controller: attention,
-                                ),
-                                TextField(
-                                  decoration: InputDecoration(
-                                    hintText: 'Country/Region',
-                                    labelText: 'Country Region ',
+                                  TextFormField(
+                                     validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Enter something';
+                            } else if (RegExp(
+                                   r'^[a-zA-Z0-9&%=]+$')
+                                .hasMatch(value)) {
+                              return null;
+                            } else {
+                              return 'Enter valid Details';
+                            }
+                        },
+                                    decoration: InputDecoration(
+                                      hintText: 'Country/Region',
+                                      labelText: 'Country Region ',
+                                    ),
+                                    controller: countryRegion,
                                   ),
-                                  controller: countryRegion,
-                                ),
-                                TextField(
-                                  decoration: InputDecoration(
-                                    hintText: 'Street1',
-                                    labelText: 'Street1 ',
+                                  TextFormField(
+                                     validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Enter something';
+                            } else if (RegExp(
+                                   r'^[a-zA-Z0-9&%=]+$')
+                                .hasMatch(value)) {
+                              return null;
+                            } else {
+                              return 'Enter valid Details';
+                            }
+                        },
+                                    decoration: InputDecoration(
+                                      
+                                      hintText: 'Street1',
+                                      labelText: 'Street1 ',
+                                    ),
+                                    controller: street1,
                                   ),
-                                  controller: street1,
-                                ),
-                                TextField(
-                                  decoration: InputDecoration(
-                                    hintText: 'City',
-                                    labelText: 'City ',
+                                  TextFormField(
+                                      validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Enter something';
+                            } else if (RegExp(
+                                   r'^[a-zA-Z0-9&%=]+$')
+                                .hasMatch(value)) {
+                              return null;
+                            } else {
+                              return 'Enter valid Details';
+                            }
+                        },
+                                    decoration: InputDecoration(
+                                      hintText: 'City',
+                                      labelText: 'City ',
+                                    ),
+                                    controller: city,
                                   ),
-                                  controller: city,
-                                ),
-                                TextField(
-                                  decoration: InputDecoration(
-                                    hintText: 'State',
-                                    labelText: 'State ',
+                                  TextFormField(
+                                     validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Enter something';
+                            } else if (RegExp(
+                                   r'^[a-zA-Z0-9&%=]+$')
+                                .hasMatch(value)) {
+                              return null;
+                            } else {
+                              return 'Enter valid Details';
+                            }
+                        },
+                                    decoration: InputDecoration(
+                                      hintText: 'State',
+                                      labelText: 'State ',
+                                    ),
+                                    controller: state,
                                   ),
-                                  controller: state,
-                                ),
-                                TextField(
-                                  decoration: InputDecoration(
-                                    hintText: 'Zip Code',
-                                    labelText: 'Zip Code ',
+                                  TextFormField(
+                                     validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Enter something';
+                            } else if(RegExp(
+                                   r'(^(?:[+0]9)?[0-9]{6}$)')
+                                .hasMatch(value))  {
+                              return null;
+                            } else {
+                              return 'Enter valid Number';
+                            }
+                        },
+                                    decoration: InputDecoration(
+                                      hintText: 'Zip Code',
+                                      labelText: 'Zip Code ',
+                                    ),
+                                    controller: zipCode,
                                   ),
-                                  controller: zipCode,
-                                ),
-                                TextField(
-                                  decoration: InputDecoration(
-                                    hintText: 'Phone',
-                                    labelText: 'Phone ',
+                                  TextFormField(
+                                     validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Enter something';
+                            } else if (RegExp(
+                                   r'(^(?:[+0]9)?[0-9]{10}$)')
+                                .hasMatch(value)) {
+                              return null;
+                            } else {
+                              return 'Enter valid Number';
+                            }
+                        },
+                                    decoration: InputDecoration(
+                                      hintText: 'Phone',
+                                      labelText: 'Phone ',
+                                    ),
+                                    controller: phone1,
                                   ),
-                                  controller: phone1,
-                                ),
-                                TextField(
-                                  decoration: InputDecoration(
-                                    hintText: 'Fax',
-                                    labelText: 'Fax',
+                                  TextFormField(
+                                     validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Enter something';
+                            } else if (RegExp(
+                                 r'(^(?:[+0]9)?[0-9]{6}$)')
+                              .hasMatch(value) )  {
+                              return null;
+                            } else {
+                              return 'Enter valid Number';
+                            }
+                        },
+                                    decoration: InputDecoration(
+                                      hintText: 'Fax',
+                                      labelText: 'Fax',
+                                    ),
+                                    controller: fax,
                                   ),
-                                  controller: fax,
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                           Container(
@@ -520,8 +600,7 @@ final formKey =GlobalKey<FormState>();
                               ],
                             ),
                           )),
-                         
-                        ]),
+                         ]),
                       ),
                     ])),
                     ]),
@@ -540,8 +619,7 @@ final formKey =GlobalKey<FormState>();
                           SizedBox(
                             width: 15,
                           ),
-                         
-                          SizedBox(
+                         SizedBox(
                             width: 15,
                           ),
                           RaisedButton(
@@ -555,11 +633,8 @@ final formKey =GlobalKey<FormState>();
                             firstName.text,
                             lastName.text,
                             companyName.text,
-                           // contactEmail.text,
-                            //primaryContact.text,
                             secondarycontact.text,
                             website.text,
-                            // openingBalance.text,
                             facebook.text,
                             twitter.text,
                             attention.text,

@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:testpro/config/upload_url.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
-import 'package:photo_view/photo_view.dart';
+
 
 
 class Upload extends StatefulWidget {
@@ -144,10 +144,7 @@ removeContacts(k) {
                                                   Text('Show Image'),
                                                 ],
                                               ),
-                                                  
-                                       
-                                       
-                                          onTap: () async {
+                                             onTap: () async {
                                                await showDialog(
                                             context: context,
                                                 builder: (_) => ImageDialog(
@@ -157,8 +154,7 @@ removeContacts(k) {
                                                 ['clientUpload']['file'],
                                                   
                                                 )
-                                                    );
-                                               
+                                                );
                                               },
                                               ),
                                               )
