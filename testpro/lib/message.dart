@@ -84,7 +84,7 @@ class _MessageState extends State<Message> {
             icon: Icon(Icons.arrow_back_sharp),
             onPressed: () {
               Navigator.push(context,
-                  new MaterialPageRoute(builder: (context) => FirstPage()));
+                  new MaterialPageRoute(builder: (context) => FirstPage(null, null)));
             }),
         actions: [IconButton(icon: Icon(Icons.menu), onPressed: () {})],
         title: Text('Message'),

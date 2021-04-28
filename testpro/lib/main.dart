@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:testpro/config/upload_url.dart';
 import 'package:testpro/first_page.dart';
 import 'package:testpro/user.dart';
-
 import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 
 void main() {
@@ -22,7 +22,21 @@ class Signin extends StatefulWidget {
 
 class _SigninState extends State<Signin> {
   final _formKey = GlobalKey<FormState>();
-  Future save() async {
+  final contactEmail = TextEditingController();
+  final password = TextEditingController();
+final storage = FlutterSecureStorage();
+
+ void displayDialog(context, title, text) => showDialog(
+      context: context,
+      builder: (context) =>
+        AlertDialog(
+          title: Text(title),
+          content: Text(text)
+        ),
+    );
+
+
+  Future save(contactEmail, password) async {
     var res = await http.post(BaseUrl.login,
         headers: <String, String>{
           'Context-Type': 'application/json'
@@ -32,9 +46,17 @@ class _SigninState extends State<Signin> {
            'password': user.password,
         }
         );
-    print(res.body);
-    Navigator.push(
-        context, new MaterialPageRoute(builder: (context) => FirstPage()));
+        print(res.body);
+        if(res.statusCode == 200) return res.body;
+          return null;
+    //     if(res.statusCode == 200) return res.body;
+  
+    // print(res.body);
+    // Navigator.push(
+    //     context, new MaterialPageRoute(builder: (context) => FirstPage()));
+     
+
+
   }
 
   User user = User('', '');
@@ -68,7 +90,7 @@ class _SigninState extends State<Signin> {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: TextFormField(
-                      controller: TextEditingController(text: user.contactEmail),
+                      controller: contactEmail,
                       onChanged: (value) {
                         user.contactEmail = value;
                       },
@@ -106,7 +128,7 @@ class _SigninState extends State<Signin> {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: TextFormField(
-                      controller: TextEditingController(text: user.password),
+                      controller:password,
                       onChanged: (value) {
                         user.password = value;
                       },
@@ -146,12 +168,28 @@ class _SigninState extends State<Signin> {
                           color: Colors.blue,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16.0)),
-                          onPressed: () {
-                            if (_formKey.currentState.validate()) {
-                              save();
-                            } else {
-                              print("not ok");
-                            }
+                          onPressed: () async {
+                            
+                             var jwt = await save(contactEmail.text, password.text);
+                if(jwt != null) { 
+
+                  storage.write(key: "jwt", value: jwt);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FirstPage.fromBase64(jwt)
+                    )
+                  );
+                } else {
+                  displayDialog(context, "An Error Occurred", "No account was found matching that username and password");
+                }
+              
+                           
+                            // if (_formKey.currentState.validate()) {
+                            //   save(contactEmail.text,password.text);
+                            // } else {
+                            //   print("not ok");
+                            // }
                           },
                           child: Text(
                             "Signin",
@@ -169,3 +207,4 @@ class _SigninState extends State<Signin> {
         ));
   }
 }
+
