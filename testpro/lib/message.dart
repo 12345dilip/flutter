@@ -133,9 +133,11 @@ class _MessageState extends State<Message> {
       body:  Stack(
      
             children: [
-             
+              msg == null ? Container(
+                   child: Center(child: CircularProgressIndicator()),
+                 ) : 
                SingleChildScrollView(reverse: true,
-                 child: Container(
+                 child:Container(
                     child: ListView.builder(
                     
                         itemCount: this.msg.length,

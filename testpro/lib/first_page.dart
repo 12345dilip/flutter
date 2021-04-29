@@ -9,9 +9,7 @@ import 'package:testpro/upload.dart';
 import 'package:http/http.dart' as http;
 
 class FirstPage extends StatefulWidget {
-  // FirstPage({
-  //   this.jwt,
-  // });
+ 
   FirstPage(this.jwt, this.payload);
   factory FirstPage.fromBase64(String jwt) => FirstPage(
       jwt,
@@ -45,6 +43,60 @@ class _FirstPageState extends State<FirstPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        
+      ),
+       endDrawer: Drawer(
+        child: ListView(
+           children: [
+                Row(
+                      children: [
+                        IconButton(
+                            icon: Icon(Icons.upload_file),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  new MaterialPageRoute(
+                                      builder: (context) => Upload(
+                                        prod: data["data"][0],
+                               )));
+                             
+                            }),
+                        Text('Upload'),
+                      ],
+             ),
+             Divider(),
+            Row(
+                    children: [
+                      IconButton(
+                          icon: Icon(Icons.person),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (context) => Product(
+                                          prod: data["data"][0],
+                                        )));
+                          },),
+                      Text('Profile'),
+                    ],
+                  ),
+                  
+                  Divider(),
+
+                  Row(
+                    children: [
+                      IconButton(icon: Icon(Icons.logout), onPressed: (){}),
+                      Text('LOG OUT'),
+                    ],
+                  )
+           
+          ],
+        ),
+      
+      ),
+
+      
       body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -55,7 +107,10 @@ class _FirstPageState extends State<FirstPage> {
                 children: [
                   Column(
                     children: [
-                      IconButton(icon: Icon(Icons.home), onPressed: () {}),
+                      IconButton(icon: Icon(Icons.home), onPressed: () {
+                        Drawer();
+                        
+                      }),
                       Text('Home'),
                     ],
                   ),
@@ -72,36 +127,7 @@ class _FirstPageState extends State<FirstPage> {
                       Text('Invoice'),
                     ],
                   ),
-                  Column(
-                    children: [
-                      IconButton(
-                          icon: Icon(Icons.upload_file),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                new MaterialPageRoute(
-                                    builder: (context) => Upload(
-                                          prod: data["data"][0],
-                                        )));
-                          }),
-                      Text('Upload'),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      IconButton(
-                          icon: Icon(Icons.person),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                new MaterialPageRoute(
-                                    builder: (context) => Product(
-                                          prod: data["data"][0],
-                                        )));
-                          }),
-                      Text('Profile'),
-                    ],
-                  ),
+                
                   Column(
                     children: [
                       IconButton(
@@ -114,8 +140,9 @@ class _FirstPageState extends State<FirstPage> {
                           }),
                       Text('Message'),
                     ],
-                  ),
-                ],
+                  )
+                  
+                ]
               ),
             ),
           ],

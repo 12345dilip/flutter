@@ -44,10 +44,7 @@ String chosenValue;
         appBar: AppBar(
           leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
           actions: [IconButton(icon: Icon(Icons.search), onPressed: () {
-        //     showSearch(context: context, delegate: 
-        //      DataSearch(
-        //           sub: this.invoiceList[0]
-        //  ));
+        
            
          }),],
           title: DropdownButton( 
@@ -82,7 +79,9 @@ String chosenValue;
           ),
           backgroundColor: Colors.amber,
         ),drawer: Drawer(),
-        body: ListView.separated(
+        body: invoiceList == null ? Container(
+                   child: Center(child: CircularProgressIndicator()),
+                 ) :ListView.separated(
           itemCount: this.invoiceList.length,
           itemBuilder: (BuildContext context, int index) {
             return GestureDetector(

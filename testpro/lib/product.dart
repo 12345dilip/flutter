@@ -3,6 +3,8 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:testpro/config/upload_url.dart';
+import 'package:dropdownfield/dropdownfield.dart';
+import 'package:testpro/first_page.dart';
 
 class Product extends StatefulWidget {
   Product({
@@ -122,7 +124,9 @@ class _ProductState extends State<Product> {
       zipCode,
       phone1,
       fax,
-      remarkstext) async {
+      remarkstext,
+      _id
+      ) async {
     setState(() {
       this.widget.prod['userName']['salutation']['name'] = salutation;
       this.widget.prod['userName']['firstName'] = firstName;
@@ -145,9 +149,10 @@ class _ProductState extends State<Product> {
       this.widget.prod['billingAddress']['phone1'] = phone1;
       this.widget.prod['billingAddress']['fax'] = fax;
       this.widget.prod['remarks']['remarkstext'] = remarkstext;
+      this.widget.prod["_id"]= _id;
     });
 
-    final response = await http.put(BaseUrl.updateUsers,
+    final response = await http.put(BaseUrl.updateUsers + _id,
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode(this.widget.prod));
 
@@ -160,6 +165,13 @@ class _ProductState extends State<Product> {
   }
 
   final formKey = GlobalKey<FormState>();
+
+String selectName = '';
+
+List<String> names = [
+  "Mr.",
+  "Mrs."
+];
 
   @override
   Widget build(BuildContext context) {
@@ -183,28 +195,63 @@ class _ProductState extends State<Product> {
                 Container(
                   child: Column(
                     children: [
-                      TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Salutation',
-                          labelText: 'Salutation',
-                        ),
-                        controller: salutation,
+                      DropDownField(
+                        hintText: 'salutation',
+                      onValueChanged: ( value){
+                         selectName =value;
+                       },
+                       value: selectName,
+                       required: false,
+                       items:names,
+                       controller: salutation,
                       ),
-                      TextField(
+                      
+                      TextFormField(
+                         validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Enter something';
+                          } else if (RegExp(r'[a-zA-Z]+|\s')
+                              .hasMatch(value)) {
+                            return null;
+                          } else {
+                            return 'Enter valid Name';
+                          }
+                        },
                         decoration: InputDecoration(
                           hintText: 'firstName',
                           labelText: 'firstName',
                         ),
                         controller: firstName,
                       ),
-                      TextField(
+                      TextFormField(
+
+                       validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Enter something';
+                          } else if (RegExp(r'[a-zA-Z]+|\s')
+                              .hasMatch(value)) {
+                            return null;
+                          } else {
+                            return 'Enter valid Name';
+                          }
+                        },
                         decoration: InputDecoration(
                           hintText: 'lastName',
                           labelText: 'lastName',
                         ),
                         controller: lastName,
                       ),
-                      TextField(
+                      TextFormField(
+                         validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Enter something';
+                          } else if (RegExp(r'[a-zA-Z]+|\s')
+                              .hasMatch(value)) {
+                            return null;
+                          } else {
+                            return 'Enter valid Name';
+                          }
+                        },
                         decoration: InputDecoration(
                           hintText: 'Company Name',
                           labelText: 'Company Name',
@@ -240,7 +287,7 @@ class _ProductState extends State<Product> {
                       TextFormField(
                         validator: (value) {
                           if (value.isEmpty) {
-                            return 'Enter something';
+                            return null;
                           } else if (RegExp(
                                   r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)')
                               .hasMatch(value)) {
@@ -281,7 +328,7 @@ class _ProductState extends State<Product> {
                                 TextFormField(
                                   validator: (value) {
                                     if (value.isEmpty) {
-                                      return 'Enter something';
+                                      return null;
                                     } else if (RegExp(
                                             r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)')
                                         .hasMatch(value)) {
@@ -299,7 +346,7 @@ class _ProductState extends State<Product> {
                                 TextFormField(
                                   validator: (value) {
                                     if (value.isEmpty) {
-                                      return 'Enter something';
+                                      return null;
                                     } else if (RegExp(
                                             r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)')
                                         .hasMatch(value)) {
@@ -680,7 +727,11 @@ class _ProductState extends State<Product> {
                     ),
                     onPressed: () {
                       if (formKey.currentState.validate()) {
-                        Navigator.of(context).pop();
+                        Navigator.pop(context);
+                      //  Navigator.push(
+                      //           context,
+                      //           new MaterialPageRoute(
+                      //               builder: (context) => FirstPage()));
                         updateDetails(
                             salutation.text,
                             firstName.text,
@@ -698,7 +749,9 @@ class _ProductState extends State<Product> {
                             zipCode.text,
                             phone1.text,
                             fax.text,
-                            remarkstext.text);
+                            remarkstext.text,
+                            this.widget.prod['_id'],
+                            );
                       }
                     })
               ],
@@ -709,3 +762,5 @@ class _ProductState extends State<Product> {
     );
   }
 }
+
+
