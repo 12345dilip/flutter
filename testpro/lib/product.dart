@@ -4,7 +4,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:testpro/config/upload_url.dart';
 
-
 class Product extends StatefulWidget {
   Product({
     this.prod,
@@ -18,21 +17,19 @@ class Product extends StatefulWidget {
 class _ProductState extends State<Product> {
   bool displayForm = false;
 
-removeContact(i) {
+  removeContact(i) {
     setState(() {
       this.widget.prod['contactPerson'].removeAt(i);
-     
+
       print(this.widget.prod['contactPerson']);
     });
   }
+
   removeContacts(k) {
     setState(() {
-     
-     this.widget.prod['uploadDocument'].removeAt(k);
-     
+      this.widget.prod['uploadDocument'].removeAt(k);
     });
   }
- 
 
   addContact(emailAddress, mobile, cfirstName, clastName) {
     setState(() {
@@ -45,7 +42,6 @@ removeContact(i) {
       this.widget.prod['contactPerson'].add(value);
     });
   }
-
 
   final salutation = TextEditingController();
   final firstName = TextEditingController();
@@ -78,8 +74,6 @@ removeContact(i) {
 
   final picker = ImagePicker();
 
-
-
   @override
   void initState() {
     super.initState();
@@ -89,7 +83,7 @@ removeContact(i) {
     this.companyName.text = this.widget.prod['companyName'];
     //this.contactEmail.text = this.widget.prod['contactEmail'];
     this.primaryContact.text = this.widget.prod['phone']['primaryContact'];
-     this.secondarycontact.text = this.widget.prod['phone']['secondarycontact'];
+    this.secondarycontact.text = this.widget.prod['phone']['secondarycontact'];
     this.website.text = this.widget.prod['website'];
     // this.openingBalance.text =
     //     this.widget.prod['otherDetails']['openingBalance'];
@@ -114,7 +108,7 @@ removeContact(i) {
       lastName,
       companyName,
       //contactEmail,
-     // primaryContact,
+      // primaryContact,
       secondarycontact,
       website,
       // openingBalance,
@@ -134,16 +128,15 @@ removeContact(i) {
       this.widget.prod['userName']['firstName'] = firstName;
       this.widget.prod['userName']['lastName'] = lastName;
       this.widget.prod['companyName'] = companyName;
-     // this.widget.prod['contactEmail'] = contactEmail;
+      // this.widget.prod['contactEmail'] = contactEmail;
       //this.widget.prod['phone']['primaryContact']= primaryContact;
-       this.widget.prod['phone']['secondarycontact']= secondarycontact;
-     
+      this.widget.prod['phone']['secondarycontact'] = secondarycontact;
+
       this.widget.prod['website'] = website;
       // this.widget.prod['otherDetails']['openingBalance'] = openingBalance;
       this.widget.prod['otherDetails']['facebook'] = facebook;
       this.widget.prod['otherDetails']['twitter'] = twitter;
       this.widget.prod['billingAddress']['attention'] = attention;
-
       this.widget.prod['billingAddress']['countryRegion'] = countryRegion;
       this.widget.prod['billingAddress']['Street1'] = street1;
       this.widget.prod['billingAddress']['city'] = city;
@@ -153,7 +146,7 @@ removeContact(i) {
       this.widget.prod['billingAddress']['fax'] = fax;
       this.widget.prod['remarks']['remarkstext'] = remarkstext;
     });
-   
+
     final response = await http.put(BaseUrl.updateUsers,
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode(this.widget.prod));
@@ -165,7 +158,8 @@ removeContact(i) {
       print("Error :" + res);
     }
   }
-final formKey =GlobalKey<FormState>();
+
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -179,14 +173,13 @@ final formKey =GlobalKey<FormState>();
         actions: [IconButton(icon: Icon(Icons.menu), onPressed: () {})],
         title: Text('Profile'),
       ),
-       body: Stack(
-                children: [SingleChildScrollView(
+      body: Stack(children: [
+        SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Form(
               key: formKey,
-                          child: Column(children: [
-                            
+              child: Column(children: [
                 Container(
                   child: Column(
                     children: [
@@ -197,87 +190,75 @@ final formKey =GlobalKey<FormState>();
                         ),
                         controller: salutation,
                       ),
-                   
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: 'firstName',
-                      labelText: 'firstName',
-                    ),
-                    controller: firstName,
-                  ),
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: 'lastName',
-                      labelText: 'lastName',
-                    ),
-                    controller: lastName,
-                  ),
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Company Name',
-                      labelText: 'Company Name',
-                    ),
-                    controller: companyName,
-                  ),
-               
-                  Container( 
-                   
-                      padding: const EdgeInsets.only(right: 208.0,top: 15.0),
-                    
-                      child: Text(this.widget.prod['contactEmail']),
-                    ),
-                     Container( 
-                   
-                      padding: const EdgeInsets.only(right: 240.0,top: 15.0),
-                      
-                      child: Text(
-                        this.widget.prod['phone']['primaryContact']),
-                    ),
-               
-                  TextFormField(
-                     validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Enter something';
-                            } else if (RegExp(
-                                   r'(^(?:[+0]9)?[0-9]{10}$)')
-                                .hasMatch(value)) {
-                              return null;
-                            } else {
-                              return 'Enter valid Number';
-                            }
-                          },
-                    
-                    decoration: InputDecoration(
-                      hintText: 'Secondary Contact',
-                      labelText: 'Secondary Contact',
-                    ),
-                    controller: secondarycontact,
-                  ),
-                  TextFormField(
-
-                    validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Enter something';
-                            } else if (RegExp(
-                                    r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)')
-                                .hasMatch(value)) {
-                              return null;
-                            } else {
-                              return 'Enter valid Url';
-                            }
-                          },
-                    decoration: InputDecoration(
-                      hintText: 'website',
-                      labelText: 'website',
-                    ),
-                    controller: website,
-                  ),
-               
-               
-                  ],
+                      TextField(
+                        decoration: InputDecoration(
+                          hintText: 'firstName',
+                          labelText: 'firstName',
+                        ),
+                        controller: firstName,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                          hintText: 'lastName',
+                          labelText: 'lastName',
+                        ),
+                        controller: lastName,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Company Name',
+                          labelText: 'Company Name',
+                        ),
+                        controller: companyName,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(right: 208.0, top: 15.0),
+                        child: Text(this.widget.prod['contactEmail']),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(right: 240.0, top: 15.0),
+                        child:
+                            Text(this.widget.prod['phone']['primaryContact']),
+                      ),
+                      TextFormField(
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Enter something';
+                          } else if (RegExp(r'(^(?:[+0]9)?[0-9]{10}$)')
+                              .hasMatch(value)) {
+                            return null;
+                          } else {
+                            return 'Enter valid Number';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'Secondary Contact',
+                          labelText: 'Secondary Contact',
+                        ),
+                        controller: secondarycontact,
+                      ),
+                      TextFormField(
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Enter something';
+                          } else if (RegExp(
+                                  r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)')
+                              .hasMatch(value)) {
+                            return null;
+                          } else {
+                            return 'Enter valid Url';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'website',
+                          labelText: 'website',
+                        ),
+                        controller: website,
+                      ),
+                    ],
                   ),
                 ),
-               DefaultTabController(
+                DefaultTabController(
                     length: 3,
                     initialIndex: 0,
                     child: Column(children: [
@@ -289,28 +270,26 @@ final formKey =GlobalKey<FormState>();
                           Tab(text: 'Other Details'),
                           Tab(text: 'Address'),
                           Tab(text: 'Contact Persons'),
-                         
                         ],
                       ),
-                     Container(
-                       height: 550,
-                        child: 
-                        TabBarView(children: [
+                      Container(
+                        height: 550,
+                        child: TabBarView(children: [
                           Container(
                             child: Column(
                               children: [
                                 TextFormField(
-                                   validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Enter something';
-                          } else if (RegExp(
-                                  r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)')
-                              .hasMatch(value)) {
-                            return null;
-                          } else {
-                            return 'Enter valid Url';
-                          }
-                        },
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Enter something';
+                                    } else if (RegExp(
+                                            r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)')
+                                        .hasMatch(value)) {
+                                      return null;
+                                    } else {
+                                      return 'Enter valid Url';
+                                    }
+                                  },
                                   decoration: InputDecoration(
                                     hintText: 'Facebook',
                                     labelText: 'Facebook ',
@@ -318,17 +297,17 @@ final formKey =GlobalKey<FormState>();
                                   controller: facebook,
                                 ),
                                 TextFormField(
-                                   validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Enter something';
-                          } else if (RegExp(
-                                  r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)')
-                              .hasMatch(value)) {
-                            return null;
-                          } else {
-                            return 'Enter valid Url';
-                          }
-                        },
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Enter something';
+                                    } else if (RegExp(
+                                            r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)')
+                                        .hasMatch(value)) {
+                                      return null;
+                                    } else {
+                                      return 'Enter valid Url';
+                                    }
+                                  },
                                   decoration: InputDecoration(
                                     hintText: 'Twitter',
                                     labelText: 'Twitter ',
@@ -339,39 +318,37 @@ final formKey =GlobalKey<FormState>();
                             ),
                           ),
                           SingleChildScrollView(
-                                                      child: Container(
+                            child: Container(
                               child: Column(
                                 children: [
                                   TextFormField(
                                     validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Enter something';
-                            } else if (RegExp(
-                                   r'^[a-zA-Z0-9&%=]+$')
-                                .hasMatch(value)) {
-                              return null;
-                            } else {
-                              return 'Enter valid Key';
-                            }
-                        },
-                             decoration: InputDecoration(
+                                      if (value.isEmpty) {
+                                        return 'Enter something';
+                                      } else if (RegExp(r'^[a-zA-Z0-9&%=]+$')
+                                          .hasMatch(value)) {
+                                        return null;
+                                      } else {
+                                        return 'Enter valid Key';
+                                      }
+                                    },
+                                    decoration: InputDecoration(
                                       hintText: 'Attention',
                                       labelText: 'Attention ',
                                     ),
                                     controller: attention,
                                   ),
                                   TextFormField(
-                                     validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Enter something';
-                            } else if (RegExp(
-                                   r'^[a-zA-Z0-9&%=]+$')
-                                .hasMatch(value)) {
-                              return null;
-                            } else {
-                              return 'Enter valid Details';
-                            }
-                        },
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Enter something';
+                                      } else if (RegExp(r'^[a-zA-Z0-9&%=]+$')
+                                          .hasMatch(value)) {
+                                        return null;
+                                      } else {
+                                        return 'Enter valid Details';
+                                      }
+                                    },
                                     decoration: InputDecoration(
                                       hintText: 'Country/Region',
                                       labelText: 'Country Region ',
@@ -379,36 +356,33 @@ final formKey =GlobalKey<FormState>();
                                     controller: countryRegion,
                                   ),
                                   TextFormField(
-                                     validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Enter something';
-                            } else if (RegExp(
-                                   r'^[a-zA-Z0-9&%=]+$')
-                                .hasMatch(value)) {
-                              return null;
-                            } else {
-                              return 'Enter valid Details';
-                            }
-                        },
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Enter something';
+                                      } else if (RegExp(r'^[a-zA-Z0-9&%=]+$')
+                                          .hasMatch(value)) {
+                                        return null;
+                                      } else {
+                                        return 'Enter valid Details';
+                                      }
+                                    },
                                     decoration: InputDecoration(
-                                      
                                       hintText: 'Street1',
                                       labelText: 'Street1 ',
                                     ),
                                     controller: street1,
                                   ),
                                   TextFormField(
-                                      validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Enter something';
-                            } else if (RegExp(
-                                   r'^[a-zA-Z0-9&%=]+$')
-                                .hasMatch(value)) {
-                              return null;
-                            } else {
-                              return 'Enter valid Details';
-                            }
-                        },
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Enter something';
+                                      } else if (RegExp(r'^[a-zA-Z0-9&%=]+$')
+                                          .hasMatch(value)) {
+                                        return null;
+                                      } else {
+                                        return 'Enter valid Details';
+                                      }
+                                    },
                                     decoration: InputDecoration(
                                       hintText: 'City',
                                       labelText: 'City ',
@@ -416,17 +390,16 @@ final formKey =GlobalKey<FormState>();
                                     controller: city,
                                   ),
                                   TextFormField(
-                                     validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Enter something';
-                            } else if (RegExp(
-                                   r'^[a-zA-Z0-9&%=]+$')
-                                .hasMatch(value)) {
-                              return null;
-                            } else {
-                              return 'Enter valid Details';
-                            }
-                        },
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Enter something';
+                                      } else if (RegExp(r'^[a-zA-Z0-9&%=]+$')
+                                          .hasMatch(value)) {
+                                        return null;
+                                      } else {
+                                        return 'Enter valid Details';
+                                      }
+                                    },
                                     decoration: InputDecoration(
                                       hintText: 'State',
                                       labelText: 'State ',
@@ -434,17 +407,17 @@ final formKey =GlobalKey<FormState>();
                                     controller: state,
                                   ),
                                   TextFormField(
-                                     validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Enter something';
-                            } else if(RegExp(
-                                   r'(^(?:[+0]9)?[0-9]{6}$)')
-                                .hasMatch(value))  {
-                              return null;
-                            } else {
-                              return 'Enter valid Number';
-                            }
-                        },
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Enter something';
+                                      } else if (RegExp(
+                                              r'(^(?:[+0]9)?[0-9]{6}$)')
+                                          .hasMatch(value)) {
+                                        return null;
+                                      } else {
+                                        return 'Enter valid Number';
+                                      }
+                                    },
                                     decoration: InputDecoration(
                                       hintText: 'Zip Code',
                                       labelText: 'Zip Code ',
@@ -452,17 +425,17 @@ final formKey =GlobalKey<FormState>();
                                     controller: zipCode,
                                   ),
                                   TextFormField(
-                                     validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Enter something';
-                            } else if (RegExp(
-                                   r'(^(?:[+0]9)?[0-9]{10}$)')
-                                .hasMatch(value)) {
-                              return null;
-                            } else {
-                              return 'Enter valid Number';
-                            }
-                        },
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Enter something';
+                                      } else if (RegExp(
+                                              r'(^(?:[+0]9)?[0-9]{10}$)')
+                                          .hasMatch(value)) {
+                                        return null;
+                                      } else {
+                                        return 'Enter valid Number';
+                                      }
+                                    },
                                     decoration: InputDecoration(
                                       hintText: 'Phone',
                                       labelText: 'Phone ',
@@ -470,17 +443,17 @@ final formKey =GlobalKey<FormState>();
                                     controller: phone1,
                                   ),
                                   TextFormField(
-                                     validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Enter something';
-                            } else if (RegExp(
-                                 r'(^(?:[+0]9)?[0-9]{6}$)')
-                              .hasMatch(value) )  {
-                              return null;
-                            } else {
-                              return 'Enter valid Number';
-                            }
-                        },
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Enter something';
+                                      } else if (RegExp(
+                                              r'(^(?:[+0]9)?[0-9]{6}$)')
+                                          .hasMatch(value)) {
+                                        return null;
+                                      } else {
+                                        return 'Enter valid Number';
+                                      }
+                                    },
                                     decoration: InputDecoration(
                                       hintText: 'Fax',
                                       labelText: 'Fax',
@@ -492,8 +465,8 @@ final formKey =GlobalKey<FormState>();
                             ),
                           ),
                           Container(
-                              child: SingleChildScrollView(child:
-                            Column(
+                              child: SingleChildScrollView(
+                            child: Column(
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(top: 20.0),
@@ -532,48 +505,58 @@ final formKey =GlobalKey<FormState>();
                                                   .length;
                                           i++)
                                         TableRow(children: [
-                                          
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text((i + 1).toString()),
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                                this.widget.prod['contactPerson'][i]
-                                                        ['mobile'] ??
-                                                    '-'),
+                                            child: Text(this
+                                                        .widget
+                                                        .prod['contactPerson']
+                                                    [i]['mobile'] ??
+                                                '-'),
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                                this.widget.prod['contactPerson'][i]
-                                                    ['emailAddress']),
+                                            child: Text(this
+                                                    .widget
+                                                    .prod['contactPerson'][i]
+                                                ['emailAddress']),
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: IconButton(
                                                 icon: Icon(Icons.remove_circle),
-                                                onPressed: ()async {
-                                                   await showDialog(
-                                            context: context,
-                                                builder: (_) => AlertDialog(
-                                                  title: Text('Do you want Delete'),
-                                                  
-                                                  actions: [
-                                                     FlatButton(onPressed: (){
-                                                       Navigator.pop(context);
-                                                    }, child: Text('No')),
-                                                    FlatButton(onPressed: (){
-                                                      removeContact(i);
-                                                      Navigator.pop(context);
-                                                    }, child: Text('Yes')),
-                                                   
-                                                  ],
-                                                 
-                                                )
-                                                );
-                                           }),
+                                                onPressed: () async {
+                                                  await showDialog(
+                                                      context: context,
+                                                      builder: (_) =>
+                                                          AlertDialog(
+                                                            title: Text(
+                                                                'Do you want Delete'),
+                                                            actions: [
+                                                              FlatButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                  child: Text(
+                                                                      'No')),
+                                                              FlatButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    removeContact(
+                                                                        i);
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                  child: Text(
+                                                                      'Yes')),
+                                                            ],
+                                                          ));
+                                                }),
                                           ),
                                         ]),
                                     ],
@@ -592,113 +575,112 @@ final formKey =GlobalKey<FormState>();
                                               displayForm = true;
                                             });
                                           }),
-                                      Text('Add Contact Person'), 
-                                      ],
-                                      ),
+                                      Text('Add Contact Person'),
+                                    ],
+                                  ),
                                 ),
                                 if (displayForm)
-                                  SingleChildScrollView( 
-                                   child:
-                                   Container(
-                                      child: 
-                                      Padding(
-                                        padding: const EdgeInsets.only(bottom: 70.0),
-                                        child: Column(
-                                             children: [
-                                  TextFormField(
-                             validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Enter something';
-                        } else if (RegExp(
-                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                            .hasMatch(value)) {
-                          return null;
-                        } else {
-                          return 'Enter valid email';
-                        }
-                      },
-                                              decoration:
-                                                  InputDecoration(labelText: 'Email'),
-                                              controller: emailAddress,
-                                            ),
-                                           
-                                        TextFormField(
-                                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Enter something';
-                            } else if (RegExp(
-                                   r'(^(?:[+0]9)?[0-9]{10}$)')
-                                .hasMatch(value)) {
-                              return null;
-                            } else {
-                              return 'Enter valid Number';
-                            }
-                        },
-                                          decoration:
-                                              InputDecoration(labelText: 'Phone'),
-                                          controller: mobile,
-                                        ),
-                                        TextFormField(
-                                          decoration:
-                                              InputDecoration(labelText: 'firstName'),
-                                          controller: cfirstName,
-                                        ),
-                                        TextFormField(
-                                          decoration:
-                                              InputDecoration(labelText: 'lastName'),
-                                          controller: clastName,
-                                        ),
-                                       RaisedButton(
-                                          child: Text('Submit'),
-                                          onPressed: () {
-                                            addContact(
-                                              emailAddress.text,
-                                              mobile.text,
-                                              cfirstName.text,
-                                              clastName.text,
-                                              );
-                                            emailAddress.clear();
-                                            mobile.clear();
-                                            cfirstName.clear();
-                                            clastName.clear();
-                                            displayForm = false;
-                                          }),
+                                  SingleChildScrollView(
+                                    child: Container(
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 70.0),
+                                        child: Column(children: [
+                                          TextFormField(
+                                            validator: (value) {
+                                              if (value.isEmpty) {
+                                                return 'Enter something';
+                                              } else if (RegExp(
+                                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                                  .hasMatch(value)) {
+                                                return null;
+                                              } else {
+                                                return 'Enter valid email';
+                                              }
+                                            },
+                                            decoration: InputDecoration(
+                                                labelText: 'Email'),
+                                            controller: emailAddress,
+                                          ),
+                                          TextFormField(
+                                            validator: (value) {
+                                              if (value.isEmpty) {
+                                                return 'Enter something';
+                                              } else if (RegExp(
+                                                      r'(^(?:[+0]9)?[0-9]{10}$)')
+                                                  .hasMatch(value)) {
+                                                return null;
+                                              } else {
+                                                return 'Enter valid Number';
+                                              }
+                                            },
+                                            decoration: InputDecoration(
+                                                labelText: 'Phone'),
+                                            controller: mobile,
+                                          ),
+                                          TextFormField(
+                                            decoration: InputDecoration(
+                                                labelText: 'firstName'),
+                                            controller: cfirstName,
+                                          ),
+                                          TextFormField(
+                                            decoration: InputDecoration(
+                                                labelText: 'lastName'),
+                                            controller: clastName,
+                                          ),
+                                          RaisedButton(
+                                              child: Text('Submit'),
+                                              onPressed: () {
+                                                addContact(
+                                                  emailAddress.text,
+                                                  mobile.text,
+                                                  cfirstName.text,
+                                                  clastName.text,
+                                                );
+                                                emailAddress.clear();
+                                                mobile.clear();
+                                                cfirstName.clear();
+                                                clastName.clear();
+                                                displayForm = false;
+                                              }),
                                         ]),
-                                      ), 
-                                   ), ),
-                                  ],
+                                      ),
+                                    ),
+                                  ),
+                              ],
                             ),
                           )),
-                         ]),
+                        ]),
                       ),
-                    ]
-                    )
-                    ),
-                    ]),
+                    ])),
+              ]),
             ),
-               ),
-           ), 
-           Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Container(
-                      padding: EdgeInsets.only(left: 190, bottom: 10, top: 10),
-                      height: 60,
-                      width: double.infinity,
-                      color: Colors.white,
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 15,
-                          ),
-                         SizedBox(
-                            width: 15,
-                          ),
-                          RaisedButton(
-                      color: Colors.blue,
-                      child: Text('Update',style: TextStyle(color: Colors.white),),
-                      onPressed: () {
-                        if (formKey.currentState.validate()) {
-                           Navigator.of(context).pop();
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomLeft,
+          child: Container(
+            padding: EdgeInsets.only(left: 190, bottom: 10, top: 10),
+            height: 60,
+            width: double.infinity,
+            color: Colors.white,
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 15,
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                RaisedButton(
+                    color: Colors.blue,
+                    child: Text(
+                      'Update',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: () {
+                      if (formKey.currentState.validate()) {
+                        Navigator.of(context).pop();
                         updateDetails(
                             salutation.text,
                             firstName.text,
@@ -717,15 +699,13 @@ final formKey =GlobalKey<FormState>();
                             phone1.text,
                             fax.text,
                             remarkstext.text);
-                        }
-                      })
-                           
-                        ],
-                      ),
-                    ),
-                  ),
-      
-                ]),
+                      }
+                    })
+              ],
+            ),
+          ),
+        ),
+      ]),
     );
   }
 }
