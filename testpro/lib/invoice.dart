@@ -42,7 +42,7 @@ String chosenValue;
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
+          leading: Container(),
           actions: [IconButton(icon: Icon(Icons.search), onPressed: () {
         
            

@@ -1,14 +1,15 @@
 import 'dart:convert';
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:testpro/config/upload_url.dart';
+import 'package:testpro/home_page.dart';
 import 'package:testpro/invoice.dart';
-import 'package:testpro/main.dart';
 import 'package:testpro/message.dart';
 import 'package:testpro/product.dart';
+import 'package:testpro/signin.dart';
 import 'package:testpro/upload.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class FirstPage extends StatefulWidget {
   FirstPage(this.jwt, this.payload);
@@ -41,6 +42,9 @@ class _FirstPageState extends State<FirstPage> {
     super.initState();
     this.getData();
   }
+
+
+  final storage = FlutterSecureStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -105,13 +109,17 @@ class _FirstPageState extends State<FirstPage> {
                           child: Text('LOG OUT'),
                         ),
                         icon: Icon(Icons.logout),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              new MaterialPageRoute(
-                                  builder: (context) => Signin()));
-                        },
-                      ),
+                        onPressed: ()async {
+                           storage.delete(key: "jwt");
+             var jwt = await storage.read(key: "jwt");
+    print(jwt);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Signin()));
+                           }
+                         ),
                     )
                   ],
                 ),
@@ -125,14 +133,20 @@ class _FirstPageState extends State<FirstPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Card(
-                  child: Row(
+                Divider(),
+                 Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Column(
                           children: [
+                            
                             IconButton(
-                                icon: Icon(Icons.home), onPressed: () {}),
+                                icon: Icon(Icons.home), onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      new MaterialPageRoute(
+                                          builder: (context) => HomePage()));
+                                }),
                             Text('Home'),
                           ],
                         ),
@@ -174,10 +188,13 @@ class _FirstPageState extends State<FirstPage> {
                           ],
                         ),
                       ]),
-                ),
+                
               ],
             ),
           ),
         ));
   }
 }
+
+
+//storage.delete(key: "mykey");

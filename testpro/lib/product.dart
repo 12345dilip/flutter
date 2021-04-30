@@ -182,7 +182,7 @@ List<String> names = [
             onPressed: () {
               Navigator.pop(context);
             }),
-        actions: [IconButton(icon: Icon(Icons.menu), onPressed: () {})],
+       
         title: Text('Profile'),
       ),
       body: Stack(children: [
