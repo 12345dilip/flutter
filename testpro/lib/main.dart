@@ -3,18 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:testpro/first_page.dart';
 import 'package:testpro/signin.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:testpro/router.dart';
 
 void main() {
  
   runApp(new MaterialApp(
     
     debugShowCheckedModeBanner: false,
-    home: MyApp(),
+    home: MyApp(
+      router: AppRouter(),
+    ),
+    
   ));
 }
 
 class MyApp extends StatelessWidget {
+  final AppRouter router;
+  MyApp({Key key, this.router}) : super(key: key);
   final storage = FlutterSecureStorage();
+
+
   Future<String> get jwtOrEmpty async {
     var jwt = await storage.read(key: "jwt");
     if (jwt == null) return "";
@@ -24,7 +32,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      
       debugShowCheckedModeBanner: false,
+      onGenerateRoute: router.generateSettings,
       color: Colors.blue,
       home: FutureBuilder(
           future: jwtOrEmpty,
@@ -50,6 +60,7 @@ class MyApp extends StatelessWidget {
               return Signin();
             }
           }),
+          
     );
   }
 }

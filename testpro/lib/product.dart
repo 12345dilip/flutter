@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:testpro/config/upload_url.dart';
 import 'package:dropdownfield/dropdownfield.dart';
 import 'package:testpro/first_page.dart';
+import 'package:testpro/main.dart';
 
 class Product extends StatefulWidget {
   Product({
@@ -727,11 +728,12 @@ List<String> names = [
                     ),
                     onPressed: () {
                       if (formKey.currentState.validate()) {
-                        Navigator.pop(context);
-                      //  Navigator.push(
-                      //           context,
-                      //           new MaterialPageRoute(
-                      //               builder: (context) =>FirstPage('')));
+                        // Navigator.pop(context);
+                        
+                       Navigator.push(
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (context) =>MyApp()));
                         updateDetails(
                             salutation.text,
                             firstName.text,

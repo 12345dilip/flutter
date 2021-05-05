@@ -196,6 +196,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                                         child: Padding(
                                           padding: const EdgeInsets.only(top:8.0),
                                           child: Container(
+                                            color: Color(0xFFECEFF1),
                                              height: 40.0,
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -218,14 +219,6 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                                               ),
                                             ]
                                             ),
-                                             decoration: BoxDecoration(
-                                             color: Color(0xFFECEFF1),
-                                    boxShadow: [
-                                               BoxShadow(
-                                     color: Colors.grey,
-                                  blurRadius: 1.0,
-                              ),]
-                                           ),
                                           ),
                                         ),
                                       ),

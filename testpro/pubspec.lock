@@ -99,6 +99,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.10"
+  division:
+    dependency: "direct main"
+    description:
+      name: division
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.8"
   dropdownfield:
     dependency: "direct main"
     description:

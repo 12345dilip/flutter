@@ -5,11 +5,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:testpro/config/upload_url.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
-
-
+import 'package:testpro/first_page.dart';
+import 'package:testpro/main.dart';
 
 class Upload extends StatefulWidget {
-   Upload({
+  Upload({
     this.prod,
   });
   final Map prod;
@@ -18,7 +18,7 @@ class Upload extends StatefulWidget {
 }
 
 class _UploadState extends State<Upload> {
-   bool displayForm = false;
+  bool displayForm = false;
 
   selectImage() {
     getImage(ImageSource.gallery);
@@ -40,7 +40,7 @@ class _UploadState extends State<Upload> {
     });
   }
 
-  addImage(name)async {
+  addImage(name) async {
     setState(() {
       final value2 = {
         'clientDocument': name,
@@ -52,193 +52,181 @@ class _UploadState extends State<Upload> {
       print(this.widget.prod['uploadDocument'].runtimeType);
     });
 
-     final response = await http.put(BaseUrl.updateUsers,
+    final response = await http.put(BaseUrl.updateUsers,
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode(this.widget.prod));
 
     var res = response.body;
-    imageResized=null;
+    imageResized = null;
 
     if (response.statusCode == 200) {
       print('sucess');
     } else {
       print("Error :" + res);
     }
-
-
   }
-removeContacts(k) {
+
+  removeContacts(k) {
     setState(() {
-     
-     this.widget.prod['uploadDocument'].removeAt(k);
-     
+      this.widget.prod['uploadDocument'].removeAt(k);
     });
   }
+
   showImage(img64) {
     final convertedImg = base64.decode(img64);
     return new Image.memory(convertedImg);
   }
 
- final name = TextEditingController();
+  final name = TextEditingController();
 
   final picker = ImagePicker();
-
-
-  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Upload'),
-        
-      ),
-        body: ListView(
-                        children: [
-                          Container(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Table(
-                                  columnWidths: {
-                                    0: FixedColumnWidth(90),
-                                    1: FlexColumnWidth(20),
-                                    2: FlexColumnWidth(7),
-                                  },
-                                  children: [
-                                    TableRow(children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(12.0),
-                                        child: Text('Name'),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(12.0),
-                                        child: Text('Uploads'),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: IconButton(
-                                            icon: Icon(Icons.remove_circle),
-                                            onPressed: () {}),
-                                      ),
-                                    ]),
-                                    for (var k = 0;
-                                        k <
-                                            this
-                                                .widget
-                                                .prod['uploadDocument']
-                                                .length;
-                                        k++)
-                                      TableRow(children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(this.widget.prod['uploadDocument']
-                                                  [k]['clientDocument']),
-                                        ),
-                                        Container(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: GestureDetector(
-                                              child: Column(
-                                                children: [
-                                                  Icon(Icons.visibility),
-                                                  Text('Show Image'),
-                                                ],
-                                              ),
-                                             onTap: () async {
-                                               await showDialog(
-                                            context: context,
-                                                builder: (_) => ImageDialog(
-                                                 img: this
-                                                    .widget
-                                                    .prod['uploadDocument'][k]
-                                                ['clientUpload']['file'],
-                                                  
-                                                )
-                                                );
-                                              },
-                                              ),
-                                              )
-                                             ),
-                                     
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child:  IconButton(
-                                            icon: Icon(Icons.remove_circle),
-                                            onPressed: ()async {
-                                               await showDialog(
-                                            context: context,
-                                                builder: (_) => AlertDialog(
-                                                  title: Text('Do you want Delete'),
-                                                  actions: [
-                                                    FlatButton(onPressed: (){
-                                                       Navigator.pop(context);
-                                                    }, child: Text('No')),
-                                                    FlatButton(onPressed: (){
-                                                      removeContacts(k);
-                                                      Navigator.pop(context);
-                                                    }, child: Text('Yes'))
-                                                  ],
-                                                )
-                                                );
-                                             
-                                            }),
-                                        ),
-                                        ]),
-                                  ],
-                                  border: TableBorder.all(
-                                      width: 1, color: Colors.purple),
-                                ),
-                                IconButton(
-                                    icon: Icon(Icons.add),
-                                    onPressed: () {
-                                      setState(() {
-                                        displayForm = true;
-                                      });
-                                    }),
-                                Text('Add Upload Field'),
-                                if (displayForm)
-                                  Container(
-                                      child: Column(children: [
-                                    TextFormField(
-                                      decoration:
-                                          InputDecoration(labelText: 'Name '),
-                                      controller: name,
-                                    ),
-                                    imageResized == null
-                                        ? Container()
-                                        : Image.file(imageResized),
-                                      
-                                    Row(
-                                      children: [
-                                        RaisedButton(
-                                          child: Text('Uploads'),
-                                          onPressed: selectImage,
-                                        ),
-                                       
-                                      ],
-                                    ),
-                                  ])),
-                                   RaisedButton(
-                                            child: Text('Submit'),
-                                            onPressed: () {
-                                              addImage(name.text);
-                                               name.clear();
-                                                photoBase64.isEmpty;
-                                                displayForm = false;
-                                           }),
-                                           ],
-                            ),
-                          ),
-                        ],
+          title: Text('Upload'),
+          leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back_sharp,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.push(context,
+                    new MaterialPageRoute(builder: (context) => MyApp()));
+              })),
+      body: ListView(
+        children: [
+          Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Table(
+                  columnWidths: {
+                    0: FixedColumnWidth(90),
+                    1: FlexColumnWidth(20),
+                    2: FlexColumnWidth(7),
+                  },
+                  children: [
+                    TableRow(children: [
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Text('Name'),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Text('Uploads'),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: IconButton(
+                            icon: Icon(Icons.remove_circle), onPressed: () {}),
+                      ),
+                    ]),
+                    for (var k = 0;
+                        k < this.widget.prod['uploadDocument'].length;
+                        k++)
+                      TableRow(children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(this.widget.prod['uploadDocument'][k]
+                              ['clientDocument']),
+                        ),
+                        Container(
+                            child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GestureDetector(
+                            child: Column(
+                              children: [
+                                Icon(Icons.visibility),
+                                Text('Show Image'),
+                              ],
+                            ),
+                            onTap: () async {
+                              await showDialog(
+                                  context: context,
+                                  builder: (_) => ImageDialog(
+                                        img: this.widget.prod['uploadDocument']
+                                            [k]['clientUpload']['file'],
+                                      ));
+                            },
+                          ),
+                        )),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: IconButton(
+                              icon: Icon(Icons.remove_circle),
+                              onPressed: () async {
+                                await showDialog(
+                                    context: context,
+                                    builder: (_) => AlertDialog(
+                                          title: Text('Do you want Delete'),
+                                          actions: [
+                                            FlatButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text('No')),
+                                            FlatButton(
+                                                onPressed: () {
+                                                  removeContacts(k);
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text('Yes'))
+                                          ],
+                                        ));
+                              }),
+                        ),
+                      ]),
+                  ],
+                  border: TableBorder.all(width: 1, color: Colors.purple),
+                ),
+                IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: () {
+                      setState(() {
+                        displayForm = true;
+                      });
+                    }),
+                Text('Add Upload Field'),
+                if (displayForm)
+                  Container(
+                      child: Column(children: [
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'Name '),
+                      controller: name,
+                    ),
+                    imageResized == null
+                        ? Container()
+                        : Image.file(imageResized),
+                    Row(
+                      children: [
+                        RaisedButton(
+                          child: Text('Uploads'),
+                          onPressed: selectImage,
+                        ),
+                      ],
+                    ),
+                  ])),
+                RaisedButton(
+                    child: Text('Submit'),
+                    onPressed: () {
+                      addImage(name.text);
+                      name.clear();
+                      photoBase64.isEmpty;
+                      displayForm = false;
+                    }),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
 
 class ImageDialog extends StatefulWidget {
-
-   ImageDialog({
+  ImageDialog({
     this.img,
   });
   final String img;
@@ -252,16 +240,15 @@ class _ImageDialogState extends State<ImageDialog> {
     final convertedImg = base64.decode(img64);
     return new Image.memory(convertedImg);
   }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
       child: Container(
         // width: 200,
         // height: 200,
-         child: showImage(this.widget.img),
-       
-        ),
-     
+        child: showImage(this.widget.img),
+      ),
     );
   }
 }
