@@ -39,6 +39,7 @@ dependencies:
   flutter_sparkline: ^0.1.0
   syncfusion_flutter_charts: ^18.1.36
   division: ^0.8.8
+  select_form_field: "^1.0.1"
  
   
  

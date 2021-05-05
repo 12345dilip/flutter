@@ -6,6 +6,7 @@ import 'package:testpro/config/upload_url.dart';
 import 'package:dropdownfield/dropdownfield.dart';
 import 'package:testpro/first_page.dart';
 import 'package:testpro/main.dart';
+import 'package:select_form_field/select_form_field.dart';
 
 class Product extends StatefulWidget {
   Product({
@@ -80,7 +81,7 @@ class _ProductState extends State<Product> {
   @override
   void initState() {
     super.initState();
-    this.salutation.text = this.widget.prod['userName']['salutation']['name'];
+    this.selectName = this.widget.prod['userName']['salutation']['name'];
     this.firstName.text = this.widget.prod['userName']['firstName'];
     this.lastName.text = this.widget.prod['userName']['lastName'];
     this.companyName.text = this.widget.prod['companyName'];
@@ -106,7 +107,7 @@ class _ProductState extends State<Product> {
   }
 
   updateDetails(
-      salutation,
+   //salutation,
       firstName,
       lastName,
       companyName,
@@ -129,7 +130,7 @@ class _ProductState extends State<Product> {
       _id
       ) async {
     setState(() {
-      this.widget.prod['userName']['salutation']['name'] = salutation;
+     // this.widget.prod['userName']['salutation']['name'] = salutation;
       this.widget.prod['userName']['firstName'] = firstName;
       this.widget.prod['userName']['lastName'] = lastName;
       this.widget.prod['companyName'] = companyName;
@@ -167,9 +168,9 @@ class _ProductState extends State<Product> {
 
   final formKey = GlobalKey<FormState>();
 
-String selectName = '';
+String selectName;
 
-List<String> names = [
+ final List<String>  names = [
   "Mr.",
   "Mrs."
 ];
@@ -196,18 +197,31 @@ List<String> names = [
                 Container(
                   child: Column(
                     children: [
-                      DropDownField(
-                        hintText: 'salutation',
-                      onValueChanged: ( value){
-                         selectName =value;
+             Container(
+               child: Row(
+                 children: [
+                   DropdownButton<String>(
+                     
+                       items: <String>['Mr.', 'Mrs.'].map((String value) {
+                          return  DropdownMenuItem<String>(
+                         value: value,
+                         child:  Text(value),
+                         );
+                        }).toList(),
+                            onChanged: (value) {
+                            
+                      setState(() { 
+                        selectName =value;
+                            this.widget.prod['userName']['salutation']['name']= value;
+                          });
                        },
-                       value: selectName,
-                       required: false,
-                       items:names,
-                       controller: salutation,
-                      ),
-                      
-                      TextFormField(
+                       hint: Text(selectName),
+                       
+),
+                 ],
+               ),
+             ),
+              TextFormField(
                          validator: (value) {
                           if (value.isEmpty) {
                             return 'Enter something';
@@ -728,14 +742,14 @@ List<String> names = [
                     ),
                     onPressed: () {
                       if (formKey.currentState.validate()) {
-                        // Navigator.pop(context);
+                       Navigator.pop(context);
                         
-                       Navigator.push(
-                                context,
-                                new MaterialPageRoute(
-                                    builder: (context) =>MyApp()));
+                      //  Navigator.push(
+                      //           context,
+                      //           new MaterialPageRoute(
+                      //               builder: (context) =>MyApp()));
                         updateDetails(
-                            salutation.text,
+                          //salutation.text,
                             firstName.text,
                             lastName.text,
                             companyName.text,

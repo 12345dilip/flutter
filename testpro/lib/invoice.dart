@@ -45,13 +45,13 @@ class _InvoiceState extends State<Invoice> {
   }
 
   String chosenValue;
-  String drop;
+  String drop = 'All Invoice ';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-         leading: Container(),
+         //leading: Container(),
           title: DropdownButton(
             value: chosenValue,
             style:
@@ -68,16 +68,19 @@ class _InvoiceState extends State<Invoice> {
                 
                 child: Text(
                   value,
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: Colors.black,fontSize: 20.0),
                 ),
               );
             }).toList(),
             onChanged: (String value) { 
+              
               drop = value;
+             // chosenValue = value;
               print(value.toString());
               if (value == 'All Invoice') {
                 setState(() {
                   invoiceList = fullinvoiceList;
+                 
                  });
               } else {
                 _invoice =  fullinvoiceList.where((i) => i['status'] == value).toList();
@@ -89,10 +92,10 @@ class _InvoiceState extends State<Invoice> {
               
             },
           hint: Text(this.drop.toString(),
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0),
+          style: TextStyle(color: Colors.white,fontSize: 20.0,
+          fontWeight: FontWeight.bold
+          ),
+             
             )
           ),
           backgroundColor: Colors.amber,

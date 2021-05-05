@@ -92,9 +92,12 @@ class _UploadState extends State<Upload> {
                 color: Colors.white,
               ),
               onPressed: () {
-                Navigator.push(context,
-                    new MaterialPageRoute(builder: (context) => MyApp()));
+                Navigator.pop(context);
+              
+                // Navigator.push(context,
+                //     new MaterialPageRoute(builder: (context) => MyApp()));
               })),
+
       body: ListView(
         children: [
           Container(
