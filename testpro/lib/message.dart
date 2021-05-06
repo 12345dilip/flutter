@@ -204,7 +204,7 @@ class _MessageState extends State<Message> {
                                                 actions: [
                                                   FlatButton(
                                                       onPressed: () {
-                                                        Navigator.pop(context);
+                                                       Navigator.of(context, rootNavigator: true).pop(true);
                                                       },
                                                       child: Text('No')),
                                                   FlatButton(
@@ -214,7 +214,7 @@ class _MessageState extends State<Message> {
                                                                 ['_id'],
                                                             index);
                                                         textChat = false;
-                                                        Navigator.pop(context);
+                                                        Navigator.of(context, rootNavigator: true).pop(true);
                                                       },
                                                       child: Text('Yes'))
                                                 ],

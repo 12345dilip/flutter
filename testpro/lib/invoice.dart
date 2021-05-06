@@ -50,9 +50,7 @@ class _InvoiceState extends State<Invoice> {
     String formattedDate = DateFormat('yyyy-MMM-dd').format(now);
     
     if (expiry.compareTo(formattedDate.toString()) < 0) {
-      return Text('OverDue',style: TextStyle(
-                                          color: Colors.red,
-                                         ),);
+      return Text('OverDue',style: TextStyle(color: Colors.red,),);
     }else{
       return Text('Pending');
     }

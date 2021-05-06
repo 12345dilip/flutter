@@ -167,13 +167,13 @@ class _UploadState extends State<Upload> {
                                           actions: [
                                             FlatButton(
                                                 onPressed: () {
-                                                  Navigator.pop(context);
+                                                 Navigator.of(context, rootNavigator: true).pop(true);
                                                 },
                                                 child: Text('No')),
                                             FlatButton(
                                                 onPressed: () {
                                                   removeContacts(k);
-                                                  Navigator.pop(context);
+                                                 Navigator.of(context, rootNavigator: true).pop(true);
                                                 },
                                                 child: Text('Yes'))
                                           ],
