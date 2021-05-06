@@ -198,10 +198,10 @@ String selectName;
                   child: Column(
                     children: [
              Container(
-               child: Row(
+              child: Row(
                  children: [
                    DropdownButton<String>(
-                     
+                    
                        items: <String>['Mr.', 'Mrs.'].map((String value) {
                           return  DropdownMenuItem<String>(
                          value: value,

@@ -17,16 +17,14 @@ class _InvoiceState extends State<Invoice> {
   List fullinvoiceList;
   List _invoice;
   Map values;
-  
-  
+
   getData() async {
     var response = await http.get(BaseUrl.invoice + this.values['_id'],
         headers: {"Accept": "application/json"});
     this.setState(() {
       final invoiceData = json.decode(response.body);
       invoiceList = invoiceData['data'];
-      fullinvoiceList = invoiceData['data'];
-      print(invoiceList);
+      fullinvoiceList = invoiceData['data']; 
     });
   }
 
@@ -34,11 +32,8 @@ class _InvoiceState extends State<Invoice> {
   void initState() {
     setState(() {
       this.values = this.widget.argument['values'];
-     
     });
-    
-   print(this.invoiceList);
-    
+ 
     super.initState();
 
     this.getData();
@@ -46,59 +41,74 @@ class _InvoiceState extends State<Invoice> {
 
   String chosenValue;
   String drop = 'All Invoice ';
+  String formattedDate;
+
+
+  setOverdue(data) {
+    var expiry = dateFormat(data);
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('yyyy-MMM-dd').format(now);
+    
+    if (expiry.compareTo(formattedDate.toString()) < 0) {
+      return Text('OverDue',style: TextStyle(
+                                          color: Colors.red,
+                                         ),);
+    }else{
+      return Text('Pending');
+    }
+    
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-         //leading: Container(),
-          title: DropdownButton(
-            value: chosenValue,
-            style:
-                TextStyle(color: Colors.white, decorationColor: Colors.white),
-            items: [
-              'All Invoice',
-              'Draft',
-              'Pending',
-              'Paid',
-              
-            ].map((String value) {
-              return DropdownMenuItem(
-                value: value,
-                
-                child: Text(
-                  value,
-                  style: TextStyle(color: Colors.black,fontSize: 20.0),
-                ),
-              );
-            }).toList(),
-            onChanged: (String value) { 
-              
-              drop = value;
-             // chosenValue = value;
-              print(value.toString());
-              if (value == 'All Invoice') {
-                setState(() {
-                  invoiceList = fullinvoiceList;
-                 
-                 });
-              } else {
-                _invoice =  fullinvoiceList.where((i) => i['status'] == value).toList();
-              setState(() {
-                  invoiceList = _invoice; 
-                 
-                });
-              }
-              
-            },
-          hint: Text(this.drop.toString(),
-          style: TextStyle(color: Colors.white,fontSize: 20.0,
-          fontWeight: FontWeight.bold
+          //leading: Container(),
+          title: DropdownButtonHideUnderline(
+            child: DropdownButton(
+                dropdownColor: Colors.blue,
+                value: chosenValue,
+                style: TextStyle(
+                    color: Colors.white, decorationColor: Colors.white),
+                items: [
+                  'All Invoice',
+                  'Draft',
+                  'Pending',
+                  'Paid',
+                ].map((String value) {
+                  return DropdownMenuItem(
+                    value: value,
+                    child: Text(
+                      value,
+                      style: TextStyle(color: Colors.white, fontSize: 20.0),
+                    ),
+                  );
+                }).toList(),
+                onChanged: (String value) {
+                  drop = value;
+                  // chosenValue = value; 
+                  if (value == 'All Invoice') {
+                    setState(() {
+                      invoiceList = fullinvoiceList;
+                    });
+                  } else {
+                    _invoice = fullinvoiceList
+                        .where((i) => i['status'] == value)
+                        .toList();
+                    setState(() {
+                      invoiceList = _invoice;
+                    });
+                  }
+                },
+                hint: Text(
+                  this.drop.toString(),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold),
+                )),
           ),
-             
-            )
-          ),
-          backgroundColor: Colors.amber,
+          backgroundColor: Colors.blue,
         ),
         body: invoiceList == null
             ? Container(
@@ -128,7 +138,9 @@ class _InvoiceState extends State<Invoice> {
                                     .toString()),
                                 Text('₹ ' +
                                     (this.invoiceList[index]['totalAmount'])
-                                        .toString()),
+                                        .toString(),style: TextStyle(
+                                          color: Colors.red,
+                                         ),),
                               ],
                             ),
                             if (this.invoiceList[index]['expiryDate'] == null)
@@ -143,6 +155,9 @@ class _InvoiceState extends State<Invoice> {
                                   ' - ' +
                                   dateFormat(
                                       this.invoiceList[index]['expiryDate']))),
+                                      
+                            setOverdue(this.invoiceList[index]['expiryDate'])
+                             
                           ],
                           crossAxisAlignment: CrossAxisAlignment.start,
                         ),
@@ -162,7 +177,7 @@ dateFormat(dateFormat) {
 }
 
 class DateUtil {
-  static const DATE_FORMAT = 'dd/MM/yyyy';
+  static const DATE_FORMAT = 'yyyy-MMM-dd';
   String formattedDate(DateTime dateTime) {
     return DateFormat(DATE_FORMAT).format(dateTime);
   }

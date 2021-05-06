@@ -56,6 +56,7 @@ class _FirstPageState extends State<FirstPage> {
     return Scaffold(
       
       appBar: AppBar(
+        leading: Container(),
         title: Text('HomePage'),
         actions: <Widget>[
           new Container(),
@@ -95,11 +96,7 @@ class _FirstPageState extends State<FirstPage> {
                       ),
                       icon: Icon(Icons.person),
                       onPressed: () {
-                        // Navigator.pushNamed(context, PRODUCT_PAGE,
-                        // arguments: {
-                        //    'prod': data["data"][0],
-                        // }
-                        // );
+                      
                         Navigator.push(
                             context,
                             new MaterialPageRoute(
