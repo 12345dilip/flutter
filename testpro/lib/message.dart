@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:testpro/config/upload_url.dart';
 import 'package:testpro/first_page.dart';
 import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
 
 dateFormat(dateFormat) {
   if (dateFormat != null) {
@@ -110,16 +111,26 @@ class _MessageState extends State<Message> {
   setAxis(data) {
     if (data == this.company) {
       return MainAxisAlignment.start;
-    } else {
+     }else{ 
       return MainAxisAlignment.end;
-    }
+     }
+    
   }
 
-  final value = TextEditingController();
+
+  Color getColor(data) {
+  if (data == this.company) {
+    return Colors.grey;
+  } else {
+    return Colors.tealAccent.shade700;
+  }
+}
+
+final value = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(backgroundColor: Colors.tealAccent.shade700,
         leading: IconButton(
             icon: Icon(Icons.arrow_back_sharp),
             onPressed: () {
@@ -147,54 +158,74 @@ class _MessageState extends State<Message> {
                         itemBuilder: (context, index) {
                           return Row(
                               mainAxisAlignment:
-                                  setAxis(this.msg[index]['commentedBy']),
+                                setAxis(this.msg[index]['commentedBy'],),
+                                
                               children: [
-                                Container(
-                                  padding: EdgeInsets.only(
-                                      left: 14, right: 14, top: 10, bottom: 10),
-                                  child: Align(
-                                    alignment: (Alignment.topRight),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: (Colors.blue),
-                                      ),
-                                      padding: EdgeInsets.all(16),
-                                      child: GestureDetector(
-                                        onLongPress: () {
-                                          setState(() {
-                                            textChat = true;
-                                          });
-                                        },
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              this.msg[index]['comment'],
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: Colors.white),
+                              Flexible(
+                                        child: Container(
+                                      padding: EdgeInsets.only(
+                                          left: 14, right: 14, top: 10, bottom: 10),
+                                      //child: Align(
+                                        //alignment: (Alignment.topLeft),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(20),
+                                            color: getColor(this.msg[index]['commentedBy'],)
+                                          ),
+                                          padding: EdgeInsets.all(16),
+                                          child: GestureDetector(
+                                            onLongPress: () {
+                                              setState(() {
+                                                textChat = true;
+                                              });
+                                            },
+                                            
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                              children: [
+                                                Text(
+                                                  this.msg[index]['comment'],
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      color: Colors.white,
+                                                      
+                                                      ),
+                                                ),
+                                                Text(
+                                                  dateFormat(
+                                                      this.msg[index]['createdAt']),
+                                                  style: TextStyle(
+                                                      //fontWeight: FontWeight.bold,
+                                                      color: Colors.white,
+                                                    //fontFamily: 'Poppins',
+                                                   // fontStyle: FontStyle.italic
+                                                    
+
+                                                ),),
+                                                //  Text(
+                                                //   'hi dilip',
+                                                //   style: TextStyle(
+                                                //     //  fontWeight: FontWeight.bold,
+                                                //       color: Colors.white,
+                                                //     fontFamily: 'Poppins',
+                                                   // fontStyle: FontStyle.italic
+                                                  //),)
+                                                // Text(
+                                                //   dateFormat(this.msg[index]['createdAt']),
+                                                //   style:
+                                                //       TextStyle(fontSize: 8, color: Colors.white),
+                                                // ),
+                                              ],
                                             ),
-                                            Text(
-                                              dateFormat(
-                                                  this.msg[index]['createdAt']),
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: Colors.white),
-                                            ),
-                                            // Text(
-                                            //   dateFormat(this.msg[index]['createdAt']),
-                                            //   style:
-                                            //       TextStyle(fontSize: 8, color: Colors.white),
-                                            // ),
-                                          ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ),
+                             // ),
+                             
                                 if (textChat)
                                   IconButton(
-                                    icon: Icon(Icons.clear),
+                                    icon: Icon(Icons.delete),
                                     onPressed: () async {
                                       await showDialog(
                                           context: context,
@@ -238,7 +269,7 @@ class _MessageState extends State<Message> {
                     width: 15,
                   ),
                   Expanded(
-                    child: TextField(
+                    child: TextField( 
                       decoration: InputDecoration(
                           hintText: "Write message...",
                           hintStyle: TextStyle(color: Colors.black54),
@@ -259,7 +290,7 @@ class _MessageState extends State<Message> {
                       color: Colors.white,
                       size: 18,
                     ),
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Colors.tealAccent.shade700,
                     elevation: 0,
                   ),
                 ],

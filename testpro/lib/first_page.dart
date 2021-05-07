@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:testpro/config/upload_url.dart';
 import 'package:testpro/invoice.dart';
@@ -13,15 +14,13 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:testpro/string.dart';
 
 class FirstPage extends StatefulWidget {
-
   FirstPage(this.jwt, this.payload);
-  
 
   factory FirstPage.fromBase64(String jwt) => FirstPage(
       jwt,
       json.decode(
           ascii.decode(base64.decode(base64.normalize(jwt.split(".")[1])))));
-          
+
   final String jwt;
   final Map<String, dynamic> payload;
   @override
@@ -43,25 +42,16 @@ class _FirstPageState extends State<FirstPage> {
 
   @override
   void initState() {
-    
     super.initState();
     this.getData();
   }
 
   final storage = FlutterSecureStorage();
-   
- 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
-      appBar: AppBar(
-        leading: Container(),
-        title: Text('HomePage'),
-        actions: <Widget>[
-          new Container(),
-        ],
-      ),
+  
       endDrawer: Drawer(
         child: SafeArea(
           child: ListView(
@@ -96,7 +86,6 @@ class _FirstPageState extends State<FirstPage> {
                       ),
                       icon: Icon(Icons.person),
                       onPressed: () {
-                      
                         Navigator.push(
                             context,
                             new MaterialPageRoute(
@@ -144,106 +133,90 @@ class _FirstPageState extends State<FirstPage> {
           children: [
             //  Divider(),
             Builder(
-                builder: (context) => Container(
-                      child: Container(
+                builder: (context) =>  Container(
+                  height:50.0,
+                   padding: const EdgeInsets.only(top: 5.0,),
                         color: Colors.white,
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Container(
-                                padding: const EdgeInsets.only(
-                                  bottom: 8.0,
-                                ),
                                 child: Column(
-                                  children: [
-                                    IconButton(
-                                        icon: Icon(Icons.home),
-                                        onPressed: () {}),
-                                    Text('Home'),
-                                  ],
+                                    children: [
+                                      Icon(
+                                            Icons.home,
+                                            color: Colors.tealAccent.shade700,
+                                          ),
+                                          Text('Home',
+                                          style: TextStyle(
+                                            color: Colors.tealAccent.shade700,
+                                          )),
+                                    ],
+                                  ),
+                              ),
+                            
+                              GestureDetector(
+                                onTap: (){
+                                  Navigator.pushNamed(
+                                                context, INVOICE_PAGE,
+                                                arguments: {
+                                                  'values': this.widget.payload
+                                                });
+                                },
+                                    child: Container(
+                                  
+                                  child: Column(
+                                    children: [
+                                     Icon(Icons.album_outlined),
+                                     Text('Invoice'),
+                                     
+                                    ],
+                                  ),
                                 ),
                               ),
-                              Container(
-                                padding: const EdgeInsets.only(
-                                  bottom: 8.0,
-                                ),
-                                child: Column(
-                                  children: [
-                                    IconButton(
-                                        icon: Icon(Icons.album_outlined),
-                                        onPressed: () {
-
-                                          Navigator.pushNamed(context, INVOICE_PAGE,
-                                          arguments: {
-                                                'values': this.widget.payload                                           
-                                          });
-                                          // Navigator.push(
-                                          //     context,
-                                          //     new MaterialPageRoute(
-                                          //         builder: (context) => Invoice(
-                                          //               values:
-                                          //                   this.widget.payload,
-                                          //             )));
-                                        }),
-                                    Text('Invoice'),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.only(
-                                  bottom: 8.0,
-                                ),
-                                child: Column(
-                                  children: [
-                                    IconButton(
-                                        icon: Icon(Icons.message),
-                                        onPressed: () {
-                                          Navigator.pushNamed(
+                               GestureDetector(
+                                onTap: (){
+                                 Navigator.pushNamed(
                                             context,
                                             MESSAGE_PAGE,
-                                            
                                             arguments: {
-                                                'val': this.widget.payload,
-                                                'company': data['data'][0]
-                                                    ['createdBy']},
-                                          
-                                          
+                                              'val': this.widget.payload,
+                                              'company': data['data'][0]
+                                                  ['createdBy']
+                                            },
                                           );
-                                          // Navigator.push(
-                                          //     context,
-                                          //     new MaterialPageRoute(
-                                          //         builder: (
-                                          //       context,
-                                          //     ) =>
-                                          //             Message(
-                                          //                 val: this
-                                          //                     .widget
-                                          //                     .payload,
-                                          //                 company: data['data']
-                                          //                         [0]
-                                          //                     ['createdBy'])));
-                                        }),
-                                    Text('Message'),
-                                  ],
+                                },
+                                    child: Container(
+                                  
+                                  child: Column(
+                                    children: [
+                                     Icon(Icons.message),
+                                     Text('Message'),
+                                     
+                                    ],
+                                  ),
                                 ),
                               ),
-                              Container(
-                                padding: const EdgeInsets.only(
-                                  bottom: 8.0,
-                                ),
-                                child: Column(
-                                  children: [
-                                    IconButton(
-                                        icon: Icon(Icons.settings),
-                                        onPressed: () => Scaffold.of(context)
-                                            .openEndDrawer()),
-                                    Text('Settings'),
-                                  ],
+
+                               GestureDetector(
+                                onTap: (){
+                                 Scaffold.of(context)
+                                            .openEndDrawer();
+                                },
+                                    child: Container(
+                                  
+                                  child: Column(
+                                    children: [
+                                     Icon(Icons.settings),
+                                     Text('Settings'),
+                                     
+                                    ],
+                                  ),
                                 ),
                               ),
                             ]),
                       ),
-                    )),
+                    ),
           ],
         ),
       ]),
@@ -254,28 +227,28 @@ class _FirstPageState extends State<FirstPage> {
 homepage() {
   return SingleChildScrollView(
       child: Container(
-    decoration: BoxDecoration(
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.5),
-          spreadRadius: 5,
-          blurRadius: 20,
-          offset: Offset(0, 2),
-        ),
-      ],
-    ),
+    // decoration: BoxDecoration(
+    //   boxShadow: [
+    //     BoxShadow(
+    //       color: Colors.grey.withOpacity(0.5),
+    //       spreadRadius: 5,
+    //       blurRadius: 20,
+    //       offset: Offset(0, 2),
+    //     ),
+    //   ],
+    // ),
     child: Column(
       children: [
         Center(
           child: Container(
             padding: const EdgeInsets.only(
-                left: 10.0, right: 10.0, top: 10.0, bottom: 28.0),
-            height: 400.0,
+                left: 10.0, right: 10.0, top: 40.0, bottom: 10.0),
+            height: 300.0,
             child: Card(
               child: SfCartesianChart(
                   primaryXAxis: CategoryAxis(),
                   title: ChartTitle(text: 'Half yearly sales analysis'),
-                  legend: Legend(isVisible: true),
+                  legend: Legend(isVisible: false),
                   tooltipBehavior: TooltipBehavior(enable: true),
                   series: <ChartSeries<SalesData, String>>[
                     LineSeries<SalesData, String>(
@@ -303,94 +276,327 @@ homepage() {
 buildGrid() {
   return Container(
     padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-    child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Container(
-        height: 90.0,
-        width: 160.0,
-        child: Card(
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-          ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+    child: Column(
+      children: [
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Container(
+            height: 120.0,
+            width: 166.0,
+            child: Card(
+              color: Colors.deepOrange,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+              ),
+              child: Stack(
+                // alignment: Alignment.topLeft,
                 children: [
-                  Text(
-                    'Text1',
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.only(top: 25.0, left: 25.0),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.money,
+                              color: Colors.white,
+                            ),
+                            Container(
+                              padding: const EdgeInsets.only(left: 5.0),
+                              child: Text(
+                                'Total Paid',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  //fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            )
+                          ],
+                        ),
+                      ),
+                      SingleChildScrollView(
+                        child: Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.only(
+                                left: 27.0, bottom: 20.0, top: 5.0),
+                            child: Text(
+                              '6500',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                  SizedBox(
-                    height: 5,
-                  )
                 ],
               ),
-            ],
-          ),
-        ),
-      ),
-      Container(
-        height: 90.0,
-        width: 160.0,
-        child: Card(
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
             ),
           ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+          Container(
+            height: 120.0,
+            width: 166.0,
+            child: Card(
+              color: Colors.tealAccent.shade700,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+              ),
+              child: Stack(
+                //alignment: Alignment.topLeft,
                 children: [
-                  Text(
-                    'Text 2',
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.only(top: 25.0, left: 25.0),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.money,
+                              color: Colors.white,
+                            ),
+                            Container(
+                              padding: const EdgeInsets.only(left: 5.0),
+                              child: Text(
+                                'Pending',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            )
+                          ],
+                        ),
+                      ),
+                      Flexible(
+                        child: Container(
+                          padding: const EdgeInsets.only(
+                              left: 27.0, bottom: 20.0, top: 5.0),
+                          child: Text(
+                            '2300',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                  SizedBox(
-                    height: 5,
-                  )
                 ],
               ),
-            ],
+            ),
           ),
+        ]),
+        Padding(
+          padding: const EdgeInsets.only(top: 9.0),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Container(
+              height: 120.0,
+              width: 166.0,
+              child: Card(
+                color: Colors.purple.shade700,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
+                child: Stack(
+                  // alignment: Alignment.topLeft,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.only(top: 25.0, left: 25.0),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.money,
+                                color: Colors.white,
+                              ),
+                              Container(
+                                padding: const EdgeInsets.only(left: 5.0),
+                                child: Text(
+                                  'Invoice',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                    //fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              )
+                            ],
+                          ),
+                        ),
+                        SingleChildScrollView(
+                          child: Expanded(
+                            child: Container(
+                              padding: const EdgeInsets.only(
+                                  left: 27.0, bottom: 20.0, top: 5.0),
+                              child: Text(
+                                '10',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              height: 120.0,
+              width: 166.0,
+              child: Card(
+                color: Colors.pinkAccent.shade400,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
+                child: Stack(
+                  //alignment: Alignment.topLeft,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.only(top: 25.0, left: 25.0),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.money,
+                                color: Colors.white,
+                              ),
+                              Container(
+                                padding: const EdgeInsets.only(left: 5.0),
+                                child: Text(
+                                  'Message',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              )
+                            ],
+                          ),
+                        ),
+                        Flexible(
+                          child: Container(
+                            padding: const EdgeInsets.only(
+                                left: 27.0, bottom: 20.0, top: 5.0),
+                            child: Text(
+                              '23',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ]),
         ),
-      ),
-    ]),
+      ],
+    ),
   );
 }
 
 slideshow() {
   return Container(
-    padding: const EdgeInsets.only(top: 10.0, bottom: 30),
-    height: 80.0,
+    padding: const EdgeInsets.only(top: 10.0, bottom: 40, left: 10),
+    height: 120.0,
     width: 500.0,
     child: ListView(
       scrollDirection: Axis.horizontal,
       children: [
-        Container(width: 160.0, child: Card()),
-        Container(width: 160.0, child: Card()),
-        Container(width: 160.0, child: Card()),
-        Container(width: 160.0, child: Card()),
-        Container(width: 160.0, child: Card()),
+        Container(
+            width: 260.0,
+            child: Card(
+              child: SingleChildScrollView(
+                child: Container( padding: const EdgeInsets.only(top: 10.0, left: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                            'Notification Bar',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                      Text(
+                            'Having a container fit the size of the context flutte,'),
+                    ],
+                  ),
+                ),
+              ),
+            )),
+        Container(
+          width: 260.0, 
+          child: Card(
+           child: SingleChildScrollView(
+                child: Container( padding: const EdgeInsets.only(top: 10.0, left: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                            'Notification Bar',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                      Text(
+                            'Having a container fit the size of the context flutte,'),
+                    ],
+                  ),
+                ),
+              ),
+        )),
+        Container(
+          width: 260.0, child: Card(
+           child: SingleChildScrollView(
+                child: Container( padding: const EdgeInsets.only(top: 10.0, left: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                            'Notification Bar',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                      Text(
+                            'Having a container fit the size of the context flutte,'),
+                    ],
+                  ),
+                ),
+              ),
+        )),
       ],
     ),
   );

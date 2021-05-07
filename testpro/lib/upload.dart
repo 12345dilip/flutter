@@ -7,6 +7,7 @@ import 'package:testpro/config/upload_url.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:testpro/first_page.dart';
 import 'package:testpro/main.dart';
+import 'package:testpro/string.dart';
 
 class Upload extends StatefulWidget {
   Upload({
@@ -85,6 +86,7 @@ class _UploadState extends State<Upload> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.tealAccent.shade700,
           title: Text('Upload'),
           leading: IconButton(
               icon: Icon(
@@ -92,8 +94,8 @@ class _UploadState extends State<Upload> {
                 color: Colors.white,
               ),
               onPressed: () {
-                Navigator.pop(context);
-              
+               
+               Navigator.pushNamed(context, MYAPP_PAGE);
                 // Navigator.push(context,
                 //     new MaterialPageRoute(builder: (context) => MyApp()));
               })),
@@ -123,7 +125,7 @@ class _UploadState extends State<Upload> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: IconButton(
-                            icon: Icon(Icons.remove_circle), onPressed: () {}),
+                            icon: Icon(Icons.delete), onPressed: () {}),
                       ),
                     ]),
                     for (var k = 0;
@@ -158,7 +160,7 @@ class _UploadState extends State<Upload> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: IconButton(
-                              icon: Icon(Icons.remove_circle),
+                              icon: Icon(Icons.delete),
                               onPressed: () async {
                                 await showDialog(
                                     context: context,
@@ -222,8 +224,10 @@ class _UploadState extends State<Upload> {
               ],
             ),
           ),
+          
         ],
       ),
+     
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:testpro/main.dart';
 import 'package:testpro/message.dart';
 import 'package:testpro/invoice.dart';
 import 'package:testpro/product.dart';
@@ -18,6 +19,8 @@ Route generateSettings(RouteSettings settings){
     return MaterialPageRoute(builder: (_)=> Invoice(argument: settings.arguments,));
     case PRODUCT_PAGE:
     return MaterialPageRoute(builder: (_)=> Product(prod: settings.arguments,));
+    case MYAPP_PAGE:
+    return MaterialPageRoute(builder: (_)=>MyApp(router: AppRouter()));
     default:
     return null;
 

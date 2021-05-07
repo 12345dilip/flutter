@@ -8,7 +8,7 @@ import 'package:testpro/router.dart';
 void main() {
  
   runApp(new MaterialApp(
-    
+  
     debugShowCheckedModeBanner: false,
     home: MyApp(
       router: AppRouter(),
@@ -32,6 +32,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        theme: ThemeData(
+         fontFamily: 'Poppins',
+       visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
      debugShowCheckedModeBanner: false,
       onGenerateRoute: router.generateSettings,
       color: Colors.blue,

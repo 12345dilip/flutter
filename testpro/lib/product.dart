@@ -7,6 +7,7 @@ import 'package:dropdownfield/dropdownfield.dart';
 import 'package:testpro/first_page.dart';
 import 'package:testpro/main.dart';
 import 'package:select_form_field/select_form_field.dart';
+import 'package:testpro/string.dart';
 
 class Product extends StatefulWidget {
   Product({
@@ -178,11 +179,11 @@ String selectName;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(backgroundColor: Colors.tealAccent.shade700,
         leading: IconButton(
             icon: Icon(Icons.arrow_back_sharp),
             onPressed: () {
-              Navigator.pop(context);
+               Navigator.pushNamed(context, MYAPP_PAGE);
             }),
        
         title: Text('Profile'),
@@ -195,7 +196,7 @@ String selectName;
               key: formKey,
               child: Column(children: [
                 Container(
-                  child: Column(
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
              Container(
               child: Row(
@@ -274,11 +275,11 @@ String selectName;
                         controller: companyName,
                       ),
                       Container(
-                        padding: const EdgeInsets.only(right: 208.0, top: 15.0),
+                        padding: const EdgeInsets.only( top: 15.0),
                         child: Text(this.widget.prod['contactEmail']),
                       ),
                       Container(
-                        padding: const EdgeInsets.only(right: 240.0, top: 15.0),
+                        padding: const EdgeInsets.only( top: 15.0),
                         child:
                             Text(this.widget.prod['phone']['primaryContact']),
                       ),
@@ -327,7 +328,7 @@ String selectName;
                       TabBar(
                         isScrollable: true,
                         unselectedLabelColor: Colors.black,
-                        labelColor: Colors.blue,
+                        labelColor: Colors.tealAccent.shade700,
                         tabs: [
                           Tab(text: 'Other Details'),
                           Tab(text: 'Address'),
@@ -735,19 +736,19 @@ String selectName;
                   width: 15,
                 ),
                 RaisedButton(
-                    color: Colors.blue,
+                    color: Colors.tealAccent.shade700,
                     child: Text(
                       'Update',
                       style: TextStyle(color: Colors.white),
                     ),
                     onPressed: () {
                       if (formKey.currentState.validate()) {
-                       Navigator.pop(context);
-                        
-                      //  Navigator.push(
-                      //           context,
-                      //           new MaterialPageRoute(
-                      //               builder: (context) =>MyApp()));
+                   //Navigator.of(context).pop();
+                   Navigator.pushNamed(context, MYAPP_PAGE);
+                        // Navigator.push( 
+                        //         context,
+                        //                 new MaterialPageRoute(
+                        //                           builder: (context) => MyApp()));
                         updateDetails(
                           //salutation.text,
                             firstName.text,
@@ -768,6 +769,8 @@ String selectName;
                             remarkstext.text,
                             this.widget.prod['_id'],
                             );
+                              
+                    
                       }
                     })
               ],

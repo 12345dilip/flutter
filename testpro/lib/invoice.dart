@@ -61,10 +61,10 @@ class _InvoiceState extends State<Invoice> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          //leading: Container(),
+         
           title: DropdownButtonHideUnderline(
             child: DropdownButton(
-                dropdownColor: Colors.blue,
+                dropdownColor: Colors.tealAccent.shade700,
                 value: chosenValue,
                 style: TextStyle(
                     color: Colors.white, decorationColor: Colors.white),
@@ -78,7 +78,7 @@ class _InvoiceState extends State<Invoice> {
                     value: value,
                     child: Text(
                       value,
-                      style: TextStyle(color: Colors.white, fontSize: 20.0),
+                      style: TextStyle(color: Colors.white, fontSize: 20.0,),
                     ),
                   );
                 }).toList(),
@@ -103,10 +103,10 @@ class _InvoiceState extends State<Invoice> {
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,
-                      fontWeight: FontWeight.bold),
-                )),
+                      //fontWeight: FontWeight.bold),
+             ) )),
           ),
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.tealAccent.shade700,
         ),
         body: invoiceList == null
             ? Container(
@@ -133,11 +133,13 @@ class _InvoiceState extends State<Invoice> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text((this.invoiceList[index]['invoice'])
-                                    .toString()),
+                                    .toString(),style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                         ),),
                                 Text('₹ ' +
                                     (this.invoiceList[index]['totalAmount'])
                                         .toString(),style: TextStyle(
-                                          color: Colors.red,
+                                          color: Colors.red, fontWeight: FontWeight.bold,
                                          ),),
                               ],
                             ),
