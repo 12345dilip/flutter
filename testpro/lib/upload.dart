@@ -23,6 +23,8 @@ class _UploadState extends State<Upload> {
 
   selectImage() {
     getImage(ImageSource.gallery);
+   
+
   }
 
   File imageResized;
@@ -96,137 +98,177 @@ class _UploadState extends State<Upload> {
               onPressed: () {
                
                Navigator.pushNamed(context, MYAPP_PAGE);
-                // Navigator.push(context,
-                //     new MaterialPageRoute(builder: (context) => MyApp()));
+                
               })),
 
-      body: ListView(
-        children: [
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+      body: Stack(
               children: [
-                Table(
-                  columnWidths: {
-                    0: FixedColumnWidth(90),
-                    1: FlexColumnWidth(20),
-                    2: FlexColumnWidth(7),
-                  },
+                ListView(
+                        padding: EdgeInsets.only( bottom: 80),
+                       // physics: NeverScrollableScrollPhysics(),
+                       // itemBuilder: (context, index) {
+         children: [
+           Container(
+            // padding: const EdgeInsets.only(left:20.0, right: 20.0),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TableRow(children: [
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Text('Name'),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Text('Uploads'),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: IconButton(
-                            icon: Icon(Icons.delete), onPressed: () {}),
-                      ),
-                    ]),
-                    for (var k = 0;
-                        k < this.widget.prod['uploadDocument'].length;
-                        k++)
-                      TableRow(children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(this.widget.prod['uploadDocument'][k]
-                              ['clientDocument']),
-                        ),
-                        Container(
-                            child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                            child: Column(
-                              children: [
-                                Icon(Icons.visibility),
-                                Text('Show Image'),
-                              ],
-                            ),
-                            onTap: () async {
-                              await showDialog(
-                                  context: context,
-                                  builder: (_) => ImageDialog(
-                                        img: this.widget.prod['uploadDocument']
-                                            [k]['clientUpload']['file'],
-                                      ));
-                            },
-                          ),
-                        )),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: () async {
-                                await showDialog(
-                                    context: context,
-                                    builder: (_) => AlertDialog(
-                                          title: Text('Do you want Delete'),
-                                          actions: [
-                                            FlatButton(
-                                                onPressed: () {
-                                                 Navigator.of(context, rootNavigator: true).pop(true);
-                                                },
-                                                child: Text('No')),
-                                            FlatButton(
-                                                onPressed: () {
-                                                  removeContacts(k);
-                                                 Navigator.of(context, rootNavigator: true).pop(true);
-                                                },
-                                                child: Text('Yes'))
-                                          ],
-                                        ));
-                              }),
-                        ),
-                      ]),
-                  ],
-                  border: TableBorder.all(width: 1, color: Colors.purple),
-                ),
-                IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: () {
-                      setState(() {
-                        displayForm = true;
-                      });
-                    }),
-                Text('Add Upload Field'),
-                if (displayForm)
-                  Container(
-                      child: Column(children: [
-                    TextFormField(
-                      decoration: InputDecoration(labelText: 'Name '),
-                      controller: name,
-                    ),
-                    imageResized == null
-                        ? Container()
-                        : Image.file(imageResized),
-                    Row(
+                    Table(
+                      columnWidths: {
+                        0: FixedColumnWidth(90),
+                        1: FlexColumnWidth(20),
+                        2: FlexColumnWidth(7),
+                      },
                       children: [
-                        RaisedButton(
-                          child: Text('Uploads'),
-                          onPressed: selectImage,
-                        ),
+                       // TableRow(children: [
+                        //   Padding(
+                        //     padding: const EdgeInsets.all(12.0),
+                        //     child: Text('Name'),
+                        //   ),
+                        //   Padding(
+                        //     padding: const EdgeInsets.all(12.0),
+                        //     child: Text('Uploads'),
+                        //   ),
+                        //   Padding(
+                        //     padding: const EdgeInsets.all(8.0),
+                        //     child: IconButton(
+                        //         icon: Icon(Icons.delete), onPressed: () {}),
+                        //   ),
+                        // ]),
+                        
+                        for (var k = 0;
+                            k < this.widget.prod['uploadDocument'].length;
+                            k++)
+                          TableRow(children: [
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Text(this.widget.prod['uploadDocument'][k]
+                                  ['clientDocument']),
+                            ),
+                            Container(
+                                child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: GestureDetector(
+                                child: Column(
+                                  children: [
+                                    Icon(Icons.visibility),
+                                    //Text('Show Image'),
+                                  ],
+                                ),
+                                onTap: () async {
+                                  await showDialog(
+                                      context: context,
+                                      builder: (_) => ImageDialog(
+                                            img: this.widget.prod['uploadDocument']
+                                                [k]['clientUpload']['file'],
+                                          ));
+                                },
+                              ),
+                            )),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: IconButton(
+                                  icon: Icon(Icons.delete),
+                                  onPressed: () async {
+                                    await showDialog(
+                                        context: context,
+                                        builder: (_) => AlertDialog(
+                                              title: Text('Do you want Delete'),
+                                              actions: [
+                                                FlatButton(
+                                                    onPressed: () {
+                                                     Navigator.of(context, rootNavigator: true).pop(true);
+                                                    },
+                                                    child: Text('No',style:
+                                                     TextStyle(color: Colors.tealAccent.shade700,),)),
+                                                FlatButton(
+                                                    onPressed: () {
+                                                      removeContacts(k);
+                                                     Navigator.of(context, rootNavigator: true).pop(true);
+                                                    },
+                                                    child: Text('Yes',style:
+                                                     TextStyle(color: Colors.tealAccent.shade700,),))
+                                              ],
+                                            ));
+                                  }),
+                            ),
+                          ]),
                       ],
+                     border: TableBorder.all(width: 1, color: Colors.tealAccent.shade700),
                     ),
-                  ])),
-                RaisedButton(
-                    child: Text('Submit'),
-                    onPressed: () {
-                      addImage(name.text);
-                      name.clear();
-                      photoBase64.isEmpty;
-                      displayForm = false;
-                    }),
-              ],
+               
+                    //Text('Add Upload Field'),
+                    if (displayForm)
+                      Container( padding: const EdgeInsets.only(left:20),
+                          child: Column(children: [
+                        TextFormField(
+                          decoration: InputDecoration(labelText: 'Name '),
+                          controller: name,
+                        ),
+                        imageResized == null
+                            ? Container()
+                            : Image.file(imageResized),
+                        Row(
+                          children: [
+                            RaisedButton(color: Colors.tealAccent.shade700,
+                           child: Text('Uploads',style: TextStyle(
+                            color: Colors.white
+                           ),),
+                              onPressed: selectImage,
+                            ),  
+                          ],
+                        ),
+                      ])
+                      ),
+                   
+                  ],
+              ),
+         ),]
+                       // },
+                
+        ),
+               
+                Align(
+            alignment: Alignment.bottomLeft,
+            child: Container(
+             padding: const EdgeInsets.only(left: 10, bottom: 10, top: 10),
+              height: 60,
+              width: double.infinity,
+              color: Colors.white,
+              child: Row( mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                if (displayForm)
+                   RaisedButton(color: Colors.tealAccent.shade700,
+                        child: Text('Submit',
+                        style: TextStyle(
+                          color: Colors.white
+                         ),),
+                        onPressed: () {
+                          addImage(name.text);
+                          name.clear();
+                          photoBase64.isEmpty;
+                          displayForm = false;
+                        }),
+                  
+                 
+                  Padding(
+                    padding: const EdgeInsets.only(left: 180.0),
+                    child: FloatingActionButton(
+                     onPressed: () {
+                          setState(() {
+                            displayForm = true;
+                          });
+                     },
+                    child:Icon(Icons.add),
+                      backgroundColor: Colors.tealAccent.shade700,
+                      elevation: 0,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-          
-        ],
-      ),
+               ] ),
      
     );
   }

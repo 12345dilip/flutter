@@ -320,9 +320,7 @@ buildGrid() {
                           ],
                         ),
                       ),
-                      SingleChildScrollView(
-                        child: Expanded(
-                          child: Container(
+                      Container(
                             padding: const EdgeInsets.only(
                                 left: 27.0, bottom: 20.0, top: 5.0),
                             child: Text(
@@ -333,8 +331,7 @@ buildGrid() {
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
-                        ),
-                      )
+                       
                     ],
                   ),
                 ],
@@ -446,9 +443,7 @@ buildGrid() {
                             ],
                           ),
                         ),
-                        SingleChildScrollView(
-                          child: Expanded(
-                            child: Container(
+                       Container(
                               padding: const EdgeInsets.only(
                                   left: 27.0, bottom: 20.0, top: 5.0),
                               child: Text(
@@ -459,9 +454,7 @@ buildGrid() {
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
-                          ),
-                        )
-                      ],
+                         ],
                     ),
                   ],
                 ),
@@ -578,7 +571,8 @@ slideshow() {
                   ),
                 ),
               ),
-        )),
+        )
+        ),
         Container(
           width: 260.0, child: Card(
            child: SingleChildScrollView(

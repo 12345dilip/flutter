@@ -235,9 +235,14 @@ final value = TextEditingController();
                                                 actions: [
                                                   FlatButton(
                                                       onPressed: () {
-                                                       Navigator.of(context, rootNavigator: true).pop(true);
+                                                       
+                                                         Navigator.of(context, rootNavigator: true).pop(true);
+                                                        setState(() {
+                                                          textChat = false;
+                                                          });
                                                       },
-                                                      child: Text('No')),
+                                                      child: Text('No',style:
+                                                     TextStyle(color: Colors.tealAccent.shade700,),)),
                                                   FlatButton(
                                                       onPressed: () {
                                                         deleteData(
@@ -247,7 +252,8 @@ final value = TextEditingController();
                                                         textChat = false;
                                                         Navigator.of(context, rootNavigator: true).pop(true);
                                                       },
-                                                      child: Text('Yes'))
+                                                      child: Text('Yes',style:
+                                                     TextStyle(color: Colors.tealAccent.shade700,),))
                                                 ],
                                               ));
                                     },

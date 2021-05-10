@@ -56,6 +56,9 @@ class _InvoiceState extends State<Invoice> {
     }
     
   }
+  
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +107,11 @@ class _InvoiceState extends State<Invoice> {
                       color: Colors.white,
                       fontSize: 20.0,
                       //fontWeight: FontWeight.bold),
-             ) )),
+             ) ), icon: Icon(                // Add this
+                Icons.arrow_drop_down,  // Add this
+                color: Colors.white,   // Add this
+              ),
+             ),
           ),
           backgroundColor: Colors.tealAccent.shade700,
         ),
@@ -136,12 +143,16 @@ class _InvoiceState extends State<Invoice> {
                                     .toString(),style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                          ),),
+                                      
                                 Text('₹ ' +
                                     (this.invoiceList[index]['totalAmount'])
-                                        .toString(),style: TextStyle(
-                                          color: Colors.red, fontWeight: FontWeight.bold,
-                                         ),),
-                              ],
+                                        .toString(),style: TextStyle(color: Colors.red,
+                                        
+                                          fontWeight: FontWeight.bold,
+                                         ),)
+                                        
+
+                                        ],
                             ),
                             if (this.invoiceList[index]['expiryDate'] == null)
                               Text((dateFormat(this.invoiceList[index]

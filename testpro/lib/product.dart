@@ -326,6 +326,7 @@ String selectName;
                     initialIndex: 0,
                     child: Column(children: [
                       TabBar(
+                        indicatorColor: Colors.tealAccent.shade700,
                         isScrollable: true,
                         unselectedLabelColor: Colors.black,
                         labelColor: Colors.tealAccent.shade700,
@@ -543,20 +544,20 @@ String selectName;
                                     children: [
                                       TableRow(children: [
                                         Padding(
-                                          padding: const EdgeInsets.all(8.0),
+                                          padding: const EdgeInsets.all(10.0),
                                           child: Text('No'),
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text('email'),
+                                          padding: const EdgeInsets.all(25.0),
+                                          child: Text('Phone'),
                                         ),
                                         Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text('Phone')),
+                                            padding: const EdgeInsets.all(25.0),
+                                            child: Text('Email')),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: IconButton(
-                                              icon: Icon(Icons.remove_circle),
+                                              icon: Icon(Icons.delete),
                                               onPressed: () {}),
                                         ),
                                       ]),
@@ -590,7 +591,7 @@ String selectName;
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: IconButton(
-                                                icon: Icon(Icons.remove_circle),
+                                                icon: Icon(Icons.delete),
                                                 onPressed: () async {
                                                   await showDialog(
                                                       context: context,
@@ -606,7 +607,8 @@ String selectName;
                                                                         context);
                                                                   },
                                                                   child: Text(
-                                                                      'No')),
+                                                                      'No',style:
+                                                     TextStyle(color: Colors.tealAccent.shade700,),)),
                                                               FlatButton(
                                                                   onPressed:
                                                                       () {
@@ -616,7 +618,8 @@ String selectName;
                                                                         context);
                                                                   },
                                                                   child: Text(
-                                                                      'Yes')),
+                                                                      'Yes',style:
+                                                     TextStyle(color: Colors.tealAccent.shade700,),)),
                                                             ],
                                                           ));
                                                 }),
@@ -624,7 +627,7 @@ String selectName;
                                         ]),
                                     ],
                                     border: TableBorder.all(
-                                        width: 1, color: Colors.purple),
+                                        width: 1, color: Colors.tealAccent.shade700,),
                                   ),
                                 ),
                                 Padding(
@@ -723,7 +726,7 @@ String selectName;
         Align(
           alignment: Alignment.bottomLeft,
           child: Container(
-            padding: EdgeInsets.only(left: 190, bottom: 10, top: 10),
+            padding: EdgeInsets.only(left: 225, bottom: 10, top: 10),
             height: 60,
             width: double.infinity,
             color: Colors.white,

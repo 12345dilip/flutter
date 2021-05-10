@@ -30,7 +30,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFF26A69A),
+        backgroundColor: Colors.tealAccent.shade700,
         body: SingleChildScrollView(
           child: Container(
             child: Column(
@@ -131,7 +131,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                                     child: Text(
                                       'Invoice Date',
                                       style: TextStyle(
-                                          color: Color(0xFF26A69A),
+                                          color: Colors.tealAccent.shade700,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 10.0),
                                     ),
@@ -151,7 +151,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                                     child: Text(
                                       'Expiry Date',
                                       style: TextStyle(
-                                          color: Color(0xFF26A69A),
+                                          color: Colors.tealAccent.shade700,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 10.0),
                                     ),
@@ -172,7 +172,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                               Text(
                                 'Reference#',
                                 style: TextStyle(
-                                    color: Color(0xFF26A69A),
+                                    color: Colors.tealAccent.shade700,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 10.0),
                               ),
@@ -192,7 +192,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                                 child: Text(
                                   'Billing Address',
                                   style: TextStyle(
-                                      color: Color(0xFF26A69A),
+                                      color:Colors.tealAccent.shade700,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 10.0),
                                 ),
@@ -243,7 +243,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                                     child: Text(
                                       'Items',
                                       style: TextStyle(
-                                          color: Color(0xFF26A69A),
+                                          color: Colors.tealAccent.shade700,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15.0),
                                     ),
@@ -253,7 +253,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                                     child: Text(
                                       'Amount',
                                       style: TextStyle(
-                                          color: Color(0xFF26A69A),
+                                          color: Colors.tealAccent.shade700,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15.0),
                                     ),
@@ -291,7 +291,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                               child: Text(
                                 'Sub Total',
                                 style: TextStyle(
-                                    color: Color(0xFF26A69A),
+                                    color: Colors.tealAccent.shade700,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 15.0),
                               ),
@@ -314,7 +314,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                               child: Text(
                                 'Total',
                                 style: TextStyle(
-                                    color: Color(0xFF26A69A),
+                                    color: Colors.tealAccent.shade700,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 15.0),
                               ),

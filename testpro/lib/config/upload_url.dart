@@ -1,5 +1,5 @@
 class BaseUrl{
-  static String baseUrl = "http://192.168.1.11:3000/";
+  static String baseUrl = "http://192.168.43.72:3000/";
 
   static String updateUsers = baseUrl + "api/client/";
   static String homePage = baseUrl + "api/client/";
