@@ -603,8 +603,7 @@ String selectName;
                                                               FlatButton(
                                                                   onPressed:
                                                                       () {
-                                                                    Navigator.pop(
-                                                                        context);
+                                                                    Navigator.of(context, rootNavigator: true).pop(true);
                                                                   },
                                                                   child: Text(
                                                                       'No',style:
@@ -614,8 +613,7 @@ String selectName;
                                                                       () {
                                                                     removeContact(
                                                                         i);
-                                                                    Navigator.pop(
-                                                                        context);
+                                                                    Navigator.of(context, rootNavigator: true).pop(true);
                                                                   },
                                                                   child: Text(
                                                                       'Yes',style:
@@ -655,7 +653,7 @@ String selectName;
                                           TextFormField(
                                             validator: (value) {
                                               if (value.isEmpty) {
-                                                return 'Enter something';
+                                                return 'Enter Email Address';
                                               } else if (RegExp(
                                                       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                                                   .hasMatch(value)) {
@@ -671,7 +669,7 @@ String selectName;
                                           TextFormField(
                                             validator: (value) {
                                               if (value.isEmpty) {
-                                                return 'Enter something';
+                                                return 'Enter Phone Number';
                                               } else if (RegExp(
                                                       r'(^(?:[+0]9)?[0-9]{10}$)')
                                                   .hasMatch(value)) {
@@ -684,19 +682,20 @@ String selectName;
                                                 labelText: 'Phone'),
                                             controller: mobile,
                                           ),
-                                          TextFormField(
-                                            decoration: InputDecoration(
-                                                labelText: 'firstName'),
-                                            controller: cfirstName,
-                                          ),
-                                          TextFormField(
-                                            decoration: InputDecoration(
-                                                labelText: 'lastName'),
-                                            controller: clastName,
-                                          ),
+                                          // TextFormField(
+                                          //   decoration: InputDecoration(
+                                          //       labelText: 'firstName'),
+                                          //   controller: cfirstName,
+                                          // ),
+                                          // TextFormField(
+                                          //   decoration: InputDecoration(
+                                          //       labelText: 'lastName'),
+                                          //   controller: clastName,
+                                          // ),
                                           RaisedButton(
                                               child: Text('Submit'),
                                               onPressed: () {
+                                                 if (formKey.currentState.validate()) {
                                                 addContact(
                                                   emailAddress.text,
                                                   mobile.text,
@@ -708,7 +707,7 @@ String selectName;
                                                 cfirstName.clear();
                                                 clastName.clear();
                                                 displayForm = false;
-                                              }),
+                                              }}),
                                         ]),
                                       ),
                                     ),

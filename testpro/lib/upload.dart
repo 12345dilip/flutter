@@ -22,6 +22,7 @@ class _UploadState extends State<Upload> {
   bool displayForm = false;
 
   selectImage() {
+   
     getImage(ImageSource.gallery);
    
 
@@ -83,6 +84,7 @@ class _UploadState extends State<Upload> {
   final name = TextEditingController();
 
   final picker = ImagePicker();
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -200,25 +202,41 @@ class _UploadState extends State<Upload> {
                     //Text('Add Upload Field'),
                     if (displayForm)
                       Container( padding: const EdgeInsets.only(left:20),
+                          child: Form(
+                            key: formKey,
+                          
                           child: Column(children: [
                         TextFormField(
-                          decoration: InputDecoration(labelText: 'Name '),
-                          controller: name,
+                             validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Enter Name';
+                          } else if (RegExp(r'[a-zA-Z]+|\s')
+                              .hasMatch(value)) {
+                            return null;
+                          } else {
+                            return 'Enter valid Name';
+                          }
+                        },
+                            decoration: InputDecoration(labelText: 'Name '),
+                            controller: name,
                         ),
                         imageResized == null
-                            ? Container()
-                            : Image.file(imageResized),
+                              ? Container()
+                              : Image.file(imageResized),
                         Row(
-                          children: [
-                            RaisedButton(color: Colors.tealAccent.shade700,
-                           child: Text('Uploads',style: TextStyle(
-                            color: Colors.white
-                           ),),
-                              onPressed: selectImage,
-                            ),  
-                          ],
+                            children: [
+                              
+                              RaisedButton(color: Colors.tealAccent.shade700,
+                             child: Text('Uploads',style: TextStyle(
+                              color: Colors.white
+                             ),),
+                                onPressed: selectImage,
+                              ),  
+                            ],
                         ),
-                      ])
+                      ]),
+                      
+                          )
                       ),
                    
                   ],
@@ -227,47 +245,52 @@ class _UploadState extends State<Upload> {
                        // },
                 
         ),
-               
+       
+                if (displayForm)
                 Align(
             alignment: Alignment.bottomLeft,
             child: Container(
-             padding: const EdgeInsets.only(left: 10, bottom: 10, top: 10),
+             padding: const EdgeInsets.only(left: 20, bottom: 10, top: 10),
               height: 60,
               width: double.infinity,
               color: Colors.white,
-              child: Row( mainAxisAlignment: MainAxisAlignment.spaceAround,
+              child: Row( mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                if (displayForm)
+               
                    RaisedButton(color: Colors.tealAccent.shade700,
                         child: Text('Submit',
                         style: TextStyle(
                           color: Colors.white
                          ),),
                         onPressed: () {
+                           if(imageResized==null)
+                           return ;
+                         if (formKey.currentState.validate()) {
                           addImage(name.text);
                           name.clear();
                           photoBase64.isEmpty;
                           displayForm = false;
-                        }),
-                  
-                 
-                  Padding(
-                    padding: const EdgeInsets.only(left: 180.0),
-                    child: FloatingActionButton(
-                     onPressed: () {
-                          setState(() {
-                            displayForm = true;
-                          });
-                     },
-                    child:Icon(Icons.add),
-                      backgroundColor: Colors.tealAccent.shade700,
-                      elevation: 0,
-                    ),
-                  ),
+                        }}),
                 ],
               ),
             ),
           ),
+           Container(
+             padding: const EdgeInsets.only(left: 20, bottom: 10, top: 10),
+             child: Padding(
+                      padding: const EdgeInsets.only(top:550.0,left: 270.0),
+                      child: FloatingActionButton(
+                       onPressed: () {
+                            setState(() {
+                              displayForm = true;
+                            });
+                       },
+                      child:Icon(Icons.add),
+                        backgroundColor: Colors.tealAccent.shade700,
+                        elevation: 0,
+                      ),
+                    ),
+           ),
                ] ),
      
     );
