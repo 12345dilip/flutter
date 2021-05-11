@@ -70,6 +70,7 @@ class _FirstPageState extends State<FirstPage> {
                             new MaterialPageRoute(
                                 builder: (context) => Upload(
                                       prod: data["data"][0],
+                                     pay: this.widget.payload['_id'],
                                     )));
                       },
                     ),
@@ -91,6 +92,7 @@ class _FirstPageState extends State<FirstPage> {
                             new MaterialPageRoute(
                                 builder: (context) => Product(
                                       prod: data["data"][0],
+
                                     )));
                       },
                     ),

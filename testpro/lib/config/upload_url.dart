@@ -7,4 +7,5 @@ class BaseUrl{
   static String invoice = baseUrl + "api/accounts/getinvoice/";
   static String message = baseUrl +  "api/clientcmt/";
   static String comment = baseUrl + "api/clientcmt/";
+  static String upload = baseUrl + "api/clientupload/";
 }

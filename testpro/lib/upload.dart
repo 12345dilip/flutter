@@ -12,8 +12,10 @@ import 'package:testpro/string.dart';
 class Upload extends StatefulWidget {
   Upload({
     this.prod,
+    this.pay,
   });
   final Map prod;
+  final String pay;
   @override
   _UploadState createState() => _UploadState();
 }
@@ -31,6 +33,9 @@ class _UploadState extends State<Upload> {
   File imageResized;
   PickedFile _photo;
   String photoBase64;
+  Map clientDetail;
+  List data;
+  String _id;
 
   getImage(source) async {
     var photo = await picker.getImage(source: ImageSource.gallery);
@@ -46,19 +51,20 @@ class _UploadState extends State<Upload> {
 
   addImage(name) async {
     setState(() {
-      final value2 = {
+     this.clientDetail = {
         'clientDocument': name,
         'clientUpload': {'file': photoBase64, 'name': name, 'type': "jpg"},
-      };
-      print(value2);
-      print(this.widget.prod['uploadDocument']);
-      this.widget.prod['uploadDocument'].add(value2);
-      print(this.widget.prod['uploadDocument'].runtimeType);
+        'client': this.widget.pay,
+      }; 
+       data.add(this.clientDetail);
+      print(this.clientDetail);
+      
+      
+       print('....................');
     });
-
-    final response = await http.put(BaseUrl.updateUsers,
+  final response = await http.post(BaseUrl.upload,
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
-        body: jsonEncode(this.widget.prod));
+        body: jsonEncode(this.clientDetail));
 
     var res = response.body;
     imageResized = null;
@@ -70,11 +76,42 @@ class _UploadState extends State<Upload> {
     }
   }
 
-  removeContacts(k) {
-    setState(() {
-      this.widget.prod['uploadDocument'].removeAt(k);
+
+  getDetail()async{
+    var response = await http.get(BaseUrl.upload + this.widget.pay,
+        headers: {"Accept": "application/json"});
+    this.setState(() {
+   data = json.decode(response.body)['data'];
+   
     });
+    print(data);
+    
   }
+ @override
+  void initState() {
+    super.initState();
+    this.getDetail();
+   
+   }
+   
+  removeContacts(k,id)async {
+    print(k);
+    setState(() {
+      this.data.removeAt(k);
+      
+      });
+    print(' k[_id]');
+    
+     print('......');
+    print( id );
+    print('''''''''''');
+var response = await http.delete(BaseUrl.upload + id,
+        headers: {"Accept": "application/json"});
+       print('.....');
+  print(response);
+
+ 
+ }
 
   showImage(img64) {
     final convertedImg = base64.decode(img64);
@@ -103,7 +140,10 @@ class _UploadState extends State<Upload> {
                 
               })),
 
-      body: Stack(
+      body:  data == null
+            ? Container(
+                child: Center(child: CircularProgressIndicator()),
+              ):Stack(
               children: [
                 ListView(
                         padding: EdgeInsets.only( bottom: 80),
@@ -139,12 +179,12 @@ class _UploadState extends State<Upload> {
                         // ]),
                         
                         for (var k = 0;
-                            k < this.widget.prod['uploadDocument'].length;
+                            k < this.data.length;
                             k++)
                           TableRow(children: [
                             Padding(
                               padding: const EdgeInsets.all(20.0),
-                              child: Text(this.widget.prod['uploadDocument'][k]
+                              child: Text(this.data[k]
                                   ['clientDocument']),
                             ),
                             Container(
@@ -161,7 +201,7 @@ class _UploadState extends State<Upload> {
                                   await showDialog(
                                       context: context,
                                       builder: (_) => ImageDialog(
-                                            img: this.widget.prod['uploadDocument']
+                                            img: this.data
                                                 [k]['clientUpload']['file'],
                                           ));
                                 },
@@ -185,7 +225,8 @@ class _UploadState extends State<Upload> {
                                                      TextStyle(color: Colors.tealAccent.shade700,),)),
                                                 FlatButton(
                                                     onPressed: () {
-                                                      removeContacts(k);
+                                                      removeContacts(k , this.data[k]['_id']
+                                                      );
                                                      Navigator.of(context, rootNavigator: true).pop(true);
                                                     },
                                                     child: Text('Yes',style:

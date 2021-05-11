@@ -45,6 +45,7 @@ class _ProductState extends State<Product> {
         'lastName': clastName
       };
       this.widget.prod['contactPerson'].add(value);
+      
     });
   }
 
