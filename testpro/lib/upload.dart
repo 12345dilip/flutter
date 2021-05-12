@@ -22,6 +22,7 @@ class Upload extends StatefulWidget {
 
 class _UploadState extends State<Upload> {
   bool displayForm = false;
+  bool statusFAB = true;
 
   selectImage() {
    
@@ -147,38 +148,22 @@ var response = await http.delete(BaseUrl.upload + id,
               children: [
                 ListView(
                         padding: EdgeInsets.only( bottom: 80),
-                       // physics: NeverScrollableScrollPhysics(),
-                       // itemBuilder: (context, index) {
+                       
          children: [
+         
            Container(
-            // padding: const EdgeInsets.only(left:20.0, right: 20.0),
-              child: Column(
+             child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Table(
+                    if(statusFAB)
+                   Table(
                       columnWidths: {
                         0: FixedColumnWidth(90),
                         1: FlexColumnWidth(20),
                         2: FlexColumnWidth(7),
                       },
                       children: [
-                       // TableRow(children: [
-                        //   Padding(
-                        //     padding: const EdgeInsets.all(12.0),
-                        //     child: Text('Name'),
-                        //   ),
-                        //   Padding(
-                        //     padding: const EdgeInsets.all(12.0),
-                        //     child: Text('Uploads'),
-                        //   ),
-                        //   Padding(
-                        //     padding: const EdgeInsets.all(8.0),
-                        //     child: IconButton(
-                        //         icon: Icon(Icons.delete), onPressed: () {}),
-                        //   ),
-                        // ]),
-                        
-                        for (var k = 0;
+                       for (var k = 0;
                             k < this.data.length;
                             k++)
                           TableRow(children: [
@@ -242,6 +227,7 @@ var response = await http.delete(BaseUrl.upload + id,
                
                     //Text('Add Upload Field'),
                     if (displayForm)
+                    
                       Container( padding: const EdgeInsets.only(left:20),
                           child: Form(
                             key: formKey,
@@ -291,11 +277,11 @@ var response = await http.delete(BaseUrl.upload + id,
                 Align(
             alignment: Alignment.bottomLeft,
             child: Container(
-             padding: const EdgeInsets.only(left: 20, bottom: 10, top: 10),
+             padding: const EdgeInsets.only(left: 20, bottom: 10, top: 10,right: 20),
               height: 60,
               width: double.infinity,
               color: Colors.white,
-              child: Row( mainAxisAlignment: MainAxisAlignment.start,
+              child: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                
                    RaisedButton(color: Colors.tealAccent.shade700,
@@ -311,11 +297,30 @@ var response = await http.delete(BaseUrl.upload + id,
                           name.clear();
                           photoBase64.isEmpty;
                           displayForm = false;
-                        }}),
+                           statusFAB = true;
+                        }}
+                        ),
+                          RaisedButton(color: Colors.tealAccent.shade700,
+                        child: Text('Cancel',
+                        style: TextStyle(
+                          color: Colors.white
+                         ),),
+                        onPressed: () {
+                         setState(() {
+                           
+                            name.clear();
+                          photoBase64.isEmpty;
+                            displayForm = false;
+                             statusFAB = true;
+                         });
+                         
+                        }
+                        ),
                 ],
               ),
             ),
           ),
+        if(statusFAB)
            Container(
              padding: const EdgeInsets.only(left: 20, bottom: 10, top: 10),
              child: Padding(
@@ -323,10 +328,16 @@ var response = await http.delete(BaseUrl.upload + id,
                       child: FloatingActionButton(
                        onPressed: () {
                             setState(() {
-                              displayForm = true;
-                            });
+                              displayForm =true;
+                              imageResized= null;
+                            if(displayForm=true){
+                                  statusFAB= false;
+                            }
+                         });
                        },
+                       
                       child:Icon(Icons.add),
+                      
                         backgroundColor: Colors.tealAccent.shade700,
                         elevation: 0,
                       ),
