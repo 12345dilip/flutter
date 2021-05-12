@@ -1,10 +1,7 @@
 import 'dart:convert';
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:testpro/config/upload_url.dart';
-import 'package:testpro/invoice.dart';
-import 'package:testpro/message.dart';
 import 'package:testpro/product.dart';
 import 'package:testpro/signin.dart';
 import 'package:testpro/upload.dart';
@@ -51,7 +48,6 @@ class _FirstPageState extends State<FirstPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-  
       endDrawer: Drawer(
         child: SafeArea(
           child: ListView(
@@ -133,7 +129,7 @@ class _FirstPageState extends State<FirstPage> {
         Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            //  Divider(),
+          
             Builder(
                 builder: (context) =>  Container(
                   height:50.0,
@@ -229,16 +225,6 @@ class _FirstPageState extends State<FirstPage> {
 homepage() {
   return SingleChildScrollView(
       child: Container(
-    // decoration: BoxDecoration(
-    //   boxShadow: [
-    //     BoxShadow(
-    //       color: Colors.grey.withOpacity(0.5),
-    //       spreadRadius: 5,
-    //       blurRadius: 20,
-    //       offset: Offset(0, 2),
-    //     ),
-    //   ],
-    // ),
     child: Column(
       children: [
         Center(
@@ -292,7 +278,6 @@ buildGrid() {
                 ),
               ),
               child: Stack(
-                // alignment: Alignment.topLeft,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -312,7 +297,6 @@ buildGrid() {
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 12,
-                                  //fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
@@ -333,8 +317,7 @@ buildGrid() {
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
-                       
-                    ],
+                        ],
                   ),
                 ],
               ),
@@ -351,7 +334,6 @@ buildGrid() {
                 ),
               ),
               child: Stack(
-                //alignment: Alignment.topLeft,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -415,7 +397,6 @@ buildGrid() {
                   ),
                 ),
                 child: Stack(
-                  // alignment: Alignment.topLeft,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -435,7 +416,6 @@ buildGrid() {
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 12,
-                                    //fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
@@ -473,7 +453,6 @@ buildGrid() {
                   ),
                 ),
                 child: Stack(
-                  //alignment: Alignment.topLeft,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -600,7 +579,6 @@ slideshow() {
 
 class SalesData {
   SalesData(this.year, this.sales);
-
   final String year;
   final double sales;
 }

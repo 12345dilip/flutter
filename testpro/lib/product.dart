@@ -3,10 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:testpro/config/upload_url.dart';
-import 'package:dropdownfield/dropdownfield.dart';
-import 'package:testpro/first_page.dart';
-import 'package:testpro/main.dart';
-import 'package:select_form_field/select_form_field.dart';
 import 'package:testpro/string.dart';
 
 class Product extends StatefulWidget {
@@ -25,8 +21,6 @@ class _ProductState extends State<Product> {
   removeContact(i) {
     setState(() {
       this.widget.prod['contactPerson'].removeAt(i);
-
-      print(this.widget.prod['contactPerson']);
     });
   }
 
@@ -53,11 +47,9 @@ class _ProductState extends State<Product> {
   final firstName = TextEditingController();
   final lastName = TextEditingController();
   final companyName = TextEditingController();
-  //final contactEmail = TextEditingController();
   final primaryContact = TextEditingController();
   final secondarycontact = TextEditingController();
   final website = TextEditingController();
-  // final openingBalance = TextEditingController();
   final facebook = TextEditingController();
   final twitter = TextEditingController();
   final attention = TextEditingController();
@@ -73,11 +65,8 @@ class _ProductState extends State<Product> {
   final emailAddress = TextEditingController();
   final mobile = TextEditingController();
   final workPhone = TextEditingController();
-  final remarkstext = new TextEditingController();
-  // final uploadDocument = new TextEditingController();
-
+  final remarkstext =  TextEditingController();
   final name = TextEditingController();
-
   final picker = ImagePicker();
 
   @override
@@ -87,16 +76,12 @@ class _ProductState extends State<Product> {
     this.firstName.text = this.widget.prod['userName']['firstName'];
     this.lastName.text = this.widget.prod['userName']['lastName'];
     this.companyName.text = this.widget.prod['companyName'];
-    //this.contactEmail.text = this.widget.prod['contactEmail'];
     this.primaryContact.text = this.widget.prod['phone']['primaryContact'];
     this.secondarycontact.text = this.widget.prod['phone']['secondarycontact'];
     this.website.text = this.widget.prod['website'];
-    // this.openingBalance.text =
-    //     this.widget.prod['otherDetails']['openingBalance'];
     this.facebook.text = this.widget.prod['otherDetails']['facebook'];
     this.twitter.text = this.widget.prod['otherDetails']['twitter'];
     this.attention.text = this.widget.prod['billingAddress']['attention'];
-
     this.countryRegion.text =
         this.widget.prod['billingAddress']['countryRegion'];
     this.street1.text = this.widget.prod['billingAddress']['Street1'];
@@ -109,15 +94,11 @@ class _ProductState extends State<Product> {
   }
 
   updateDetails(
-   //salutation,
       firstName,
       lastName,
       companyName,
-      //contactEmail,
-      // primaryContact,
       secondarycontact,
       website,
-      // openingBalance,
       facebook,
       twitter,
       attention,
@@ -132,16 +113,11 @@ class _ProductState extends State<Product> {
       _id
       ) async {
     setState(() {
-     // this.widget.prod['userName']['salutation']['name'] = salutation;
       this.widget.prod['userName']['firstName'] = firstName;
       this.widget.prod['userName']['lastName'] = lastName;
       this.widget.prod['companyName'] = companyName;
-      // this.widget.prod['contactEmail'] = contactEmail;
-      //this.widget.prod['phone']['primaryContact']= primaryContact;
       this.widget.prod['phone']['secondarycontact'] = secondarycontact;
-
       this.widget.prod['website'] = website;
-      // this.widget.prod['otherDetails']['openingBalance'] = openingBalance;
       this.widget.prod['otherDetails']['facebook'] = facebook;
       this.widget.prod['otherDetails']['twitter'] = twitter;
       this.widget.prod['billingAddress']['attention'] = attention;
@@ -159,7 +135,6 @@ class _ProductState extends State<Product> {
     final response = await http.put(BaseUrl.updateUsers + _id,
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode(this.widget.prod));
-
     var res = response.body;
     if (response.statusCode == 200) {
       print('sucess');
@@ -169,7 +144,6 @@ class _ProductState extends State<Product> {
   }
 
   final formKey = GlobalKey<FormState>();
-
 String selectName;
 
  final List<String>  names = [
@@ -186,7 +160,6 @@ String selectName;
             onPressed: () {
                Navigator.pushNamed(context, MYAPP_PAGE);
             }),
-       
         title: Text('Profile'),
       ),
       body: Stack(children: [
@@ -203,7 +176,6 @@ String selectName;
               child: Row(
                  children: [
                    DropdownButton<String>(
-                    
                        items: <String>['Mr.', 'Mrs.'].map((String value) {
                           return  DropdownMenuItem<String>(
                          value: value,
@@ -211,14 +183,12 @@ String selectName;
                          );
                         }).toList(),
                             onChanged: (value) {
-                            
                       setState(() { 
                         selectName =value;
                             this.widget.prod['userName']['salutation']['name']= value;
                           });
                        },
                        hint: Text(selectName),
-                       
 ),
                  ],
                ),
@@ -683,16 +653,6 @@ String selectName;
                                                 labelText: 'Phone'),
                                             controller: mobile,
                                           ),
-                                          // TextFormField(
-                                          //   decoration: InputDecoration(
-                                          //       labelText: 'firstName'),
-                                          //   controller: cfirstName,
-                                          // ),
-                                          // TextFormField(
-                                          //   decoration: InputDecoration(
-                                          //       labelText: 'lastName'),
-                                          //   controller: clastName,
-                                          // ),
                                           RaisedButton(
                                               child: Text('Submit'),
                                               onPressed: () {
@@ -746,14 +706,8 @@ String selectName;
                     ),
                     onPressed: () {
                       if (formKey.currentState.validate()) {
-                   //Navigator.of(context).pop();
                    Navigator.pushNamed(context, MYAPP_PAGE);
-                        // Navigator.push( 
-                        //         context,
-                        //                 new MaterialPageRoute(
-                        //                           builder: (context) => MyApp()));
                         updateDetails(
-                          //salutation.text,
                             firstName.text,
                             lastName.text,
                             companyName.text,
@@ -772,8 +726,6 @@ String selectName;
                             remarkstext.text,
                             this.widget.prod['_id'],
                             );
-                              
-                    
                       }
                     })
               ],

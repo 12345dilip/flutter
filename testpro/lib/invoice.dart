@@ -43,7 +43,6 @@ class _InvoiceState extends State<Invoice> {
   String drop = 'All Invoice ';
   String formattedDate;
 
-
   setOverdue(data) {
     var expiry = dateFormat(data);
     DateTime now = DateTime.now();
@@ -57,14 +56,10 @@ class _InvoiceState extends State<Invoice> {
     
   }
   
-
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-         
           title: DropdownButtonHideUnderline(
             child: DropdownButton(
                 dropdownColor: Colors.tealAccent.shade700,
@@ -87,7 +82,6 @@ class _InvoiceState extends State<Invoice> {
                 }).toList(),
                 onChanged: (String value) {
                   drop = value;
-                  // chosenValue = value; 
                   if (value == 'All Invoice') {
                     setState(() {
                       invoiceList = fullinvoiceList;
@@ -106,10 +100,9 @@ class _InvoiceState extends State<Invoice> {
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,
-                      //fontWeight: FontWeight.bold),
-             ) ), icon: Icon(                // Add this
-                Icons.arrow_drop_down,  // Add this
-                color: Colors.white,   // Add this
+             ) ), icon: Icon(               
+                Icons.arrow_drop_down, 
+                color: Colors.white,  
               ),
              ),
           ),
@@ -150,8 +143,6 @@ class _InvoiceState extends State<Invoice> {
                                         
                                           fontWeight: FontWeight.bold,
                                          ),)
-                                        
-
                                         ],
                             ),
                             if (this.invoiceList[index]['expiryDate'] == null)

@@ -5,8 +5,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:testpro/config/upload_url.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
-import 'package:testpro/first_page.dart';
-import 'package:testpro/main.dart';
 import 'package:testpro/string.dart';
 
 class Upload extends StatefulWidget {
@@ -25,10 +23,7 @@ class _UploadState extends State<Upload> {
   bool statusFAB = true;
 
   selectImage() {
-   
     getImage(ImageSource.gallery);
-   
-
   }
 
   File imageResized;
@@ -58,18 +53,12 @@ class _UploadState extends State<Upload> {
         'client': this.widget.pay,
       }; 
        data.add(this.clientDetail);
-      print(this.clientDetail);
-      
-      
-       print('....................');
     });
   final response = await http.post(BaseUrl.upload,
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode(this.clientDetail));
-
     var res = response.body;
     imageResized = null;
-
     if (response.statusCode == 200) {
       print('sucess');
     } else {
@@ -77,50 +66,34 @@ class _UploadState extends State<Upload> {
     }
   }
 
-
   getDetail()async{
     var response = await http.get(BaseUrl.upload + this.widget.pay,
         headers: {"Accept": "application/json"});
     this.setState(() {
    data = json.decode(response.body)['data'];
-   
     });
-    print(data);
-    
   }
  @override
   void initState() {
     super.initState();
     this.getDetail();
-   
    }
    
   removeContacts(k,id)async {
     print(k);
     setState(() {
       this.data.removeAt(k);
-      
       });
-    print(' k[_id]');
-    
-     print('......');
-    print( id );
-    print('''''''''''');
 var response = await http.delete(BaseUrl.upload + id,
         headers: {"Accept": "application/json"});
-       print('.....');
   print(response);
-
- 
  }
-
   showImage(img64) {
     final convertedImg = base64.decode(img64);
     return new Image.memory(convertedImg);
   }
 
   final name = TextEditingController();
-
   final picker = ImagePicker();
   final formKey = GlobalKey<FormState>();
 
@@ -136,9 +109,7 @@ var response = await http.delete(BaseUrl.upload + id,
                 color: Colors.white,
               ),
               onPressed: () {
-               
                Navigator.pushNamed(context, MYAPP_PAGE);
-                
               })),
 
       body:  data == null
@@ -148,9 +119,7 @@ var response = await http.delete(BaseUrl.upload + id,
               children: [
                 ListView(
                         padding: EdgeInsets.only( bottom: 80),
-                       
          children: [
-         
            Container(
              child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -179,7 +148,6 @@ var response = await http.delete(BaseUrl.upload + id,
                                 child: Column(
                                   children: [
                                     Icon(Icons.visibility),
-                                    //Text('Show Image'),
                                   ],
                                 ),
                                 onTap: () async {
@@ -224,14 +192,10 @@ var response = await http.delete(BaseUrl.upload + id,
                       ],
                      border: TableBorder.all(width: 1, color: Colors.tealAccent.shade700),
                     ),
-               
-                    //Text('Add Upload Field'),
                     if (displayForm)
-                    
                       Container( padding: const EdgeInsets.only(left:20),
                           child: Form(
                             key: formKey,
-                          
                           child: Column(children: [
                         TextFormField(
                              validator: (value) {
@@ -262,17 +226,12 @@ var response = await http.delete(BaseUrl.upload + id,
                             ],
                         ),
                       ]),
-                      
                           )
                       ),
-                   
                   ],
               ),
-         ),]
-                       // },
-                
+         ),] 
         ),
-       
                 if (displayForm)
                 Align(
             alignment: Alignment.bottomLeft,
@@ -283,8 +242,22 @@ var response = await http.delete(BaseUrl.upload + id,
               color: Colors.white,
               child: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-               
-                   RaisedButton(color: Colors.tealAccent.shade700,
+                    RaisedButton(
+                      color: Colors.grey,
+                        child: Text('Cancel',
+                        style: TextStyle(
+                          color: Colors.white,
+                         ),),
+                        onPressed: () {
+                         setState(() {
+                            name.clear();
+                          photoBase64.isEmpty;
+                            displayForm = false;
+                             statusFAB = true;
+                         });
+                         }
+                        ),
+                         RaisedButton(color: Colors.tealAccent.shade700,
                         child: Text('Submit',
                         style: TextStyle(
                           color: Colors.white
@@ -299,22 +272,6 @@ var response = await http.delete(BaseUrl.upload + id,
                           displayForm = false;
                            statusFAB = true;
                         }}
-                        ),
-                          RaisedButton(color: Colors.tealAccent.shade700,
-                        child: Text('Cancel',
-                        style: TextStyle(
-                          color: Colors.white
-                         ),),
-                        onPressed: () {
-                         setState(() {
-                           
-                            name.clear();
-                          photoBase64.isEmpty;
-                            displayForm = false;
-                             statusFAB = true;
-                         });
-                         
-                        }
                         ),
                 ],
               ),
@@ -335,16 +292,13 @@ var response = await http.delete(BaseUrl.upload + id,
                             }
                          });
                        },
-                       
                       child:Icon(Icons.add),
-                      
                         backgroundColor: Colors.tealAccent.shade700,
                         elevation: 0,
                       ),
                     ),
            ),
                ] ),
-     
     );
   }
 }
@@ -369,8 +323,6 @@ class _ImageDialogState extends State<ImageDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       child: Container(
-        // width: 200,
-        // height: 200,
         child: showImage(this.widget.img),
       ),
     );

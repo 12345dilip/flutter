@@ -1,11 +1,6 @@
-
-
 import 'package:flutter/material.dart'; 
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:division/division.dart';
 
-
- 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
   @override
@@ -31,11 +26,9 @@ class _HomePageState extends State<HomePage> {
                   blurRadius: 20,
                   offset: Offset(0, 2), 
                ),
-               
               ],
           ),
-                   
-                  child: Column(
+            child: Column(
             children: [
             Center(
                     child: Container(
@@ -65,27 +58,21 @@ class _HomePageState extends State<HomePage> {
                         ),
             ),
                   ),
-            
              buildGrid(),
              slideshow(),
             ],
           ),
           )
         )
-
-          
-        
   ); 
   }}
 
 buildGrid() {
-   
     return Container(
       padding: const EdgeInsets.only(left:10.0,right: 10.0),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                  Container(
-                       
                        height: 100.0,
                  width: 160.0,
                         child: Card(
@@ -103,7 +90,6 @@ buildGrid() {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                                       children: [
-                                       
                                         Text(
                                           'Text1',
                                           style: TextStyle(
@@ -117,20 +103,17 @@ buildGrid() {
                                         )
                                       ],
                                     ),
-                                  
                                   ],
                                 ),
                               ),
                       ),
-                      
               Container(
-             
                  height: 100.0,
                  width: 160.0,
             child: Card(
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
+                         color: Colors.white,
+                             shape: RoundedRectangleBorder(
+                                 borderRadius: BorderRadius.all(
                                       Radius.circular(10),
                                     ),
                                   ),
@@ -142,7 +125,6 @@ buildGrid() {
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
-                                         
                                           Text(
                                             'Text 2',
                                             style: TextStyle(
@@ -156,7 +138,6 @@ buildGrid() {
                                           )
                                         ],
                                       ),
-                                     
                                     ],
                                   ),
                                 ),
@@ -164,7 +145,6 @@ buildGrid() {
            ] ),
     );
 }
-
 
 slideshow(){
   return  Container(
@@ -177,44 +157,35 @@ slideshow(){
                 Container(
                    width: 160.0,
                 child: Card(
-                 
                 )
                 ),
                 Container(
-                  
                   width: 160.0,
                    child: Card(
-                 
-                )
-                 
-                ),
-                Container(
-                  width: 160.0,
-                  child: Card(
-                 
                 )
                 ),
                 Container(
                   width: 160.0,
                   child: Card(
-                 
                 )
                 ),
                 Container(
                   width: 160.0,
                   child: Card(
-                 
+                )
+                ),
+                Container(
+                  width: 160.0,
+                  child: Card(
                 )
                 ),
               ],
             ),
           );
-  
 }
 
 class SalesData {
   SalesData(this.year, this.sales);
-
   final String year;
   final double sales;
 }

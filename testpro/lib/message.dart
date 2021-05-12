@@ -1,11 +1,9 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:testpro/config/upload_url.dart';
 import 'package:testpro/first_page.dart';
 import 'package:intl/intl.dart';
-import 'package:syncfusion_flutter_core/theme.dart';
 
 dateFormat(dateFormat) {
   if (dateFormat != null) {
@@ -25,10 +23,7 @@ class DateUtil {
 
 class Message extends StatefulWidget {
   Message({this.argument});
-
   final Map argument;
-  // final String company;
-  // final Map val;
   @override
   _MessageState createState() => _MessageState();
 }
@@ -43,12 +38,9 @@ class _MessageState extends State<Message> {
     print(BaseUrl.message + this.company);
     var response = await http.get(BaseUrl.message + this.company,
         headers: {"Accept": "application/json"});
-
     this.setState(() {
       final invoiceData = json.decode(response.body);
       msg = invoiceData['data'];
-      print('company');
-      print(msg);
     });
   }
 
@@ -58,9 +50,7 @@ class _MessageState extends State<Message> {
     });
     final response = await http.delete(BaseUrl.comment + id,
         headers: {'Content-Type': 'application/json; charset=UTF-8'});
-
     var res = response.body;
-
     if (response.statusCode == 200) {
       print('sucess');
     } else {
@@ -92,31 +82,20 @@ class _MessageState extends State<Message> {
 
   @override
   void initState() {
-
     setState(() {
       this.val = this.widget.argument['val'];
       this.company = this.widget.argument['company'];
-
     });
-
-    print('-------------------------------------------------------');
-    print(this.val);
-    print(this.company);
-    print('-------------------------------------------------------');
-
     super.initState();
     this.getData();
   }
-
   setAxis(data) {
     if (data == this.company) {
       return MainAxisAlignment.start;
      }else{ 
       return MainAxisAlignment.end;
      }
-    
   }
-
 
   Color getColor(data) {
   if (data == this.company) {
@@ -159,14 +138,11 @@ final value = TextEditingController();
                           return Row(
                               mainAxisAlignment:
                                 setAxis(this.msg[index]['commentedBy'],),
-                                
                               children: [
                               Flexible(
                                         child: Container(
                                       padding: EdgeInsets.only(
                                           left: 14, right: 14, top: 10, bottom: 10),
-                                      //child: Align(
-                                        //alignment: (Alignment.topLeft),
                                         child: Container(
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(20),
@@ -195,34 +171,14 @@ final value = TextEditingController();
                                                   dateFormat(
                                                       this.msg[index]['createdAt']),
                                                   style: TextStyle(
-                                                      //fontWeight: FontWeight.bold,
                                                       color: Colors.white,
-                                                    //fontFamily: 'Poppins',
-                                                   // fontStyle: FontStyle.italic
-                                                    
-
                                                 ),),
-                                                //  Text(
-                                                //   'hi dilip',
-                                                //   style: TextStyle(
-                                                //     //  fontWeight: FontWeight.bold,
-                                                //       color: Colors.white,
-                                                //     fontFamily: 'Poppins',
-                                                   // fontStyle: FontStyle.italic
-                                                  //),)
-                                                // Text(
-                                                //   dateFormat(this.msg[index]['createdAt']),
-                                                //   style:
-                                                //       TextStyle(fontSize: 8, color: Colors.white),
-                                                // ),
                                               ],
                                             ),
                                           ),
                                         ),
                                       ),
                                     ),
-                             // ),
-                             
                                 if (textChat)
                                   IconButton(
                                     icon: Icon(Icons.delete),
