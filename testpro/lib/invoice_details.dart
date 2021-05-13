@@ -66,7 +66,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(9.0),
+                        padding: const EdgeInsets.only(left:15.0),
                         child: Text(
                           (this.widget.name['invoice']).toString(),
                           style: TextStyle(color: Colors.white, fontSize: 15.0),
@@ -81,7 +81,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                       )
                     ]),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(left:15.0),
                   child: Text(
                     (this.widget.name['customerName']['companyName'])
                         .toString(),
@@ -92,7 +92,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(left:15.0,top: 10.0),
                   child: Text(
                     '₹' + (this.widget.name['totalAmount']).toString(),
                     style: TextStyle(
@@ -102,13 +102,13 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.only(left:15.0,),
                   child: Text(
                     'BALANCE',
                     style: TextStyle(color: Colors.white, fontSize: 10.0),
                   ),
                 ),
-                Container(
+                Container(padding: const EdgeInsets.only(top: 5.0),
                   color: Colors.white,
                   child: Column(
                     children: [
