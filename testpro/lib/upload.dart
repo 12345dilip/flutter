@@ -239,7 +239,7 @@ var response = await http.delete(BaseUrl.upload + id,
              padding: const EdgeInsets.only(left: 20, bottom: 10, top: 10,right: 20),
               height: 60,
               width: double.infinity,
-              color: Colors.white,
+              //color: Colors.white,
               child: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                     RaisedButton(
