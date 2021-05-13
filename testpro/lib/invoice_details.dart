@@ -102,7 +102,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left:15.0,),
+                  padding: const EdgeInsets.only(left:15.0,bottom: 5.0),
                   child: Text(
                     'BALANCE',
                     style: TextStyle(color: Colors.white, fontSize: 10.0),
