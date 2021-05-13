@@ -58,7 +58,7 @@ class _SigninState extends State<Signin> {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 50,
-                        color: Colors.blue),
+                        color: Colors.tealAccent.shade700),
                   ),
                   SizedBox(
                     height: 25,
@@ -84,15 +84,15 @@ class _SigninState extends State<Signin> {
                       decoration: InputDecoration(
                           icon: Icon(
                             Icons.email,
-                            color: Colors.blue,
+                            color: Colors.tealAccent.shade700,
                           ),
                           hintText: 'Enter Email',
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide(color: Colors.blue)),
+                              borderSide: BorderSide(color: Colors.tealAccent.shade700)),
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide(color: Colors.blue)),
+                              borderSide: BorderSide(color: Colors.tealAccent.shade700)),
                           errorBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
                               borderSide: BorderSide(color: Colors.red)),
@@ -118,15 +118,15 @@ class _SigninState extends State<Signin> {
                       decoration: InputDecoration(
                           icon: Icon(
                             Icons.vpn_key,
-                            color: Colors.blue,
+                            color: Colors.tealAccent.shade700,
                           ),
                           hintText: 'Enter Password',
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide(color: Colors.blue)),
+                              borderSide: BorderSide(color: Colors.tealAccent.shade700)),
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide(color: Colors.blue)),
+                              borderSide: BorderSide(color: Colors.tealAccent.shade700)),
                           errorBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
                               borderSide: BorderSide(color: Colors.red)),
@@ -141,7 +141,7 @@ class _SigninState extends State<Signin> {
                       height: 50,
                       width: 400,
                       child: FlatButton(
-                          color: Colors.blue,
+                          color: Colors.tealAccent.shade700,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16.0)),
                           onPressed: () async {

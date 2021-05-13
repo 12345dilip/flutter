@@ -127,7 +127,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                                     Text(dateFormat(
                                         this.widget.name['invoiceDate'])),
                                   Padding(
-                                    padding: const EdgeInsets.only(right: 20.0),
+                                    padding: const EdgeInsets.only(right: 30.0),
                                     child: Text(
                                       'Invoice Date',
                                       style: TextStyle(
@@ -147,7 +147,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                                     Text(dateFormat(
                                         this.widget.name['expiryDate'])),
                                   Padding(
-                                    padding: const EdgeInsets.only(right: 20.0),
+                                    padding: const EdgeInsets.only(right: 30.0),
                                     child: Text(
                                       'Expiry Date',
                                       style: TextStyle(
@@ -165,7 +165,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                       Divider(),
                       Container(
                         child: Padding(
-                          padding: const EdgeInsets.only(right: 280.0),
+                          padding: const EdgeInsets.only(right: 275.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -183,8 +183,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                       ),
                       Divider(),
                       Container(
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
+                      
                           child: Column(
                             children: [
                               Padding(
@@ -197,41 +196,41 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                                       fontSize: 10.0),
                                 ),
                               ),
-                              Text((this.widget.name['customerName']
-                                      ['billingAddress']['Street1']) +
-                                  ', ' +
-                                  (this.widget.name['customerName']
-                                      ['billingAddress']['Street2']) +
-                                  ', ' +
-                                  (this.widget.name['customerName']
-                                      ['billingAddress']['attention']) +
-                                  ', ' +
-                                  (this.widget.name['customerName']
-                                      ['billingAddress']['fax']) +
-                                  ', ' +
-                                  (this.widget.name['customerName']
-                                      ['billingAddress']['city']) +
-                                  ', ' +
-                                  (this.widget.name['customerName']
-                                      ['billingAddress']['state']) +
-                                  ', ' +
-                                  (this.widget.name['customerName']
-                                      ['billingAddress']['countryRegion']) +
-                                  ', ' +
-                                  (this.widget.name['customerName']
-                                      ['billingAddress']['phone1']) +
-                                  ', ' +
-                                  (this.widget.name['customerName']
-                                          ['billingAddress']['zipCode'])
-                                      .toString()),
+                              Padding(
+                          padding: const EdgeInsets.only(left:13.0),
+                                child: Text((this.widget.name['customerName']
+                                        ['billingAddress']['Street1']) +
+                                    ', ' +
+                                    (this.widget.name['customerName']
+                                        ['billingAddress']['Street2']) +
+                                    ', ' +
+                                    (this.widget.name['customerName']
+                                        ['billingAddress']['attention']) +
+                                    ', ' +
+                                    (this.widget.name['customerName']
+                                        ['billingAddress']['fax']) +
+                                    ', ' +
+                                    (this.widget.name['customerName']
+                                        ['billingAddress']['city']) +
+                                    ', ' +
+                                    (this.widget.name['customerName']
+                                        ['billingAddress']['state']) +
+                                    ', ' +
+                                    (this.widget.name['customerName']
+                                        ['billingAddress']['countryRegion']) +
+                                    ', ' +
+                                    (this.widget.name['customerName']
+                                        ['billingAddress']['phone1']) +
+                                    ', ' +
+                                    (this.widget.name['customerName']
+                                            ['billingAddress']['zipCode'])
+                                        .toString()),
+                              ),
                             ],
                           ),
                         ),
-                      ),
-                      Container(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: Container(
+                      
+                    Container( 
                             color: Color(0xFFECEFF1),
                             height: 40.0,
                             child: Row(
@@ -245,7 +244,7 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                                       style: TextStyle(
                                           color: Colors.tealAccent.shade700,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 15.0),
+                                         ),
                                     ),
                                   ),
                                   Padding(
@@ -255,20 +254,19 @@ class _InvoiceDetailsState extends State<InvoiceDetails> {
                                       style: TextStyle(
                                           color: Colors.tealAccent.shade700,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 15.0),
+                                          ),
                                     ),
                                   ),
                                 ]),
                           ),
-                        ),
-                      ),
+                        
                       for (var k = 0; k < this.widget.name['items'].length; k++)
                         Container(
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(15.0),
+                                  padding: const EdgeInsets.all(13.0),
                                   child: Text((this.widget.name['items'][k]
                                           ['itemdetails'])
                                       .toString()),
