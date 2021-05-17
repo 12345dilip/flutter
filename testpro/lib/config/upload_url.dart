@@ -8,4 +8,5 @@ class BaseUrl{
   static String message = baseUrl +  "api/clientcmt/";
   static String comment = baseUrl + "api/clientcmt/";
   static String upload = baseUrl + "api/clientupload/";
+  static String summary = baseUrl + "api/invoices/dashboard/";
 }

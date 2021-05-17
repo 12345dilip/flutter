@@ -31,8 +31,7 @@ class _UploadState extends State<Upload> {
   String photoBase64;
   Map clientDetail;
   List data;
-  String _id;
-
+  
   getImage(source) async {
     var photo = await picker.getImage(source: ImageSource.gallery);
     imageResized = await FlutterNativeImage.compressImage(
@@ -239,7 +238,6 @@ var response = await http.delete(BaseUrl.upload + id,
              padding: const EdgeInsets.only(left: 20, bottom: 10, top: 10,right: 20),
               height: 60,
               width: double.infinity,
-              //color: Colors.white,
               child: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                     RaisedButton(
