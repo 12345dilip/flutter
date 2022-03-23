@@ -54,7 +54,7 @@ class _SigninState extends State<Signin> {
                     height: 150,
                   ),
                   Text(
-                    "Signinnjkbnhjbj",
+                    "Aaaaaaaaaaa",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 50,
