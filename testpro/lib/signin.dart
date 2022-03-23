@@ -54,7 +54,7 @@ class _SigninState extends State<Signin> {
                     height: 150,
                   ),
                   Text(
-                    "Signin",
+                    "Signinnjkbnhjbj",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 50,
@@ -89,10 +89,12 @@ class _SigninState extends State<Signin> {
                           hintText: 'Enter Email',
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide(color: Colors.tealAccent.shade700)),
+                              borderSide: BorderSide(
+                                  color: Colors.tealAccent.shade700)),
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide(color: Colors.tealAccent.shade700)),
+                              borderSide: BorderSide(
+                                  color: Colors.tealAccent.shade700)),
                           errorBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
                               borderSide: BorderSide(color: Colors.red)),
@@ -123,10 +125,12 @@ class _SigninState extends State<Signin> {
                           hintText: 'Enter Password',
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide(color: Colors.tealAccent.shade700)),
+                              borderSide: BorderSide(
+                                  color: Colors.tealAccent.shade700)),
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide(color: Colors.tealAccent.shade700)),
+                              borderSide: BorderSide(
+                                  color: Colors.tealAccent.shade700)),
                           errorBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
                               borderSide: BorderSide(color: Colors.red)),
